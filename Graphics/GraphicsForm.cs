@@ -55,7 +55,7 @@ namespace Graphics
 
         private void simpleOpenGlControl1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            float speed = 200.0f;
+            float speed = float.Parse(textBox1.Text);
             if (e.KeyChar == 'a')
                 renderer.cam.Strafe(-speed);
             if (e.KeyChar == 'd')

@@ -124,43 +124,59 @@ D:\Career\Teaching\2019\CG\labs\Lab6 Loading 3D Models\Graphics Lab6 Model Loadi
 D:\Career\Teaching\2019\CG\labs\Lab6 Loading 3D Models\Graphics Lab6 Model Loading\Graphics\obj\Debug\Graphics.GraphicsForm.resources
 D:\Career\Teaching\2019\CG\labs\Lab6 Loading 3D Models\Graphics Lab6 Model Loading\Graphics\obj\Debug\Graphics.Properties.Resources.resources
 D:\Career\Teaching\2019\CG\labs\Lab6 Loading 3D Models\Graphics Lab6 Model Loading\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.GraphicsForm.resources
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.Properties.Resources.resources
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.exe
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.pdb
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe.config
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.pdb
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.dll
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.pdb
-C:\Users\Islam\Documents\Visual Studio 2017\Projects\labs\lab8 Loading Models & Animated models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.xml
-C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csprojAssemblyReference.cache
-C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.GraphicsForm.resources
-C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.Properties.Resources.resources
-C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.GenerateResource.cache
-C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.CoreCompileInputs.cache
-C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.exe
-C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.pdb
+C:\Users\User\Desktop\bassel\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe.config
+C:\Users\User\Desktop\bassel\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.exe
+C:\Users\User\Desktop\bassel\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.pdb
+C:\Users\User\Desktop\bassel\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\bassel\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.GraphicsForm.resources
+C:\Users\User\Desktop\bassel\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.Properties.Resources.resources
+C:\Users\User\Desktop\bassel\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe.config
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.exe
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.GraphicsForm.resources
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.Properties.Resources.resources
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.pdb
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.dll
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.pdb
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.xml
+E:\computer science\third year\2ndterm111\2nd term\Computer Graphics\Labs\16\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.pdb
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe.config
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.pdb
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.dll
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.pdb
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.xml
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.GraphicsForm.resources
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.Properties.Resources.resources
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.exe
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.pdb
+E:\3rd year\Graphics\Lab6 Loading 3D Models\Lab6 Loading 3D Models\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe.config
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.exe
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.pdb
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.pdb
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.dll
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.pdb
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.xml
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.GraphicsForm.resources
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.Properties.Resources.resources
+E:\3rd year\Graphics\project\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
 C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe.config
 C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.exe
 C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\Graphics.pdb
 C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.dll
 C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.pdb
 C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\bin\Debug\GlmNet.xml
+C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csprojAssemblyReference.cache
+C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.GraphicsForm.resources
+C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.Properties.Resources.resources
+C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.GenerateResource.cache
+C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.CoreCompileInputs.cache
 C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.csproj.CopyComplete
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\bin\Debug\Graphics.exe.config
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\bin\Debug\Graphics.exe
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\bin\Debug\Graphics.pdb
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\bin\Debug\GlmNet.dll
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\bin\Debug\GlmNet.pdb
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\bin\Debug\GlmNet.xml
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\obj\Debug\Graphics.csprojAssemblyReference.cache
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\obj\Debug\Graphics.GraphicsForm.resources
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\obj\Debug\Graphics.Properties.Resources.resources
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\obj\Debug\Graphics.csproj.GenerateResource.cache
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\obj\Debug\Graphics.csproj.CoreCompileInputs.cache
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\obj\Debug\Graphics.csproj.CopyComplete
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\obj\Debug\Graphics.exe
-C:\Users\Heshamovic\Desktop\First person Shooter graphics project\Graphics\obj\Debug\Graphics.pdb
+C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.exe
+C:\Users\Heshamovic\Desktop\Graphics Lab6 Model Loading - STDCode\Graphics\obj\Debug\Graphics.pdb

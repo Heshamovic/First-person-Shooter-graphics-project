@@ -32,11 +32,11 @@ namespace Graphics
         mat4 down , up , left , right , front , back;
         public float Speed = 1;
 
-        Model3D building , house;
-        Model3D car;
-        Model3D tree;
+        Model3D building , house, building2;
+        Model3D car, scar, Lara;
+        Model3D tree , tree1;
         public md2LOL zombie;
-        public md2LOL blade;
+        public md2LOL blade, blade1, blade2, fofa;
 
 
         public Camera cam;
@@ -110,7 +110,7 @@ namespace Graphics
             // 1- make a new instance of Model3D class, and name the variable as building
             // 2- load the building object "Building 02.obj"
             // 3- Add scaling and translation accordingly (for the building most probably you will not need a rotation)
-            int sz = 9000;
+            int sz = 25000;
             down = MathHelper.MultiplyMatrices(new List<mat4>()
             {    
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
@@ -156,6 +156,11 @@ namespace Graphics
             building.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
             building.transmatrix = glm.translate(new mat4(1), new vec3(1, 1, 1));
 
+            building2 = new Model3D();
+            building2.LoadFile(projectPath + "\\ModelFiles\\M4", "guard post.3ds", 10);
+            building2.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            building2.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
+            building2.transmatrix = glm.translate(new mat4(1), new vec3(10000, 1, 500));
 
             house = new Model3D();
             house.LoadFile(projectPath + "\\ModelFiles\\static\\House", "house.obj", 1);
@@ -171,6 +176,15 @@ namespace Graphics
             tree.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 4000));
 
 
+            tree1 = new Model3D();
+            tree1.LoadFile(projectPath + "\\ModelFiles\\static\\tree\\Tree", "Tree.fbx", 22);
+            tree1.scalematrix = glm.scale(new mat4(1), new vec3(200, 200, 200));
+            tree1.transmatrix = glm.translate(new mat4(1), new vec3(1500, -400, 4000));
+
+            Lara = new Model3D();
+            Lara.LoadFile(projectPath + "\\ModelFiles\\Heshambyhbd\\Box", "box.obj", 27);
+            Lara.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
+            Lara.transmatrix = glm.translate(new mat4(1), new vec3(1000, -200, 1231));
             ////////////////////
             //// Similarly Add a car outside the building, file name is "dvp.obj"
 
@@ -180,6 +194,11 @@ namespace Graphics
             car.transmatrix = glm.translate(new mat4(1), new vec3(-500, 1, -100));
             car.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
 
+            scar = new Model3D();
+            scar.LoadFile(projectPath + "\\ModelFiles\\scar", "Scar-X.obj.obj", 10);
+            scar.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
+            scar.transmatrix = glm.translate(new mat4(1), new vec3(500, 1, 500));
+            
             ////////////////////
             ////////////////////
             //// Add an animated model, file name is "zombie.md2" with animation: "Stand"
@@ -188,7 +207,7 @@ namespace Graphics
             // 2- start animating the object using StartAnimation method which is inside the md2/md2LOL 
             // 3- Add rotation, scaling and translation accordingly 
 
-            zombie = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\fiora.md2");
+            zombie = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
             zombie.StartAnimation(animType_LOL.STAND);
             zombie.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
             zombie.scaleMatrix = glm.scale(new mat4(1), new vec3(10, 10, 10));
@@ -197,16 +216,33 @@ namespace Graphics
             ////////////////////
             /// Similarly, Add an animated model, file name is "Blade.md2" with animation: "Run"
 
-            blade = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\garen.md2");
+            blade = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
             blade.StartAnimation(animType_LOL.STAND);
             blade.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
             blade.scaleMatrix = glm.scale(new mat4(1), new vec3(5, 5, 5));
             blade.TranslationMatrix = glm.translate(new mat4(1), new vec3(1, 1, 1));
 
+            blade1 = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
+            blade1.StartAnimation(animType_LOL.ATTACK1);
+            blade1.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            blade1.scaleMatrix = glm.scale(new mat4(1), new vec3(10, 10, 10));
+            blade1.TranslationMatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
+
+            blade2 = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
+            blade2.StartAnimation(animType_LOL.RUN);
+            blade2.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            blade2.scaleMatrix = glm.scale(new mat4(1), new vec3(5, 5, 5));
+            blade2.TranslationMatrix = glm.translate(new mat4(1), new vec3(1000, -400, 1031));
+
+            fofa = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
+            fofa.StartAnimation(animType_LOL.STAND);
+            fofa.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            fofa.scaleMatrix = glm.scale(new mat4(1), new vec3(20, 20, 20));
+            fofa.TranslationMatrix = glm.translate(new mat4(1), new vec3(10000, 1, 500));
             //////////////////////////////////////////////////////////////////////////////
 
-            Gl.glClearColor(0, 0, 0.4f, 1);
-
+            Gl.glClearColor(0, 0, 0, 1);
+            
              
 
 
@@ -253,6 +289,7 @@ namespace Graphics
             Gl.glEnableVertexAttribArray(2);
             Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 0, IntPtr.Zero);
 
+           
             dn.Bind();
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
 
@@ -294,12 +331,20 @@ namespace Graphics
             Gl.glDepthFunc(Gl.GL_LEQUAL);
 
             building.Draw(transID);
+            building2.Draw(transID);
             house.Draw(transID);
             Gl.glDepthFunc(Gl.GL_LESS);
-
+            //zombie.Draw(transID);
+            //Lara.Draw(transID);
             tree.Draw(transID);
+            tree1.Draw(transID);
+            fofa.Draw(transID);
+            blade1.Draw(transID);
+            blade2.Draw(transID);
             blade.Draw(transID);
             car.Draw(transID);
+            //scar.transmatrix = glm.translate(new mat4(1), cam.GetCameraPosition());
+            scar.Draw(transID);
         }
         public void Update(float deltaTime)
         {
@@ -311,6 +356,8 @@ namespace Graphics
 
             zombie.UpdateAnimation();
             blade.UpdateAnimation();
+            blade1.UpdateAnimation();
+            blade2.UpdateAnimation();
         }
         public void CleanUp()
         {

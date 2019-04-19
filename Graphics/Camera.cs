@@ -11,6 +11,7 @@ namespace Graphics
     {
         float mAngleX = 0;
         float mAngleY = 0;
+        float mn = 20, mx = 10;
         vec3 mDirection;
         vec3 mPosition;
         vec3 mRight;
@@ -20,7 +21,7 @@ namespace Graphics
         public Camera()
         {
             Reset(0, 0, 5, 0, 0, 0, 0, 1, 0);
-            SetProjectionMatrix(45, 4 / 3, 0.1f, 100000);
+            SetProjectionMatrix(45, 4 / 3, 0.1f, 1000000);
         }
 
         public vec3 GetLookDirection()
@@ -88,15 +89,35 @@ namespace Graphics
 
         public void Walk(float dist)
         {
-            mPosition += dist * mDirection;
+            
+              mPosition += dist * mDirection;
+              valid();
+            
         }
         public void Strafe(float dist)
         {
             mPosition += dist * mRight;
+            valid();
         }
         public void Fly(float dist)
         {
             mPosition += dist * mUp;
+            valid();
+        }
+        public void valid()
+        {
+            if (mPosition.y > 500)
+                mPosition.y = 500;
+            if (mPosition.y < 5)
+                mPosition.y = 5;
+            if (mPosition.x > 24200)
+                mPosition.x = 24200;
+            if (mPosition.x < -24200)
+                mPosition.x = -24200;
+            if (mPosition.z > 24200)
+                mPosition.z = 24200;
+            if (mPosition.z < -24200)
+                mPosition.z = -24200;
         }
     }
 }

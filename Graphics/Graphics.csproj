@@ -109,6 +109,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ModelFiles\animated\md2LOL\Blade.md2" />
     <None Include="ModelFiles\animated\md2LOL\fiora.md2" />
     <None Include="ModelFiles\animated\md2LOL\garen.md2" />
     <None Include="ModelFiles\animated\md2LOL\pirate.md2" />
@@ -205,7 +206,17 @@
     <Content Include="ModelFiles\static\tree\Tree\tree.jpeg" />
     <Content Include="ModelFiles\static\tree\Tree\tree2.jpeg" />
     <Content Include="Textures\crate.jpg" />
+    <Content Include="Textures\sandcastle_bk.png" />
+    <Content Include="Textures\sandcastle_dn.png" />
+    <Content Include="Textures\sandcastle_ft.png" />
+    <Content Include="Textures\sandcastle_lf.png" />
+    <Content Include="Textures\sandcastle_rt.png" />
+    <Content Include="Textures\sandcastle_up.png" />
+    <Content Include="Textures\sky.jpg" />
+    <Content Include="Textures\wall1.jpg" />
+    <Content Include="Textures\grass.jpg" />
     <Content Include="Textures\Ground.jpg" />
+    <Content Include="Textures\wall2.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
