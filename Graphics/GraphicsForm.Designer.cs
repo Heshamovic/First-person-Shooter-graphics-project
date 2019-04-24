@@ -43,6 +43,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pos = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // simpleOpenGlControl1
@@ -56,7 +57,7 @@
             this.simpleOpenGlControl1.ColorBits = ((byte)(32));
             this.simpleOpenGlControl1.DepthBits = ((byte)(16));
             this.simpleOpenGlControl1.Location = new System.Drawing.Point(0, 0);
-            this.simpleOpenGlControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleOpenGlControl1.Margin = new System.Windows.Forms.Padding(2);
             this.simpleOpenGlControl1.Name = "simpleOpenGlControl1";
             this.simpleOpenGlControl1.Size = new System.Drawing.Size(574, 357);
             this.simpleOpenGlControl1.StencilBits = ((byte)(0));
@@ -71,14 +72,14 @@
             this.label5.Location = new System.Drawing.Point(596, 284);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Frame";
             // 
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(638, 284);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(102, 20);
             this.textBox5.TabIndex = 9;
@@ -126,7 +127,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(616, 10);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(113, 32);
             this.button2.TabIndex = 15;
@@ -137,7 +138,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(616, 46);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(113, 32);
             this.button3.TabIndex = 16;
@@ -148,7 +149,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(616, 83);
-            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(113, 32);
             this.button4.TabIndex = 17;
@@ -159,7 +160,7 @@
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(616, 119);
-            this.button5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(113, 32);
             this.button5.TabIndex = 18;
@@ -170,7 +171,7 @@
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(616, 156);
-            this.button6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button6.Margin = new System.Windows.Forms.Padding(2);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(113, 32);
             this.button6.TabIndex = 19;
@@ -181,7 +182,7 @@
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(616, 193);
-            this.button7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button7.Margin = new System.Windows.Forms.Padding(2);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(113, 32);
             this.button7.TabIndex = 20;
@@ -192,7 +193,7 @@
             // button8
             // 
             this.button8.Location = new System.Drawing.Point(616, 229);
-            this.button8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(113, 32);
             this.button8.TabIndex = 21;
@@ -213,18 +214,26 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(638, 314);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(102, 20);
             this.textBox1.TabIndex = 22;
             this.textBox1.Text = "200";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // pos
+            // 
+            this.pos.Location = new System.Drawing.Point(640, 339);
+            this.pos.Name = "pos";
+            this.pos.Size = new System.Drawing.Size(100, 20);
+            this.pos.TabIndex = 24;
+            // 
             // GraphicsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 357);
+            this.ClientSize = new System.Drawing.Size(765, 405);
+            this.Controls.Add(this.pos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button8);
@@ -240,7 +249,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.simpleOpenGlControl1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GraphicsForm";
             this.Text = "Graphics";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GraphicsForm_FormClosing);
@@ -266,6 +275,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox pos;
     }
 }
 

@@ -30,9 +30,11 @@ namespace Graphics
         mat4 ProjectionMatrix;
         mat4 ViewMatrix;
         mat4 down , up , left , right , front , back;
+        vec3 playerPos;
+
         public float Speed = 1;
 
-        Model3D building , house, building2;
+        Model3D building , house, building2 , m;
         Model3D car, scar, Lara;
         Model3D tree , tree1;
         public md2LOL zombie;
@@ -251,6 +253,16 @@ namespace Graphics
             cam = new Camera();
             cam.Reset(0, 34, 55, 0, 0, 0, 0, 1, 0);
 
+
+            m = new Model3D();
+            m.LoadFile(projectPath + "\\ModelFiles\\hands with gun", "gun.obj", 2);
+            playerPos = cam.GetCameraTarget();
+            playerPos.y += 7;
+            m.scalematrix = glm.scale(new mat4(1), new vec3(0.2f, 0.2f, 0.2f));
+            m.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
+            m.transmatrix = glm.translate(new mat4(1), playerPos);
+
+
             ProjectionMatrix = cam.GetProjectionMatrix();
             ViewMatrix = cam.GetViewMatrix();
 
@@ -270,7 +282,17 @@ namespace Graphics
 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT|Gl.GL_DEPTH_BUFFER_BIT);
             sh.UseShader();
-           
+
+
+            playerPos = cam.GetCameraTarget();
+            playerPos.y -= 2.5f;
+            m.rotmatrix = glm.rotate(3.1412f + cam.mAngleX, new vec3(0, 1, 0));
+            m.transmatrix = glm.translate(new mat4(1), playerPos);
+            cam.UpdateViewMatrix();
+            ProjectionMatrix = cam.GetProjectionMatrix();
+            ViewMatrix = cam.GetViewMatrix();
+
+
             Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, down.to_array());
             Gl.glUniformMatrix4fv(projID, 1, Gl.GL_FALSE, ProjectionMatrix.to_array());
             Gl.glUniformMatrix4fv(viewID, 1, Gl.GL_FALSE, ViewMatrix.to_array());
@@ -329,7 +351,7 @@ namespace Graphics
             // 2- Pass to it the ID of the model in the vertex shader so that it can apply the correct transformations on its vertices
           //  zombie.Draw(modelID);
             Gl.glDepthFunc(Gl.GL_LEQUAL);
-
+            m.Draw(transID);
             building.Draw(transID);
             building2.Draw(transID);
             house.Draw(transID);

@@ -38,6 +38,7 @@ namespace Graphics
                 renderer.Update(deltaTime);
                 simpleOpenGlControl1.Refresh();
                 textBox5.Text = renderer.zombie.animSt.curr_frame + "";
+                pos.Text = ((int)renderer.cam.mPosition.x).ToString() + " " + ((int)renderer.cam.mPosition.y).ToString() + " " + ((int)renderer.cam.mPosition.z).ToString();
 
             }
         }
@@ -68,7 +69,11 @@ namespace Graphics
                 renderer.cam.Fly(-speed);
             if (e.KeyChar == 'c')
                 renderer.cam.Fly(speed);
-
+            if (e.KeyChar == 'k')
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\mk\Desktop\shot.wav");
+                player.Play();
+            }
             label6.Text = "X: " + renderer.cam.GetCameraPosition().x;
             label7.Text = "Y: " + renderer.cam.GetCameraPosition().y;
             label8.Text = "Z: " + renderer.cam.GetCameraPosition().z;

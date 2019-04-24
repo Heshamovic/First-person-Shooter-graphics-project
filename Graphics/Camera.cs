@@ -9,11 +9,11 @@ namespace Graphics
 {
     class Camera
     {
-        float mAngleX = 0;
-        float mAngleY = 0;
-        float mn = 20, mx = 10;
+        public float mAngleX = 0;
+        public float mAngleY = 0;
         vec3 mDirection;
-        vec3 mPosition;
+      public  vec3 mPosition;
+        public vec3 mCenter;
         vec3 mRight;
         vec3 mUp;
         mat4 mViewMatrix;
@@ -21,7 +21,7 @@ namespace Graphics
         public Camera()
         {
             Reset(0, 0, 5, 0, 0, 0, 0, 1, 0);
-            SetProjectionMatrix(45, 4 / 3, 0.1f, 1000000);
+            SetProjectionMatrix(45, 4 / 3, 0.1f, 10000000);
         }
 
         public vec3 GetLookDirection()
@@ -42,23 +42,31 @@ namespace Graphics
         {
             return mPosition;
         }
+
+        public vec3 GetCameraTarget()
+        {
+            return mCenter;
+        }
         public void Reset(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ)
         {
             vec3 eyePos = new vec3(eyeX, eyeY, eyeZ);
-            vec3 centerPos = new vec3(centerX, centerY, centerZ);
+            mCenter = new vec3(centerX, centerY, centerZ);
             vec3 upVec = new vec3(upX, upY, upZ);
-
+            mCenter.y = 205;
             mPosition = eyePos;
-            mDirection = centerPos - mPosition;
+            mDirection = mCenter - mPosition;
             mRight = glm.cross(mDirection, upVec);
             mUp = upVec;
             mUp = glm.normalize(mUp);
             mRight = glm.normalize(mRight);
             mDirection = glm.normalize(mDirection);
 
-            mViewMatrix = glm.lookAt(mPosition, centerPos, mUp);
+            mViewMatrix = glm.lookAt(mPosition, mCenter, mUp);
         }
-
+        public void SetHeight(float y)
+        {
+            mCenter.y = y;
+        }
         public void UpdateViewMatrix()
         {
             mDirection = new vec3((float)(-Math.Cos(mAngleY) * Math.Sin(mAngleX))
@@ -67,9 +75,11 @@ namespace Graphics
             mRight = glm.cross(mDirection, new vec3(0, 1, 0));
             mUp = glm.cross(mRight, mDirection);
 
-            vec3 center = mPosition + mDirection;
+            mPosition = mCenter - (mDirection) * 6;
+            
+            //mPosition.y += 5;
 
-            mViewMatrix = glm.lookAt(mPosition, center, mUp);
+            mViewMatrix = glm.lookAt(mPosition, mCenter, mUp);
         }
         public void SetProjectionMatrix(float FOV, float aspectRatio, float near, float far)
         {
@@ -84,40 +94,39 @@ namespace Graphics
 
         public void Pitch(float angleDegrees)
         {
-            mAngleY += angleDegrees;
+          //  mAngleY += angleDegrees;
         }
 
         public void Walk(float dist)
         {
-            
-              mPosition += dist * mDirection;
-              valid();
-            
+            mCenter += dist * mDirection;
+            valid();
         }
         public void Strafe(float dist)
         {
-            mPosition += dist * mRight;
+            mCenter += dist * mRight;
             valid();
         }
         public void Fly(float dist)
         {
-            mPosition += dist * mUp;
+            mCenter += dist * mUp;
             valid();
+            //  valid();
         }
         public void valid()
         {
-            if (mPosition.y > 500)
-                mPosition.y = 500;
-            if (mPosition.y < 5)
-                mPosition.y = 5;
-            if (mPosition.x > 24200)
-                mPosition.x = 24200;
-            if (mPosition.x < -24200)
-                mPosition.x = -24200;
-            if (mPosition.z > 24200)
-                mPosition.z = 24200;
-            if (mPosition.z < -24200)
-                mPosition.z = -24200;
+            if (mCenter.y > 500)
+                mCenter.y = 500;
+            if (mCenter.y < 5)
+                mCenter.y = 5;
+            if (mCenter.x > 24200)
+                mCenter.x = 24200;
+            if (mCenter.x < -24200)
+                mCenter.x = -24200;
+            if (mCenter.z > 24200)
+                mCenter.z = 24200;
+            if (mCenter.z < -24200)
+                mCenter.z = -24200;
         }
     }
 }
