@@ -91,6 +91,9 @@
     <Compile Include="MathHelper.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="3D Models\Model3D.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
@@ -109,6 +112,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="bin\Debug\Darius%40Idle1.fbx" />
+    <None Include="bin\Debug\Darius.fbx" />
+    <None Include="bin\Debug\duck.fbm\duckCM.tga" />
+    <None Include="bin\Debug\duck.fbx" />
+    <None Include="bin\Debug\Graphics.exe.config" />
+    <None Include="bin\Debug\Graphics.vshost.exe.config" />
+    <None Include="bin\Debug\Graphics.vshost.exe.manifest" />
     <None Include="ModelFiles\animated\md2LOL\Blade.md2" />
     <None Include="ModelFiles\animated\md2LOL\fiora.md2" />
     <None Include="ModelFiles\animated\md2LOL\garen.md2" />
@@ -163,6 +173,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Assimp32.dll" />
+    <Content Include="bin\Debug\AssimpNet.dll" />
+    <Content Include="bin\Debug\cbybt-wyoww.png" />
+    <Content Include="bin\Debug\GlmNet.dll" />
+    <Content Include="bin\Debug\GlmNet.pdb" />
+    <Content Include="bin\Debug\GlmNet.xml" />
+    <Content Include="bin\Debug\Graphics.exe" />
+    <Content Include="bin\Debug\Graphics.pdb" />
+    <Content Include="bin\Debug\Graphics.vshost.exe" />
+    <Content Include="bin\Debug\Tao.DevIl.dll" />
+    <Content Include="bin\Debug\Tao.FreeGlut.dll" />
+    <Content Include="bin\Debug\Tao.Glfw.dll" />
+    <Content Include="bin\Debug\Tao.OpenGl.dll" />
+    <Content Include="bin\Debug\Tao.Platform.Windows.dll" />
+    <Content Include="bin\Debug\Tao.Sdl.dll" />
     <Content Include="ModelFiles\animated\md2LOL\Blade.jpg" />
     <Content Include="ModelFiles\animated\md2LOL\fiora.PNG" />
     <Content Include="ModelFiles\animated\md2LOL\garen.png" />
@@ -205,6 +230,7 @@
     <Content Include="ModelFiles\static\tree\Tree\Tree.fbm\DB2X2_L01_Spec.png" />
     <Content Include="ModelFiles\static\tree\Tree\tree.jpeg" />
     <Content Include="ModelFiles\static\tree\Tree\tree2.jpeg" />
+    <Content Include="sandcastle_bk.png" />
     <Content Include="Textures\crate.jpg" />
     <Content Include="Textures\sandcastle_bk.png" />
     <Content Include="Textures\sandcastle_dn.png" />
@@ -218,6 +244,8 @@
     <Content Include="Textures\Ground.jpg" />
     <Content Include="Textures\wall2.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

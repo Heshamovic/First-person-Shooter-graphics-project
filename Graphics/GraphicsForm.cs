@@ -71,7 +71,7 @@ namespace Graphics
                 renderer.cam.Fly(speed);
             if (e.KeyChar == 'k')
             {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\mk\Desktop\shot.wav");
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Environment.CurrentDirectory + "\\shot.wav");
                 player.Play();
             }
             label6.Text = "X: " + renderer.cam.GetCameraPosition().x;

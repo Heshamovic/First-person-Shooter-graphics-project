@@ -81,7 +81,7 @@ namespace Graphics
                 -groundX, -groundY, groundZ,    1,0,0,
                  groundX, -groundY, -groundZ,   1,0,0,
                 -groundX, -groundY, -groundZ,    1,0,0,
-                                               
+
                  groundX, -groundY, groundZ, 1,0,0,
                 -groundX, -groundY, groundZ, 1,0,0,
                  groundX, -groundY, -groundZ, 1,0,0
@@ -125,43 +125,43 @@ namespace Graphics
             // 3- Add scaling and translation accordingly (for the building most probably you will not need a rotation)
             int sz = 25000;
             down = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.translate(new mat4(1),new vec3(0,-400,0))
-                
+
             });
             up = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                  glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.translate(new mat4(1),new vec3(0,sz + sz - 450 ,0))
-                
+
             });
             left = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.rotate(90.0f / 180.0f * 3.1412f, new vec3(0, 0, 1)) ,
                 glm.translate(new mat4(1),new vec3(-sz,sz - 400,0)),
             });
             right = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.rotate(90.0f / 180.0f * 3.1412f, new vec3(0, 0, 1)) ,
                 glm.translate(new mat4(1),new vec3(sz,sz - 400,0))
-                
+
             });
             front = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.rotate(90.0f / 180.0f * 3.1412f, new vec3(1, 0, 0)) ,
                 glm.translate(new mat4(1),new vec3(0,sz - 400,-sz))
-                
+
             });
             back = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.rotate(90.0f / 180.0f * 3.1412f, new vec3(1, 0, 0)) ,
                 glm.translate(new mat4(1),new vec3(0,sz - 400,sz))
-                
+
             });
 
             building = new Model3D();
@@ -257,7 +257,7 @@ namespace Graphics
 
 
             cam = new Camera();
-            cam.Reset(555, 34, 55, 11000,50,11000, 0, 1, 0);
+            cam.Reset(555, 34, 55, 11000, 50, 11000, 0, 1, 0);
 
 
             m = new Model3D();
@@ -383,34 +383,38 @@ namespace Graphics
             cam.UpdateViewMatrix();
             ProjectionMatrix = cam.GetProjectionMatrix();
             ViewMatrix = cam.GetViewMatrix();
-          //  zombie[0].TranslationMatrix = glm.translate(new mat4(1), new vec3(1+tmp, 1+tmp, 1+tmp));
-            
+            //  zombie[0].TranslationMatrix = glm.translate(new mat4(1), new vec3(1+tmp, 1+tmp, 1+tmp));
+
             // For the animated models, call the UpdateAnimation of the model so that it can interpolate the vertices to the correct position
-            for (int i=0 ; i<zombie.Count ; i++)
+            for (int i = 0; i < zombie.Count; i++)
             {
                 vec2 dir = new vec2();
-                dir.x = cam.mCenter.x - positions[i].x ;
-                dir.y = cam.mCenter.z - positions[i].z ;
-                float dis = (float)(Math.Sqrt(dir.x*dir.x + dir.y*dir.y));
+                dir.x = cam.mCenter.x - positions[i].x;
+                dir.y = cam.mCenter.z - positions[i].z;
+                float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
                 dir.x /= dis;
                 dir.y /= dis;
                 if (dis == 0)
                 {
                     zombie[i].StartAnimation(animType_LOL.ATTACK1);
                 }
-                else if(dis<1000)
+                else if (dis < 1000)
                 {
-                   // positions[i].x = positions[i].x+dir.x;
-                    vec3 t = new vec3(dir.x*3 + positions[i].x ,positions[i].y ,dir.y*3 + positions[i].z);
-                    
-                    positions[i] = t ;
-                    float x = positions[i].x,  y = positions[i].y , z = positions[i].z;
-                    zombie[i].StartAnimation(animType_LOL.RUN);
-                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(x,y,z));
-                    
+                    // positions[i].x = positions[i].x+dir.x;
+                    vec3 t = new vec3(dir.x + positions[i].x, positions[i].y, dir.y + positions[i].z);
+
+                    positions[i] = t;
+                    float x = positions[i].x, y = positions[i].y, z = positions[i].z;
+                    if (zombie[i].animSt.type != animType_LOL.RUN)
+                        zombie[i].StartAnimation(animType_LOL.RUN);
+                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
+
                 }
+                else
+                    zombie[i].StartAnimation(animType_LOL.STAND);
+
                 zombie[i].UpdateAnimation();
-                
+
             }
             //zombie.UpdateAnimation();
             //blade.UpdateAnimation();
