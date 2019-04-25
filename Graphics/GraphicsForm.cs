@@ -37,7 +37,7 @@ namespace Graphics
                 renderer.Draw();
                 renderer.Update(deltaTime);
                 simpleOpenGlControl1.Refresh();
-                textBox5.Text = renderer.zombie.animSt.curr_frame + "";
+                textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
                 pos.Text = ((int)renderer.cam.mPosition.x).ToString() + " " + ((int)renderer.cam.mPosition.y).ToString() + " " + ((int)renderer.cam.mPosition.z).ToString();
 
             }
@@ -111,43 +111,43 @@ namespace Graphics
 
         private void button2_Click(object sender, EventArgs e)
         {
-            renderer.zombie.StartAnimation(_3D_Models.animType_LOL.STAND);
+            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.STAND);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
 
-            renderer.zombie.StartAnimation(_3D_Models.animType_LOL.ATTACK1);
+            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK1);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
 
-            renderer.zombie.StartAnimation(_3D_Models.animType_LOL.ATTACK2);
+            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK2);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
 
-            renderer.zombie.StartAnimation(_3D_Models.animType_LOL.RUN);
+            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.RUN);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
 
-            renderer.zombie.StartAnimation(_3D_Models.animType_LOL.SPELL1);
+            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL1);
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
 
-            renderer.zombie.StartAnimation(_3D_Models.animType_LOL.SPELL2);
+            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL2);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
 
-            renderer.zombie.StartAnimation(_3D_Models.animType_LOL.DEATH);
+            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.DEATH);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -155,7 +155,7 @@ namespace Graphics
             float res = 0;
             if (float.TryParse(textBox1.Text,out res))
             {
-                renderer.zombie.AnimationSpeed = res;
+                renderer.zombie[0].AnimationSpeed = res;
                 renderer.blade.AnimationSpeed = res;
             }
         }
