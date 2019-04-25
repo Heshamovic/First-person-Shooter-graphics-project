@@ -94,7 +94,7 @@ namespace Graphics
 
         public void Pitch(float angleDegrees)
         {
-          //  mAngleY += angleDegrees;
+            mAngleY += angleDegrees;
         }
 
         public void Walk(float dist)
