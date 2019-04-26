@@ -170,5 +170,13 @@ namespace Graphics
             prevX = simpleOpenGlControl1.Location.X+simpleOpenGlControl1.Size.Width/2;
             prevY = simpleOpenGlControl1.Location.Y + simpleOpenGlControl1.Size.Height / 2;
         }
+
+        private void simpleOpenGlControl1_MouseClick(object sender, MouseEventArgs e)
+        {
+            renderer.draw = true;
+            renderer.cam.mAngleY += 0.1f;
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\mk\Desktop\shot.wav");
+            player.Play();
+        }
     }
 }
