@@ -231,6 +231,7 @@
     <Content Include="ModelFiles\static\tree\Tree\tree.jpeg" />
     <Content Include="ModelFiles\static\tree\Tree\tree2.jpeg" />
     <Content Include="sandcastle_bk.png" />
+    <Content Include="Sounds\shot.wav" />
     <Content Include="Textures\crate.jpg" />
     <Content Include="Textures\sandcastle_bk.png" />
     <Content Include="Textures\sandcastle_dn.png" />

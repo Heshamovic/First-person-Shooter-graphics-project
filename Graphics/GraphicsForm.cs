@@ -3,6 +3,7 @@ using System.Threading;
 using System.Drawing;
 using System.Diagnostics;
 using System;
+using System.IO;
 
 namespace Graphics
 {
@@ -10,16 +11,13 @@ namespace Graphics
     {
         Renderer renderer = new Renderer();
         Thread MainLoopThread;
-
-        float deltaTime;
+        string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+        float deltaTime, prevX, prevY;
         public GraphicsForm()
         {
             InitializeComponent();
             simpleOpenGlControl1.InitializeContexts();
-
             MoveCursor();
-            
-
             initialize();
             deltaTime = 0.005f;
             MainLoopThread = new Thread(MainLoop);
@@ -39,7 +37,6 @@ namespace Graphics
                 simpleOpenGlControl1.Refresh();
                 textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
                 pos.Text = ((int)renderer.cam.mPosition.x).ToString() + " " + ((int)renderer.cam.mPosition.y).ToString() + " " + ((int)renderer.cam.mPosition.z).ToString();
-
             }
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -79,7 +76,6 @@ namespace Graphics
             label8.Text = "Z: " + renderer.cam.GetCameraPosition().z;
         }
 
-        float prevX, prevY;
         private void simpleOpenGlControl1_MouseMove(object sender, MouseEventArgs e)
         {
             float speed = 0.05f;
@@ -99,16 +95,6 @@ namespace Graphics
             MoveCursor();
         }
 
-        private void button1_Click(object sender, System.EventArgs e)
-        {
-            //float r = float.Parse(textBox1.Text);
-            //float g = float.Parse(textBox2.Text);
-            //float b = float.Parse(textBox3.Text);
-            //float a = float.Parse(textBox4.Text);
-            //float s = float.Parse(textBox5.Text);
-            //renderer.SendLightData(r, g, b, a, s);
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.STAND);
@@ -116,37 +102,31 @@ namespace Graphics
 
         private void button3_Click(object sender, EventArgs e)
         {
-
             renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK1);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-
             renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK2);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-
             renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.RUN);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-
             renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL1);
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-
             renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL2);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-
             renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.DEATH);
         }
 
@@ -156,7 +136,6 @@ namespace Graphics
             if (float.TryParse(textBox1.Text,out res))
             {
                 renderer.zombie[0].AnimationSpeed = res;
-                renderer.blade.AnimationSpeed = res;
             }
         }
 
@@ -175,7 +154,7 @@ namespace Graphics
         {
             renderer.draw = true;
             renderer.cam.mAngleY += 0.1f;
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\mk\Desktop\shot.wav");
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\shot.wav");
             player.Play();
         }
     }
