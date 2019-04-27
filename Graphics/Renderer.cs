@@ -17,6 +17,7 @@ namespace Graphics
         uint groundtextBufferID1;//grass
         uint groundtextBufferID3;//wall
         uint groundtextBufferID4;//sky
+        uint ShootID;
         Texture dn, upp, lf, rt, bk, ft;
         int modelID;
         int viewID;
@@ -42,6 +43,9 @@ namespace Graphics
         public List<vec3> positions = new List<vec3>();
         int tmp = 0;
         public Camera cam;
+        Texture shoot;
+       public  bool draw = false ;
+        int c = 0;
         public void createNewZombie(int x, int y, int z, int s)
         {
             positions.Add(new vec3(x, y, z));
@@ -66,15 +70,8 @@ namespace Graphics
             upp = new Texture(projectPath + "\\Textures\\sandcastle_up.png", 2, true);
             ft = new Texture(projectPath + "\\Textures\\sandcastle_ft.png", 2, true);
             bk = new Texture(projectPath + "\\Textures\\sandcastle_bk.png", 2, true);
-
-            /*  float[] ground = {
-                  -1,0,1,    1,0,0,
-                  1,0,1,     1,0,0,
-                  -1,0,-1,   1,0,0,
-                  1,0,1,     1,0,0,
-                  -1,0,-1,   1,0,0,
-                  1,0,-1,    1,0,0
-              };*/
+            shoot = new Texture(projectPath + "\\Textures\\gunshot.png", 5 , true);
+          
             float groundX = 1, groundY = 0, groundZ = 1;
 
             float[] ground = {
@@ -113,11 +110,40 @@ namespace Graphics
                 0,skysize,
                 skysize,0,
             };
+
+            float[] shootvertices = {
+                -1,1,0,
+                1,0,0,
+                0,0,
+                0,1,0,
+                1,-1,0,
+                0,0,1,
+                1,1,
+                0,1,0,
+                -1,-1,0,
+                0,0,1,
+                0,1,
+                0,1,0,
+                1,1,0,
+                0,0,1,
+                1,0,
+                0,1,0,
+                -1,1,0,
+                0,1,0,
+                0,0,
+                0,1,0,
+                1,-1,0,
+                1,0,0,
+                1,1,
+                0,1,0
+            };
+
+
             groundtextBufferID2 = GPU.GenerateBuffer(ground);
             groundtextBufferID1 = GPU.GenerateBuffer(groundTex);
             groundtextBufferID3 = GPU.GenerateBuffer(wallTex);
             groundtextBufferID4 = GPU.GenerateBuffer(skyTex);
-
+            ShootID = GPU.GenerateBuffer(shootvertices);
             // Add a buidling model, file name is "Building 02.obj"
             // Steps: 
             // 1- make a new instance of Model3D class, and name the variable as building
@@ -365,6 +391,44 @@ namespace Graphics
             {
                 z.Draw(transID);
             }
+
+            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, ShootID);
+            Gl.glEnableVertexAttribArray(0);
+            Gl.glVertexAttribPointer(0, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)0);
+
+            Gl.glEnableVertexAttribArray(1);
+            Gl.glVertexAttribPointer(1, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(3 * sizeof(float)));
+
+            Gl.glEnableVertexAttribArray(2);
+            Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(6 * sizeof(float)));
+
+            Gl.glEnableVertexAttribArray(3);
+            Gl.glVertexAttribPointer(3, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(8 * sizeof(float)));
+
+            shoot.Bind();
+            vec3 shootpos = cam.GetCameraTarget();
+            shootpos.y -= 1.5f;
+            shootpos += cam.GetLookDirection() * 8;
+
+
+            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, MathHelper.MultiplyMatrices(new List<mat4>() { glm.scale(new mat4(1),new vec3(2+(float)c/10,2 + (float)c / 10, 2 + (float)c / 10)),
+                glm.rotate(cam.mAngleX, new vec3(0, 1, 0)),glm.rotate((float)c/10, new vec3(0, 0, 1)),glm.translate(new mat4(1),shootpos),
+            }).to_array());
+            Gl.glEnable(Gl.GL_BLEND);
+            Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
+            if (draw)
+            {
+                cam.mAngleY -= 0.01f;
+                Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+                c--;
+                if (c < 0)
+                {
+                    cam.mAngleY = 0;
+                    c = timer;
+                    draw = false;
+                }
+            }
+            Gl.glDisable(Gl.GL_BLEND);
             //fofa.Draw(transID);
             //blade1.Draw(transID);
             //blade2.Draw(transID);
@@ -373,6 +437,7 @@ namespace Graphics
             //scar.transmatrix = glm.translate(new mat4(1), cam.GetCameraPosition());
             scar.Draw(transID);
         }
+        int timer = 5;
         public void Update(float deltaTime)
         {
             cam.UpdateViewMatrix();
@@ -389,21 +454,22 @@ namespace Graphics
                 float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
                 dir.x /= dis;
                 dir.y /= dis;
-                if (dis == 0)
+                if (dis <= 200)
                 {
-                    zombie[i].StartAnimation(animType_LOL.ATTACK1);
+                    if (zombie[i].animSt.type != animType_LOL.ATTACK1)
+                        zombie[i].StartAnimation(animType_LOL.ATTACK1);
                 }
                 else if (dis < 1000)
                 {
-                    // positions[i].x = positions[i].x+dir.x;
-                    vec3 t = new vec3(dir.x + positions[i].x, positions[i].y, dir.y + positions[i].z);
-
-                    positions[i] = t;
-                    float x = positions[i].x, y = positions[i].y, z = positions[i].z;
-                    if (zombie[i].animSt.type != animType_LOL.RUN)
-                        zombie[i].StartAnimation(animType_LOL.RUN);
-                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
-
+                   // positions[i].x = positions[i].x+dir.x;
+                    vec3 t = new vec3(dir.x + positions[i].x ,positions[i].y ,dir.y + positions[i].z);
+                    
+                    positions[i] = t ;
+                    float x = positions[i].x,  y = positions[i].y , z = positions[i].z;
+                    if(zombie[i].animSt.type != animType_LOL.RUN)
+                     zombie[i].StartAnimation(animType_LOL.RUN);
+                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(x,y,z));
+                    
                 }
                 else
                     zombie[i].StartAnimation(animType_LOL.STAND);
