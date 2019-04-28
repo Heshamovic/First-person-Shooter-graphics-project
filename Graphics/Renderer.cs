@@ -477,7 +477,8 @@ namespace Graphics
                     
                 }
                 else
-                    zombie[i].StartAnimation(animType_LOL.STAND);
+                    if (zombie[i].animSt.type != animType_LOL.STAND)
+                        zombie[i].StartAnimation(animType_LOL.STAND);
 
                 zombie[i].UpdateAnimation();
                 
