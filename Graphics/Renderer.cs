@@ -41,6 +41,51 @@ namespace Graphics
             tmp.TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
             zombie.Add(tmp);
         }
+        public void create_square(mat4 arr, Texture tex)
+        {
+            tex.Bind();
+            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, arr.to_array());
+            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+
+        }
+        public void create_shoot()
+        {
+            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, ShootID);
+            Gl.glEnableVertexAttribArray(0);
+            Gl.glVertexAttribPointer(0, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)0);
+
+            Gl.glEnableVertexAttribArray(1);
+            Gl.glVertexAttribPointer(1, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(3 * sizeof(float)));
+
+            Gl.glEnableVertexAttribArray(2);
+            Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(6 * sizeof(float)));
+
+            Gl.glEnableVertexAttribArray(3);
+            Gl.glVertexAttribPointer(3, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(8 * sizeof(float)));
+
+            shoot.Bind();
+            vec3 shootpos = cam.GetCameraTarget();
+            shootpos.y -= 1.5f;
+            shootpos += cam.GetLookDirection() * 8;
+
+            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, MathHelper.MultiplyMatrices(new List<mat4>() { glm.scale(new mat4(1),new vec3(2+(float)c/10,2 + (float)c / 10, 2 + (float)c / 10)),
+                glm.rotate(cam.mAngleX, new vec3(0, 1, 0)),glm.rotate((float)c/10, new vec3(0, 0, 1)),glm.translate(new mat4(1),shootpos),
+            }).to_array());
+            Gl.glEnable(Gl.GL_BLEND);
+            Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
+            if (draw)
+            {
+                cam.mAngleY -= 0.01f;
+                Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+                c--;
+                if (c < 0)
+                {
+                    cam.mAngleY = 0;
+                    c = timer;
+                    draw = false;
+                }
+            }
+        }
         public void Initialize()
         {
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
@@ -205,8 +250,8 @@ namespace Graphics
             createNewZombie(1, 1, 1, 10);
             createNewZombie(4000, -400, 4000, 10);
             createNewZombie(1000, -400, 1031, 10);
-            createNewZombie(9000, 1, 500, 10);
-
+            createNewZombie(10000, 1, 500, 20);
+            
             Gl.glClearColor(0, 0, 0, 1);
             
             cam = new Camera();
@@ -269,30 +314,18 @@ namespace Graphics
             Gl.glEnableVertexAttribArray(2);
             Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 0, IntPtr.Zero);
 
-
-            upp.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, up.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
-
+            create_square(up, upp);
+          
             GPU.BindBuffer(groundtextBufferID3);
             Gl.glEnableVertexAttribArray(2);
             Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 0, IntPtr.Zero);
 
-            lf.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, left.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+            create_square(left, lf);
+            create_square(right, rt);
+            create_square(front, ft);
+            create_square(back, bk);
+            
 
-            rt.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, right.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
-
-            ft.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, front.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
-
-            bk.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, back.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
 
             Gl.glDepthFunc(Gl.GL_LEQUAL);
             m.Draw(transID);
@@ -305,41 +338,7 @@ namespace Graphics
             foreach (md2LOL z in zombie)
                 z.Draw(transID);
 
-            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, ShootID);
-            Gl.glEnableVertexAttribArray(0);
-            Gl.glVertexAttribPointer(0, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)0);
-
-            Gl.glEnableVertexAttribArray(1);
-            Gl.glVertexAttribPointer(1, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(3 * sizeof(float)));
-
-            Gl.glEnableVertexAttribArray(2);
-            Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(6 * sizeof(float)));
-
-            Gl.glEnableVertexAttribArray(3);
-            Gl.glVertexAttribPointer(3, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(8 * sizeof(float)));
-
-            shoot.Bind();
-            vec3 shootpos = cam.GetCameraTarget();
-            shootpos.y -= 1.5f;
-            shootpos += cam.GetLookDirection() * 8;
-            
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, MathHelper.MultiplyMatrices(new List<mat4>() { glm.scale(new mat4(1),new vec3(2+(float)c/10,2 + (float)c / 10, 2 + (float)c / 10)),
-                glm.rotate(cam.mAngleX, new vec3(0, 1, 0)),glm.rotate((float)c/10, new vec3(0, 0, 1)),glm.translate(new mat4(1),shootpos),
-            }).to_array());
-            Gl.glEnable(Gl.GL_BLEND);
-            Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
-            if (draw)
-            {
-                cam.mAngleY -= 0.01f;
-                Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
-                c--;
-                if (c < 0)
-                {
-                    cam.mAngleY = 0;
-                    c = timer;
-                    draw = false;
-                }
-            }
+            create_shoot();
             Gl.glDisable(Gl.GL_BLEND);
             scar.Draw(transID);
         }
@@ -373,6 +372,7 @@ namespace Graphics
                     
                 }
                 else
+                    if (zombie[i].animSt.type != animType_LOL.STAND)
                     zombie[i].StartAnimation(animType_LOL.STAND);
                 zombie[i].UpdateAnimation();
             }
