@@ -24,6 +24,7 @@ namespace Graphics
         public float Speed = 1;
         public bool draw = false;
         Texture dn, upp, lf, rt, bk, ft, shoot;
+        int AmbientLightID, DataID;
         public md2LOL blade, blade1, blade2, fofa;
         public List<vec3> positions = new List<vec3>();
         public List<md2LOL> zombie = new List<md2LOL>();
@@ -97,7 +98,8 @@ namespace Graphics
             ft = new Texture(projectPath + "\\Textures\\sandcastle_ft.png", 2, true);
             bk = new Texture(projectPath + "\\Textures\\sandcastle_bk.png", 2, true);
             shoot = new Texture(projectPath + "\\Textures\\gunshot.png", 5 , true);
-          
+            sh.UseShader();
+
             float groundX = 1, groundY = 0, groundZ = 1;
 
             float[] ground = {
@@ -256,7 +258,25 @@ namespace Graphics
             
             cam = new Camera();
             cam.Reset(555, 34, 55, 11000, 50, 11000, 0, 1, 0);
-            
+
+
+            DataID = Gl.glGetUniformLocation(sh.ID, "data");
+            vec2 data = new vec2(40000, 5000);
+            Gl.glUniform2fv(DataID, 1, data.to_array());
+            int LightPositionID = Gl.glGetUniformLocation(sh.ID, "LightPosition_worldspace");
+            vec3 lightPosition = new vec3(0.0f, 1000, 0.0f);
+            Gl.glUniform3fv(LightPositionID, 1, lightPosition.to_array());
+            AmbientLightID = Gl.glGetUniformLocation(sh.ID, "ambientLight");
+            vec3 ambientLight = new vec3(0.5f, 0.58f, 0.58f);
+            Gl.glUniform3fv(AmbientLightID, 1, ambientLight.to_array());
+            EyePositionID = Gl.glGetUniformLocation(sh.ID, "EyePosition_worldspace");
+
+
+           
+
+
+
+
             m = new Model3D();
             m.LoadFile(projectPath + "\\ModelFiles\\hands with gun", "gun.obj", 2);
             playerPos = cam.GetCameraTarget();
@@ -271,7 +291,6 @@ namespace Graphics
             projID = Gl.glGetUniformLocation(sh.ID, "projection");
             viewID = Gl.glGetUniformLocation(sh.ID, "view");
 
-            sh.UseShader();
 
             Gl.glEnable(Gl.GL_DEPTH_TEST);
             Gl.glDepthFunc(Gl.GL_LESS);
