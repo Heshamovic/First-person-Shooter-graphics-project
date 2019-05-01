@@ -49,6 +49,14 @@ namespace Graphics
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
 
         }
+        public void round(md2LOL zombie,float angle)
+        {
+            zombie.rotationMatrix = MathHelper.MultiplyMatrices(new List<mat4>()
+            {
+                glm.rotate(90.0f * 180.0f / 3.1412f, new vec3(1, 0, 0)),glm.rotate(+angle,new vec3(0,1,0))
+             });
+
+        }
         public void create_shoot()
         {
             Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, ShootID);
@@ -382,7 +390,7 @@ namespace Graphics
                 else if (dis < 1000)
                 {
                     vec3 t = new vec3(dir.x + positions[i].x ,positions[i].y ,dir.y + positions[i].z);
-                    
+                    round(zombie[i], cam.mAngleX);
                     positions[i] = t ;
                     float x = positions[i].x,  y = positions[i].y , z = positions[i].z;
                     if(zombie[i].animSt.type != animType_LOL.RUN)
