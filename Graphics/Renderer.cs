@@ -400,7 +400,8 @@ namespace Graphics
                 }
                 else
                     if (zombie[i].animSt.type != animType_LOL.STAND)
-                    zombie[i].StartAnimation(animType_LOL.STAND);
+                        zombie[i].StartAnimation(animType_LOL.STAND);
+
                 zombie[i].UpdateAnimation();
             }
         }
