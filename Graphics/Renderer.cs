@@ -8,10 +8,13 @@ using Tao.OpenGl;
 using GlmNet;
 using System.IO;
 using Graphics._3D_Models;
+using System.Windows.Forms;
+
 namespace Graphics
 {
     class Renderer
     {
+        public Obstacles houses;
         Shader sh;
         uint groundtextBufferID2;
         uint groundtextBufferID1;//grass
@@ -28,6 +31,8 @@ namespace Graphics
         public md2LOL blade, blade1, blade2, fofa;
         public List<vec3> positions = new List<vec3>();
         public List<md2LOL> zombie = new List<md2LOL>();
+        public List<Model3D> bullets = new List<Model3D>();
+        
         Model3D building, house, building2, m, car, scar, Lara, tree, tree1;
         mat4 ProjectionMatrix, ViewMatrix, down, up, left, right, front, back;
         public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
@@ -42,6 +47,15 @@ namespace Graphics
             tmp.TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
             zombie.Add(tmp);
         }
+
+        public void createBullet()
+        {
+            Model3D bullet = new Model3D();
+            bullet.LoadFile(projectPath + "\\ModelFiles\\static\\bullet", "bullet.obj", 1);
+            bullet.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
+            bullet.transmatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
+        }
+
         public void create_square(mat4 arr, Texture tex)
         {
             tex.Bind();
@@ -95,6 +109,62 @@ namespace Graphics
                 }
             }
         }
+
+
+        public void InitializeObstacles()
+        {
+
+            building = new Model3D();
+            building.LoadFile(projectPath + "\\ModelFiles\\static\\building", "Building 02.obj", 1);
+            building.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
+            building.transmatrix = glm.translate(new mat4(1), new vec3(1, 1, 1));
+
+            building2 = new Model3D();
+            building2.LoadFile(projectPath + "\\ModelFiles\\M4", "guard post.3ds", 10);
+            building2.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            building2.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
+            building2.transmatrix = glm.translate(new mat4(1), new vec3(10000, 1, 500));
+
+            house = new Model3D();
+            house.LoadFile(projectPath + "\\ModelFiles\\static\\House", "house.obj", 1);
+            house.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
+            house.transmatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
+
+            tree = new Model3D();
+            tree.LoadFile(projectPath + "\\ModelFiles\\static\\tree", "tree.obj", 4);
+            tree.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
+            tree.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 4000));
+
+            tree1 = new Model3D();
+            tree1.LoadFile(projectPath + "\\ModelFiles\\static\\tree\\Tree", "Tree.fbx", 22);
+            tree1.scalematrix = glm.scale(new mat4(1), new vec3(200, 200, 200));
+            tree1.transmatrix = glm.translate(new mat4(1), new vec3(1500, -400, 4000));
+
+            Lara = new Model3D();
+            Lara.LoadFile(projectPath + "\\ModelFiles\\Heshambyhbd\\Box", "box.obj", 27);
+            Lara.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
+            Lara.transmatrix = glm.translate(new mat4(1), new vec3(1000, -200, 1231));
+
+            car = new Model3D();
+            car.LoadFile(projectPath + "\\ModelFiles\\static\\car", "dpv.obj", 3);
+            car.scalematrix = glm.scale(new mat4(1), new vec3(1, 1, 1));
+            car.transmatrix = glm.translate(new mat4(1), new vec3(-500, 1, -100));
+            car.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
+
+            scar = new Model3D();
+            scar.LoadFile(projectPath + "\\ModelFiles\\scar", "Scar-X.obj.obj", 10);
+            scar.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
+            scar.transmatrix = glm.translate(new mat4(1), new vec3(500, 1, 500));
+
+            houses.models.Add(building);
+            houses.models.Add(building2);
+            houses.models.Add(tree);
+            houses.models.Add(tree1);
+            houses.models.Add(Lara);
+            houses.models.Add(car);
+
+        }
+
         public void Initialize()
         {
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
@@ -215,48 +285,8 @@ namespace Graphics
                 glm.translate(new mat4(1),new vec3(0,sz - 400,sz))
             });
 
-            building = new Model3D();
-            building.LoadFile(projectPath + "\\ModelFiles\\static\\building", "Building 02.obj", 1);
-            building.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
-            building.transmatrix = glm.translate(new mat4(1), new vec3(1, 1, 1));
-
-            building2 = new Model3D();
-            building2.LoadFile(projectPath + "\\ModelFiles\\M4", "guard post.3ds", 10);
-            building2.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
-            building2.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
-            building2.transmatrix = glm.translate(new mat4(1), new vec3(10000, 1, 500));
-
-            house = new Model3D();
-            house.LoadFile(projectPath + "\\ModelFiles\\static\\House", "house.obj", 1);
-            house.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
-            house.transmatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
-            
-            tree = new Model3D();
-            tree.LoadFile(projectPath + "\\ModelFiles\\static\\tree", "tree.obj", 4);
-            tree.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
-            tree.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 4000));
-
-            tree1 = new Model3D();
-            tree1.LoadFile(projectPath + "\\ModelFiles\\static\\tree\\Tree", "Tree.fbx", 22);
-            tree1.scalematrix = glm.scale(new mat4(1), new vec3(200, 200, 200));
-            tree1.transmatrix = glm.translate(new mat4(1), new vec3(1500, -400, 4000));
-
-            Lara = new Model3D();
-            Lara.LoadFile(projectPath + "\\ModelFiles\\Heshambyhbd\\Box", "box.obj", 27);
-            Lara.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
-            Lara.transmatrix = glm.translate(new mat4(1), new vec3(1000, -200, 1231));
-
-            car = new Model3D();
-            car.LoadFile(projectPath + "\\ModelFiles\\static\\car", "dpv.obj", 3);
-            car.scalematrix = glm.scale(new mat4(1), new vec3(1, 1, 1));
-            car.transmatrix = glm.translate(new mat4(1), new vec3(-500, 1, -100));
-            car.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
-
-            scar = new Model3D();
-            scar.LoadFile(projectPath + "\\ModelFiles\\scar", "Scar-X.obj.obj", 10);
-            scar.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
-            scar.transmatrix = glm.translate(new mat4(1), new vec3(500, 1, 500));
-
+            InitializeObstacles();
+    
             createNewZombie(1, 1, 1, 10);
             createNewZombie(4000, -400, 4000, 10);
             createNewZombie(1000, -400, 1031, 10);
@@ -411,3 +441,4 @@ namespace Graphics
         }
     }
 }
+

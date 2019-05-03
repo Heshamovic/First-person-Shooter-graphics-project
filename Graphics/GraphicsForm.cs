@@ -15,6 +15,7 @@ namespace Graphics
         float deltaTime, prevX, prevY;
         public GraphicsForm()
         {
+
             InitializeComponent();
             simpleOpenGlControl1.InitializeContexts();
             MoveCursor();

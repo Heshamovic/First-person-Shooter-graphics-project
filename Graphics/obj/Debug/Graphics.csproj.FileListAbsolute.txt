@@ -202,3 +202,12 @@ E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphic
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.exe
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.pdb
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\bin\Debug\Graphics.exe.config
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\bin\Debug\Graphics.exe
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\bin\Debug\Graphics.pdb
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.GraphicsForm.resources
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.Properties.Resources.resources
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.exe
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.pdb
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache
