@@ -14,7 +14,7 @@ namespace Graphics
 {
     class Renderer
     {
-        public Obstacles houses;
+        public static List<Obstacle> Obstacles = new List<Obstacle>();
         Shader sh;
         uint groundtextBufferID2;
         uint groundtextBufferID1;//grass
@@ -118,50 +118,50 @@ namespace Graphics
             building.LoadFile(projectPath + "\\ModelFiles\\static\\building", "Building 02.obj", 1);
             building.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
             building.transmatrix = glm.translate(new mat4(1), new vec3(1, 1, 1));
+            Obstacles.Add(new Obstacle(building, new vec3(1, 1, 1), 2000));
 
             building2 = new Model3D();
             building2.LoadFile(projectPath + "\\ModelFiles\\M4", "guard post.3ds", 10);
             building2.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
             building2.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
             building2.transmatrix = glm.translate(new mat4(1), new vec3(10000, 1, 500));
+            Obstacles.Add(new Obstacle(building2, new vec3(10000, 1, 500), 2000));
 
             house = new Model3D();
             house.LoadFile(projectPath + "\\ModelFiles\\static\\House", "house.obj", 1);
             house.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
             house.transmatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
+            Obstacles.Add(new Obstacle(house, new vec3(4000, -400, 4000), 2000));
 
             tree = new Model3D();
             tree.LoadFile(projectPath + "\\ModelFiles\\static\\tree", "tree.obj", 4);
             tree.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
-            tree.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 4000));
+            tree.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 2000));
+            Obstacles.Add(new Obstacle(tree, new vec3(1, -400, 2000), 800));
 
             tree1 = new Model3D();
             tree1.LoadFile(projectPath + "\\ModelFiles\\static\\tree\\Tree", "Tree.fbx", 22);
             tree1.scalematrix = glm.scale(new mat4(1), new vec3(200, 200, 200));
             tree1.transmatrix = glm.translate(new mat4(1), new vec3(1500, -400, 4000));
+            Obstacles.Add(new Obstacle(tree1, new vec3(1500, -400, 4000), 800));
 
             Lara = new Model3D();
             Lara.LoadFile(projectPath + "\\ModelFiles\\Heshambyhbd\\Box", "box.obj", 27);
             Lara.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
             Lara.transmatrix = glm.translate(new mat4(1), new vec3(1000, -200, 1231));
+            Obstacles.Add(new Obstacle(Lara, new vec3(1000, -200, 1231), 1000));
 
             car = new Model3D();
             car.LoadFile(projectPath + "\\ModelFiles\\static\\car", "dpv.obj", 3);
             car.scalematrix = glm.scale(new mat4(1), new vec3(1, 1, 1));
             car.transmatrix = glm.translate(new mat4(1), new vec3(-500, 1, -100));
             car.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
+            Obstacles.Add(new Obstacle(car, new vec3(-500, 1, -100), 1000));
 
             scar = new Model3D();
             scar.LoadFile(projectPath + "\\ModelFiles\\scar", "Scar-X.obj.obj", 10);
             scar.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
             scar.transmatrix = glm.translate(new mat4(1), new vec3(500, 1, 500));
-
-            houses.models.Add(building);
-            houses.models.Add(building2);
-            houses.models.Add(tree);
-            houses.models.Add(tree1);
-            houses.models.Add(Lara);
-            houses.models.Add(car);
 
         }
 
@@ -309,12 +309,6 @@ namespace Graphics
             Gl.glUniform3fv(AmbientLightID, 1, ambientLight.to_array());
             EyePositionID = Gl.glGetUniformLocation(sh.ID, "EyePosition_worldspace");
 
-
-           
-
-
-
-
             m = new Model3D();
             m.LoadFile(projectPath + "\\ModelFiles\\hands with gun", "gun.obj", 2);
             playerPos = cam.GetCameraTarget();
@@ -434,7 +428,13 @@ namespace Graphics
 
                 zombie[i].UpdateAnimation();
             }
+
+            
         }
+
+
+
+
         public void CleanUp()
         {
             sh.DestroyShader();
