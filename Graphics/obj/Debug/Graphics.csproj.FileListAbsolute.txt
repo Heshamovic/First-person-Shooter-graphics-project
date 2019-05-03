@@ -202,3 +202,6 @@ E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphic
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.exe
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.pdb
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache
+E:\first-person-shooter\First-person-Shooter-graphics-project\Graphics\bin\Debug\Graphics.exe.config
+E:\first-person-shooter\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.exe
+E:\first-person-shooter\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.pdb
