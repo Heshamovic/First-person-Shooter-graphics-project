@@ -107,12 +107,14 @@ namespace Graphics
         }
         public void Strafe(float dist)
         {
-            mCenter += dist * mRight;
+            if (!Collided(mCenter + dist * mRight))
+                 mCenter += dist * mRight;
             valid();
         }
         public void Fly(float dist)
         {
-            mCenter += dist * mUp;
+            if (!Collided(mCenter + dist * mUp))
+                mCenter += dist * mUp;
             valid();
             //  valid();
         }
