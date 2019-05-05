@@ -115,21 +115,23 @@ namespace Graphics
         {
 
             building = new Model3D();
-            building.LoadFile(projectPath + "\\ModelFiles\\static\\building", "Building 02.obj", 1);
-            building.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
-            building.transmatrix = glm.translate(new mat4(1), new vec3(1, 1, 1));
-            Obstacles.Add(new Obstacle(building, new vec3(1, 1, 1), 1000));
+            building.LoadFile(projectPath + "\\ModelFiles\\obt", "City_House_2_BI.fbx", 1);
+            building.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            building.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
+            building.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 1));
+            Obstacles.Add(new Obstacle(building, new vec3(1, -400, 1), 1000));
 
             building2 = new Model3D();
-            building2.LoadFile(projectPath + "\\ModelFiles\\M4", "guard post.3ds", 10);
+            building2.LoadFile(projectPath + "\\ModelFiles\\obt", "City_House_2_BI.fbx", 10);
             building2.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
             building2.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
-            building2.transmatrix = glm.translate(new mat4(1), new vec3(10000, 1, 500));
-            Obstacles.Add(new Obstacle(building2, new vec3(10000, 1, 500), 1000));
+            building2.transmatrix = glm.translate(new mat4(1), new vec3(10000, -400, 500));
+            Obstacles.Add(new Obstacle(building2, new vec3(10000, -400, 500), 1000));
 
             house = new Model3D();
-            house.LoadFile(projectPath + "\\ModelFiles\\static\\House", "house.obj", 1);
-            house.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
+            house.LoadFile(projectPath + "\\ModelFiles\\obt", "City_House_2_BI.fbx", 10);
+            house.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            house.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
             house.transmatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
             Obstacles.Add(new Obstacle(house, new vec3(4000, -400, 4000), 1000));
 
@@ -286,11 +288,11 @@ namespace Graphics
             });
 
             InitializeObstacles();
-    
-            createNewZombie(1, 1, 1, 10);
-            createNewZombie(4000, -400, 4000, 10);
-            createNewZombie(1000, -400, 1031, 10);
-            createNewZombie(10000, 1, 500, 20);
+           
+            createNewZombie(-8864, -400, 5322, 10);
+            createNewZombie(14000, -400, 4000, 10);
+            createNewZombie(15000, -400, 1031, 10);
+            createNewZombie(8540, -400, 10363, 20);
             
             Gl.glClearColor(0, 0, 0, 1);
             
