@@ -36,7 +36,7 @@ namespace Graphics
         Model3D building, house, building2, m, car, scar, Lara, tree, tree1;
         mat4 ProjectionMatrix, ViewMatrix, down, up, left, right, front, back;
 
-        Texture hp;
+        Texture hp , ehp;
         Texture bhp;
         uint hpID;
         mat4 healthbar;
@@ -196,6 +196,7 @@ namespace Graphics
             bk = new Texture(projectPath + "\\Textures\\sandcastle_bk.png", 2, true);
             shoot = new Texture(projectPath + "\\Textures\\gunshot.png", 5 , true);
             hp = new Texture(projectPath + "\\Textures\\HP.bmp", 9,true);
+            ehp = new Texture(projectPath + "\\Textures\\ehp.jpg", 9, true);
             bhp = new Texture(projectPath + "\\Textures\\BackHP.bmp", 10,true);
             sh.UseShader();
 
@@ -423,7 +424,7 @@ namespace Graphics
             
             for (int i = 0; i < zombiebars.Count; i++)
             {
-                create_square(zombiebars[i], hp);
+                create_square(zombiebars[i], ehp);
             }
 
             Gl.glDepthFunc(Gl.GL_LEQUAL);
@@ -494,7 +495,7 @@ namespace Graphics
                     zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(x,y,z));
                     zombiebars[i] = MathHelper.MultiplyMatrices(new List<mat4>() {
                          glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
-                         glm.rotate(-90 / 180.0f * 3.1412f , new vec3(1,0,0))
+                    //    glm.rotate(-90 / 180.0f * 3.1412f , new vec3(1,0,0))
                          });
                      
                 }
