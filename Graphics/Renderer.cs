@@ -32,9 +32,19 @@ namespace Graphics
         public List<vec3> positions = new List<vec3>();
         public List<md2LOL> zombie = new List<md2LOL>();
         public List<Model3D> bullets = new List<Model3D>();
-        
+        public List<mat4> zombiebars = new List<mat4>();
         Model3D building, house, building2, m, car, scar, Lara, tree, tree1;
         mat4 ProjectionMatrix, ViewMatrix, down, up, left, right, front, back;
+
+        Texture hp;
+        Texture bhp;
+        uint hpID;
+        mat4 healthbar;
+        mat4 backhealthbar;
+        Shader shader2D;
+        int mloc;
+        float scalef;
+
         public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public void createNewZombie(int x, int y, int z, int s)
         {
@@ -45,6 +55,9 @@ namespace Graphics
             tmp.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
             tmp.scaleMatrix = glm.scale(new mat4(1), new vec3(s, s, s));
             tmp.TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
+            mat4 bar = MathHelper.MultiplyMatrices(new List<mat4>() {
+                 glm.scale(new mat4(1), new vec3(0.48f, 0.1f, 1)), glm.translate(new mat4(1), new vec3(x, y+100, z)) });
+            zombiebars.Add(bar);
             zombie.Add(tmp);
         }
 
@@ -170,6 +183,7 @@ namespace Graphics
         public void Initialize()
         {
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+            shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
             sh = new Shader(projectPath + "\\Shaders\\SimpleVertexShader.vertexshader", projectPath + "\\Shaders\\SimpleFragmentShader.fragmentshader");
             dn = new Texture(projectPath + "\\Textures\\sandcastle_dn.png", 2, true);
             lf = new Texture(projectPath + "\\Textures\\sandcastle_lf.png", 2, true);
@@ -178,6 +192,8 @@ namespace Graphics
             ft = new Texture(projectPath + "\\Textures\\sandcastle_ft.png", 2, true);
             bk = new Texture(projectPath + "\\Textures\\sandcastle_bk.png", 2, true);
             shoot = new Texture(projectPath + "\\Textures\\gunshot.png", 5 , true);
+            hp = new Texture(projectPath + "\\Textures\\HP.bmp", 9,true);
+            bhp = new Texture(projectPath + "\\Textures\\BackHP.bmp", 10,true);
             sh.UseShader();
 
             float groundX = 1, groundY = 0, groundZ = 1;
@@ -244,7 +260,35 @@ namespace Graphics
                 1,1,
                 0,1,0
             };
-            
+
+            float[] squarevertices = {
+                -1,1,0,
+                0,0,
+
+                1,-1,0,
+                1,1,
+
+                -1,-1,0,
+                0,1,
+
+                1,1,0,
+                1,0,
+
+                -1,1,0,
+                0,0,
+
+                1,-1,0,
+                1,1
+            };
+            backhealthbar = MathHelper.MultiplyMatrices(new List<mat4>(){
+                glm.scale(new mat4(1), new vec3(0.5f,0.1f, 1)), glm.translate(new mat4(1),new vec3(-0.5f,0.9f,0)) });
+            healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
+                glm.scale(new mat4(1), new vec3(0.48f, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f, 0.9f, 0)) });
+          //  shader2D.UseShader();
+            mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
+            scalef = 1;
+
+            hpID = GPU.GenerateBuffer(squarevertices);
             groundtextBufferID2 = GPU.GenerateBuffer(ground);
             groundtextBufferID1 = GPU.GenerateBuffer(groundTex);
             groundtextBufferID3 = GPU.GenerateBuffer(wallTex);
@@ -292,7 +336,7 @@ namespace Graphics
             createNewZombie(-8864, -400, 5322, 10);
             createNewZombie(14000, -400, 4000, 10);
             createNewZombie(15000, -400, 1031, 10);
-            createNewZombie(8540, -400, 10363, 20);
+            createNewZombie(8540, -400, 10363, 10);
             
             Gl.glClearColor(0, 0, 0, 1);
             
@@ -392,8 +436,36 @@ namespace Graphics
                 z.Draw(transID);
 
             create_shoot();
+            for (int i = 0; i < zombiebars.Count; i++)
+            {
+                Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, zombiebars[i].to_array());
+                hp.Bind();
+                Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+                Gl.glEnable(Gl.GL_DEPTH_TEST);
+
+            }
             Gl.glDisable(Gl.GL_BLEND);
-            scar.Draw(transID);
+
+            Gl.glDisable(Gl.GL_DEPTH_TEST);
+            shader2D.UseShader();
+            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, hpID);
+            Gl.glEnableVertexAttribArray(0);
+            Gl.glVertexAttribPointer(0, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 5 * sizeof(float), (IntPtr)0);
+            Gl.glEnableVertexAttribArray(1);
+            Gl.glVertexAttribPointer(1, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 5 * sizeof(float), (IntPtr)(3 * sizeof(float)));
+            Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, backhealthbar.to_array());
+            bhp.Bind();
+            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+
+            
+            if (scalef < 0)
+                scalef = 0;
+            healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
+                 glm.scale(new mat4(1), new vec3(0.48f*scalef, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f-((1-scalef)*0.48f), 0.9f, 0)) });
+            Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, healthbar.to_array());
+            hp.Bind();
+            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+            Gl.glEnable(Gl.GL_DEPTH_TEST);
         }
         public void Update(float deltaTime)
         {
@@ -408,12 +480,14 @@ namespace Graphics
                 float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
                 dir.x /= dis;
                 dir.y /= dis;
-                if (dis <= 200)
+                if (dis <= 500)
                 {
                     if (zombie[i].animSt.type != animType_LOL.ATTACK1)
                         zombie[i].StartAnimation(animType_LOL.ATTACK1);
+                    scalef -= 0.0005f;
+                   
                 }
-                else if (dis < 1000)
+                else if (dis < 2500)
                 {
                     vec3 t = new vec3(dir.x + positions[i].x ,positions[i].y ,dir.y + positions[i].z);
                     round(zombie[i], cam.mAngleX);
