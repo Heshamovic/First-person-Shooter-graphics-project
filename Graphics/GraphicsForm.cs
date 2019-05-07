@@ -128,7 +128,9 @@ namespace Graphics
 
         private void button8_Click(object sender, EventArgs e)
         {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.DEATH);
+            start form = new start();
+            this.Hide();
+            form.Show();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

@@ -44,7 +44,7 @@ namespace Graphics
         Shader shader2D;
         int mloc;
         float scalef;
-
+        System.Media.SoundPlayer p1;
         public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public void createNewZombie(int x, int y, int z, int s)
         {
@@ -482,26 +482,30 @@ namespace Graphics
                     if (zombie[i].animSt.type != animType_LOL.ATTACK1)
                         zombie[i].StartAnimation(animType_LOL.ATTACK1);
                     scalef -= 0.0005f;
-                   
+                  
+                    
                 }
                 else if (dis < 2500)
                 {
-                    vec3 t = new vec3(dir.x + positions[i].x ,positions[i].y ,dir.y + positions[i].z);
+                    vec3 t = new vec3(dir.x + positions[i].x, positions[i].y, dir.y + positions[i].z);
                     round(zombie[i], cam.mAngleX);
-                    positions[i] = t ;
-                    float x = positions[i].x,  y = positions[i].y , z = positions[i].z;
-                    if(zombie[i].animSt.type != animType_LOL.RUN)
-                     zombie[i].StartAnimation(animType_LOL.RUN);
-                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(x,y,z));
+                    positions[i] = t;
+                    float x = positions[i].x, y = positions[i].y, z = positions[i].z;
+                    if (zombie[i].animSt.type != animType_LOL.RUN)
+                        zombie[i].StartAnimation(animType_LOL.RUN);
+                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
                     zombiebars[i] = MathHelper.MultiplyMatrices(new List<mat4>() {
                          glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
                     //    glm.rotate(-90 / 180.0f * 3.1412f , new vec3(1,0,0))
                          });
-                     
+                   
+
                 }
                 else
+                {
                     if (zombie[i].animSt.type != animType_LOL.STAND)
                         zombie[i].StartAnimation(animType_LOL.STAND);
+                }
 
                 zombie[i].UpdateAnimation();
             }
