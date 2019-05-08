@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 namespace Graphics
 {
     class Camera
@@ -99,19 +99,26 @@ namespace Graphics
 
         public void Walk(float dist)
         {
-            mCenter += dist * mDirection;
+            
+           if(!Collided(mCenter + dist * mDirection))
+                mCenter += dist * mDirection;
+
             valid();
+            valid1();
         }
         public void Strafe(float dist)
         {
-            mCenter += dist * mRight;
+            if (!Collided(mCenter + dist * mRight))
+                 mCenter += dist * mRight;
             valid();
+            valid1();
         }
         public void Fly(float dist)
         {
-            mCenter += dist * mUp;
+            if (!Collided(mCenter + dist * mUp))
+                mCenter += dist * mUp;
             valid();
-            //  valid();
+            valid1();
         }
         public void valid()
         {
@@ -127,6 +134,38 @@ namespace Graphics
                 mCenter.z = 24200;
             if (mCenter.z < -24200)
                 mCenter.z = -24200;
+        }
+        public void valid1()
+        {
+            if (mPosition.y > 500)
+                mPosition.y = 500;
+            if (mPosition.y < 5)
+                mPosition.y = 5;
+            if (mPosition.x > 24200)
+                mPosition.x = 24200;
+            if (mPosition.x < -24200)
+                mPosition.x = -24200;
+            if (mPosition.z > 24200)
+                mPosition.z = 24200;
+            if (mPosition.z < -24200)
+                mPosition.z = -24200;
+        }
+
+        double calc_distance(vec3 first, vec3 second)
+        {
+            return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.y - second.y), 2) + Math.Pow((first.z - second.z), 2));
+        }
+        public bool Collided(vec3 Center)
+        {
+            for (int i = 0; i < Renderer.Obstacles.Count; i++)
+            {
+                vec3 curpos = Renderer.Obstacles[i].position;
+                //MessageBox.Show("el distance = " + calc_distance(curpos, mCenter).ToString() +  "el radius = " + Renderer.Obstacles[i].radius.ToString());
+                if (calc_distance(curpos, Center) < Renderer.Obstacles[i].radius)
+                    return true;
+            }
+
+            return false;
         }
     }
 }

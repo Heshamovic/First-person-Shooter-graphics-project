@@ -78,6 +78,7 @@ namespace Graphics._3D_Models
         MAX_ANIMATIONS
 
     }
+
     struct anim_t
     {
 
