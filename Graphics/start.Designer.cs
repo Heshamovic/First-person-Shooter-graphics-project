@@ -80,7 +80,7 @@
             this.bunifuCheckbox1.Checked = true;
             this.bunifuCheckbox1.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(205)))), ((int)(((byte)(117)))));
             this.bunifuCheckbox1.ForeColor = System.Drawing.Color.White;
-            this.bunifuCheckbox1.Location = new System.Drawing.Point(733, 390);
+            this.bunifuCheckbox1.Location = new System.Drawing.Point(724, 385);
             this.bunifuCheckbox1.Name = "bunifuCheckbox1";
             this.bunifuCheckbox1.Size = new System.Drawing.Size(20, 20);
             this.bunifuCheckbox1.TabIndex = 2;
@@ -91,12 +91,13 @@
             this.bunifuCustomTextbox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.bunifuCustomTextbox1.BorderColor = System.Drawing.Color.Lime;
             this.bunifuCustomTextbox1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuCustomTextbox1.Location = new System.Drawing.Point(659, 377);
+            this.bunifuCustomTextbox1.Location = new System.Drawing.Point(640, 377);
             this.bunifuCustomTextbox1.Multiline = true;
             this.bunifuCustomTextbox1.Name = "bunifuCustomTextbox1";
-            this.bunifuCustomTextbox1.Size = new System.Drawing.Size(68, 33);
+            this.bunifuCustomTextbox1.Size = new System.Drawing.Size(78, 33);
             this.bunifuCustomTextbox1.TabIndex = 3;
             this.bunifuCustomTextbox1.Text = "Sound";
+            this.bunifuCustomTextbox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // start
             // 
