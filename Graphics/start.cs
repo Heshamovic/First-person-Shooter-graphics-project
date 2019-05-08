@@ -16,12 +16,13 @@ namespace Graphics
     {
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         System.Media.SoundPlayer player;
+        bool play = true;
         public start()
         {
             InitializeComponent();
             player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\Prayer.wav");
             player.Play();
-
+  
         }
 
         private void bunifuImageButton1_Click(object sender, EventArgs e)
@@ -41,6 +42,20 @@ namespace Graphics
         private void bunifuImageButton2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void bunifuCheckbox1_OnChange(object sender, EventArgs e)
+        {
+            if (play == true)
+            {
+                player.Stop();
+                play = false;
+            }
+            else
+            {
+                player.Play();
+                play = true;
+            }
         }
     }
 }
