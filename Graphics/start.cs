@@ -37,7 +37,11 @@ namespace Graphics
             t.Abort();
             player.Stop();
         }
-        
+        public void letsShow(object sender, FormClosingEventArgs e)
+        {
+            this.Show();
+        }
+
         private void bunifuImageButton2_Click(object sender, EventArgs e)
         {
             this.Close();

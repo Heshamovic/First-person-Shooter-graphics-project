@@ -53,7 +53,7 @@
             this.simpleOpenGlControl1.Location = new System.Drawing.Point(0, 0);
             this.simpleOpenGlControl1.Margin = new System.Windows.Forms.Padding(2);
             this.simpleOpenGlControl1.Name = "simpleOpenGlControl1";
-            this.simpleOpenGlControl1.Size = new System.Drawing.Size(615, 422);
+            this.simpleOpenGlControl1.Size = new System.Drawing.Size(1227, 789);
             this.simpleOpenGlControl1.StencilBits = ((byte)(0));
             this.simpleOpenGlControl1.TabIndex = 0;
             this.simpleOpenGlControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.simpleOpenGlControl1_Paint);
@@ -64,7 +64,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(619, 76);
+            this.label5.Location = new System.Drawing.Point(1231, 62);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 13);
@@ -73,7 +73,7 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(661, 76);
+            this.textBox5.Location = new System.Drawing.Point(1273, 62);
             this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(102, 20);
@@ -121,7 +121,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(650, 25);
+            this.button8.Location = new System.Drawing.Point(1262, 11);
             this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(113, 32);
@@ -133,7 +133,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(619, 106);
+            this.label1.Location = new System.Drawing.Point(1231, 92);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 13);
@@ -142,7 +142,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(661, 106);
+            this.textBox1.Location = new System.Drawing.Point(1273, 92);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(102, 20);
@@ -152,7 +152,7 @@
             // 
             // pos
             // 
-            this.pos.Location = new System.Drawing.Point(663, 131);
+            this.pos.Location = new System.Drawing.Point(1275, 117);
             this.pos.Name = "pos";
             this.pos.Size = new System.Drawing.Size(100, 20);
             this.pos.TabIndex = 24;
@@ -161,7 +161,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(765, 422);
+            this.ClientSize = new System.Drawing.Size(1386, 750);
             this.Controls.Add(this.pos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
