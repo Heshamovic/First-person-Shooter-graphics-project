@@ -39,16 +39,17 @@
             // bunifuImageButton1
             // 
             this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton1.BackgroundImage = global::Graphics.Properties.Resources.power_button_on;
             this.bunifuImageButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuImageButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bunifuImageButton1.ErrorImage = null;
             this.bunifuImageButton1.Image = global::Graphics.Properties.Resources.power_button_on;
             this.bunifuImageButton1.ImageActive = global::Graphics.Properties.Resources.power_button_on;
             this.bunifuImageButton1.InitialImage = null;
-            this.bunifuImageButton1.Location = new System.Drawing.Point(595, 86);
+            this.bunifuImageButton1.Location = new System.Drawing.Point(585, 81);
             this.bunifuImageButton1.Name = "bunifuImageButton1";
-            this.bunifuImageButton1.Size = new System.Drawing.Size(76, 67);
-            this.bunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton1.Padding = new System.Windows.Forms.Padding(10);
+            this.bunifuImageButton1.Size = new System.Drawing.Size(86, 83);
+            this.bunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.bunifuImageButton1.TabIndex = 0;
             this.bunifuImageButton1.TabStop = false;
             this.bunifuImageButton1.Zoom = 10;
@@ -57,15 +58,16 @@
             // bunifuImageButton2
             // 
             this.bunifuImageButton2.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton2.BackgroundImage = global::Graphics.Properties.Resources.Button_Close_icon;
             this.bunifuImageButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuImageButton2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bunifuImageButton2.ErrorImage = null;
             this.bunifuImageButton2.Image = global::Graphics.Properties.Resources.Button_Close_icon;
             this.bunifuImageButton2.ImageActive = global::Graphics.Properties.Resources.Button_Close_icon;
-            this.bunifuImageButton2.Location = new System.Drawing.Point(595, 170);
+            this.bunifuImageButton2.Location = new System.Drawing.Point(585, 170);
             this.bunifuImageButton2.Name = "bunifuImageButton2";
-            this.bunifuImageButton2.Size = new System.Drawing.Size(76, 67);
-            this.bunifuImageButton2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton2.Padding = new System.Windows.Forms.Padding(10);
+            this.bunifuImageButton2.Size = new System.Drawing.Size(86, 84);
+            this.bunifuImageButton2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.bunifuImageButton2.TabIndex = 1;
             this.bunifuImageButton2.TabStop = false;
             this.bunifuImageButton2.Zoom = 10;
@@ -78,7 +80,7 @@
             this.bunifuCheckbox1.Checked = true;
             this.bunifuCheckbox1.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(205)))), ((int)(((byte)(117)))));
             this.bunifuCheckbox1.ForeColor = System.Drawing.Color.White;
-            this.bunifuCheckbox1.Location = new System.Drawing.Point(733, 390);
+            this.bunifuCheckbox1.Location = new System.Drawing.Point(724, 385);
             this.bunifuCheckbox1.Name = "bunifuCheckbox1";
             this.bunifuCheckbox1.Size = new System.Drawing.Size(20, 20);
             this.bunifuCheckbox1.TabIndex = 2;
@@ -89,12 +91,13 @@
             this.bunifuCustomTextbox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.bunifuCustomTextbox1.BorderColor = System.Drawing.Color.Lime;
             this.bunifuCustomTextbox1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuCustomTextbox1.Location = new System.Drawing.Point(659, 377);
+            this.bunifuCustomTextbox1.Location = new System.Drawing.Point(640, 377);
             this.bunifuCustomTextbox1.Multiline = true;
             this.bunifuCustomTextbox1.Name = "bunifuCustomTextbox1";
-            this.bunifuCustomTextbox1.Size = new System.Drawing.Size(68, 33);
+            this.bunifuCustomTextbox1.Size = new System.Drawing.Size(78, 33);
             this.bunifuCustomTextbox1.TabIndex = 3;
             this.bunifuCustomTextbox1.Text = "Sound";
+            this.bunifuCustomTextbox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // start
             // 
@@ -107,7 +110,9 @@
             this.Controls.Add(this.bunifuCheckbox1);
             this.Controls.Add(this.bunifuImageButton2);
             this.Controls.Add(this.bunifuImageButton1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "start";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "start";
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton2)).EndInit();
