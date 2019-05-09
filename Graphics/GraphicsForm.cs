@@ -15,7 +15,6 @@ namespace Graphics
         float deltaTime, prevX, prevY;
         public GraphicsForm()
         {
-
             InitializeComponent();
             simpleOpenGlControl1.InitializeContexts();
             MoveCursor();
@@ -23,7 +22,6 @@ namespace Graphics
             deltaTime = 0.005f;
             MainLoopThread = new Thread(MainLoop);
             MainLoopThread.Start();
-
         }
         void initialize()
         {
@@ -128,7 +126,9 @@ namespace Graphics
 
         private void button8_Click(object sender, EventArgs e)
         {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.DEATH);
+            start form = new start();
+            this.Hide();
+            form.Show();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
