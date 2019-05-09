@@ -9,11 +9,13 @@ namespace Graphics
 {
     class Camera
     {
+        public static List<vec3> BulletsCurPos = new List<vec3>();
+        public static List<vec3> BulletsDir = new List<vec3>();
         public float mAngleX = 0;
         public float mAngleY = 0;
-        vec3 mDirection;
-      public  vec3 mPosition;
+        public vec3 mPosition;
         public vec3 mCenter;
+        vec3 mDirection;
         vec3 mRight;
         vec3 mUp;
         mat4 mViewMatrix;
@@ -67,11 +69,32 @@ namespace Graphics
         {
             mCenter.y = y;
         }
+
+
+        public void shoot()
+        {
+            BulletsCurPos.Add(mCenter);
+            BulletsDir.Add(mDirection);
+            //MessageBox.Show("el x " + mDirection.x.ToString() + " el y " + mDirection.y.ToString() + " el z " + mDirection.z.ToString());
+        }
+
+        public void MoveBullets()
+        {
+            for(int i = 0; i < BulletsCurPos.Count; i++)
+            {
+                BulletsCurPos[i] += (BulletsDir[i] * new vec3(100f, 100f, 100f));
+
+                if (KillZombies(BulletsCurPos[i]) || CollidedWithObstacle(BulletsCurPos[i]) || !ValidBullet(BulletsCurPos[i]))
+                    BulletsCurPos.RemoveAt(i);
+            }
+        }
+
         public void UpdateViewMatrix()
         {
-            mDirection = new vec3((float)(-Math.Cos(mAngleY) * Math.Sin(mAngleX))
-                , (float)(Math.Sin(mAngleY))
-                , (float)(-Math.Cos(mAngleY) * Math.Cos(mAngleX)));
+            mDirection = new vec3((float)(-Math.Cos(mAngleY) * Math.Sin(mAngleX)) 
+                , (float)(Math.Sin(mAngleY)) 
+                , (float)(-Math.Cos(mAngleY) * Math.Cos(mAngleX)) 
+                );
             mRight = glm.cross(mDirection, new vec3(0, 1, 0));
             mUp = glm.cross(mRight, mDirection);
 
@@ -81,6 +104,7 @@ namespace Graphics
 
             mViewMatrix = glm.lookAt(mPosition, mCenter, mUp);
         }
+
         public void SetProjectionMatrix(float FOV, float aspectRatio, float near, float far)
         {
             mProjectionMatrix = glm.perspective(FOV, aspectRatio, near, far);
@@ -100,28 +124,27 @@ namespace Graphics
         public void Walk(float dist)
         {
             
-           if(!Collided(mCenter + dist * mDirection))
+           if(!CollidedWithObstacle(mCenter + dist * mDirection))
                 mCenter += dist * mDirection;
 
             valid();
         }
         public void Strafe(float dist)
         {
-            if (!Collided(mCenter + dist * mRight))
+            if (!CollidedWithObstacle(mCenter + dist * mRight))
                  mCenter += dist * mRight;
             valid();
         }
         public void Fly(float dist)
         {
-            if (!Collided(mCenter + dist * mUp))
+            if (!CollidedWithObstacle(mCenter + dist * mUp))
                 mCenter += dist * mUp;
             valid();
-            //  valid();
         }
         public void valid()
         {
-            if (mCenter.y > 500)
-                mCenter.y = 500;
+            if (mCenter.y > 50)
+                mCenter.y = 50;
             if (mCenter.y < 5)
                 mCenter.y = 5;
             if (mCenter.x > 24200)
@@ -134,11 +157,17 @@ namespace Graphics
                 mCenter.z = -24200;
         }
 
+        public bool ValidBullet(vec3 mCenter)
+        {
+            return !( (mCenter.y > 25000) || (mCenter.y < -500)  || (mCenter.x > 24200) || (mCenter.x < -24200) || (mCenter.z > 24200) || (mCenter.z < -24200) );
+        }
+
         double calc_distance(vec3 first, vec3 second)
         {
             return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.y - second.y), 2) + Math.Pow((first.z - second.z), 2));
         }
-        public bool Collided(vec3 mCenter)
+
+        public bool CollidedWithObstacle(vec3 mCenter)
         {
             for (int i = 0; i < Renderer.Obstacles.Count; i++)
             {
@@ -147,6 +176,27 @@ namespace Graphics
                 if (calc_distance(curpos, mCenter) < Renderer.Obstacles[i].radius)
                     return true;
             }
+
+            return false;
+        }
+
+        public bool KillZombies(vec3 mCenter)
+        {
+            double mindist = 89553131313f;
+            for (int i = 0; i < Renderer.positions.Count; i++)
+            {
+                vec3 curpos = Renderer.positions[i];
+                mindist = Math.Min(calc_distance(curpos, mCenter), mindist);
+                if (calc_distance(curpos, mCenter) < 1000)
+                {
+                    Renderer.positions.RemoveAt(i);
+                    Renderer.zombie.RemoveAt(i);
+                    Renderer.zombiebars.RemoveAt(i);
+                    return true;
+                }
+
+            }
+                MessageBox.Show(mindist.ToString());
 
             return false;
         }

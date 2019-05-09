@@ -29,10 +29,9 @@ namespace Graphics
         Texture dn, upp, lf, rt, bk, ft, shoot;
         int AmbientLightID, DataID;
         public md2LOL blade, blade1, blade2, fofa;
-        public List<vec3> positions = new List<vec3>();
-        public List<md2LOL> zombie = new List<md2LOL>();
-        public List<Model3D> bullets = new List<Model3D>();
-        public List<mat4> zombiebars = new List<mat4>();
+        public static List<vec3> positions = new List<vec3>();
+        public static List<md2LOL> zombie = new List<md2LOL>();
+        public static List<mat4> zombiebars = new List<mat4>();
         Model3D building, house, building2, m, car, scar, Lara, tree, tree1;
         mat4 ProjectionMatrix, ViewMatrix, down, up, left, right, front, back;
 
@@ -56,10 +55,8 @@ namespace Graphics
             tmp.scaleMatrix = glm.scale(new mat4(1), new vec3(s, s, s));
             tmp.TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
             mat4 bar = MathHelper.MultiplyMatrices(new List<mat4>() {
-                 glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
-                    
-                    
-                    });
+                 glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y + 750, z)),        
+            });
             zombiebars.Add(bar);
             zombie.Add(tmp);
         }
@@ -482,9 +479,8 @@ namespace Graphics
                     if (zombie[i].animSt.type != animType_LOL.ATTACK1)
                         zombie[i].StartAnimation(animType_LOL.ATTACK1);
                     scalef -= 0.0005f;
-                  
-                    
                 }
+
                 else if (dis < 2500)
                 {
                     vec3 t = new vec3(dir.x + positions[i].x, positions[i].y, dir.y + positions[i].z);
@@ -499,7 +495,6 @@ namespace Graphics
                     //    glm.rotate(-90 / 180.0f * 3.1412f , new vec3(1,0,0))
                          });
                    
-
                 }
                 else
                 {
@@ -510,6 +505,8 @@ namespace Graphics
                 zombie[i].UpdateAnimation();
             }
 
+            
+            cam.MoveBullets();
             
         }
 

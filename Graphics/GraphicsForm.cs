@@ -36,7 +36,7 @@ namespace Graphics
                 renderer.Draw();
                 renderer.Update(deltaTime);
                 simpleOpenGlControl1.Refresh();
-                textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
+                //textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
                 pos.Text = ((int)renderer.cam.mPosition.x).ToString() + " " + ((int)renderer.cam.mPosition.y).ToString() + " " + ((int)renderer.cam.mPosition.z).ToString();
             }
         }
@@ -71,6 +71,8 @@ namespace Graphics
             {
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Environment.CurrentDirectory + "\\shot.wav");
                 player.Play();
+                renderer.cam.shoot();
+                
             }
             label6.Text = "X: " + renderer.cam.GetCameraPosition().x;
             label7.Text = "Y: " + renderer.cam.GetCameraPosition().y;
@@ -96,51 +98,51 @@ namespace Graphics
             MoveCursor();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.STAND);
-        }
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.STAND);
+        //}
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK1);
-        }
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+        //    renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK1);
+        //}
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK2);
-        }
+        //private void button4_Click(object sender, EventArgs e)
+        //{
+        //    renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK2);
+        //}
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.RUN);
-        }
+        //private void button5_Click(object sender, EventArgs e)
+        //{
+        //    renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.RUN);
+        //}
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL1);
-        }
+        //private void button6_Click(object sender, EventArgs e)
+        //{
+        //    renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL1);
+        //}
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL2);
-        }
+        //private void button7_Click(object sender, EventArgs e)
+        //{
+        //    renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL2);
+        //}
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-            start form = new start();
-            this.Hide();
-            form.Show();
-        }
+        //private void button8_Click(object sender, EventArgs e)
+        //{
+        //    start form = new start();
+        //    this.Hide();
+        //    form.Show();
+        //}
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            float res = 0;
-            if (float.TryParse(textBox1.Text,out res))
-            {
-                renderer.zombie[0].AnimationSpeed = res;
-            }
-        }
+        //private void textBox1_TextChanged(object sender, EventArgs e)
+        //{
+        //    float res = 0;
+        //    if (float.TryParse(textBox1.Text,out res))
+        //    {
+        //        renderer.zombie[0].AnimationSpeed = res;
+        //    }
+        //}
 
 
         private void MoveCursor()
@@ -159,6 +161,7 @@ namespace Graphics
             renderer.cam.mAngleY += 0.1f;
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\shot.wav");
             player.Play();
+            renderer.cam.shoot();
         }
     }
 }
