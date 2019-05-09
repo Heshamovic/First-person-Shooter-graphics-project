@@ -35,7 +35,7 @@ namespace Graphics
                 renderer.Update(deltaTime);
                 simpleOpenGlControl1.Refresh();
                 textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
-                pos.Text = ((int)renderer.cam.mPosition.x).ToString() + " " + ((int)renderer.cam.mPosition.y).ToString() + " " + ((int)renderer.cam.mPosition.z).ToString();
+                pos.Text = ((int)renderer.cam.mCenter.x).ToString() + " " + ((int)renderer.cam.mCenter.y).ToString() + " " + ((int)renderer.cam.mCenter.z).ToString();
             }
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -153,16 +153,20 @@ namespace Graphics
 
         double calc_distance(vec3 first, vec3 second)
         {
-            return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.y - second.y), 2) + Math.Pow((first.z - second.z), 2));
+            return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.z - second.z), 2));
         }
         public bool Collided(vec3 Center)
         {
             for (int i = 0; i < Renderer.Obstacles.Count; i++)
             {
                 vec3 curpos = Renderer.Obstacles[i].position;
-                //MessageBox.Show("el distance = " + calc_distance(curpos, mCenter).ToString() +  "el radius = " + Renderer.Obstacles[i].radius.ToString());
+              /*  MessageBox.Show("el distance = " + calc_distance(curpos, Center).ToString() + "\nel radius = " + Renderer.Obstacles[i].radius.ToString()
+                        + "\nel center " + Center.x + ' ' + Center.y + ' ' + Center.z + "\n el obstacle " + Renderer.Obstacles[i].position.x + ' '
+                        + Renderer.Obstacles[i].position.y + ' ' + Renderer.Obstacles[i].position.z);*/
                 if (calc_distance(curpos, Center) < Renderer.Obstacles[i].radius)
+                {
                     return true;
+                }
             }
 
             return false;

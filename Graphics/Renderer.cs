@@ -340,7 +340,7 @@ namespace Graphics
             Gl.glClearColor(0, 0, 0, 1);
             
             cam = new Camera();
-            cam.Reset(555, 34, 55, 11000, 50, 11000, 0, 1, 0);
+            cam.Reset(555, 34, 55, 5000, -400, 4000, 0, 1, 0);
 
 
             DataID = Gl.glGetUniformLocation(sh.ID, "data");
