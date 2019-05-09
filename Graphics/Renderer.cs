@@ -8,80 +8,205 @@ using Tao.OpenGl;
 using GlmNet;
 using System.IO;
 using Graphics._3D_Models;
+using System.Windows.Forms;
+
 namespace Graphics
 {
     class Renderer
     {
+        public static List<Obstacle> Obstacles = new List<Obstacle>();
         Shader sh;
         uint groundtextBufferID2;
         uint groundtextBufferID1;//grass
         uint groundtextBufferID3;//wall
         uint groundtextBufferID4;//sky
-        Texture dn , upp , lf , rt , bk , ft ;
-        int modelID;
-        int viewID;
-        int projID;
-        int transID;
-
-        int EyePositionID;
-        int AmbientLightID;
-        int DataID;
-
-        mat4 ProjectionMatrix;
-        mat4 ViewMatrix;
-        mat4 down , up , left , right , front , back;
+        uint ShootID;
+        int viewID, projID, transID, EyePositionID, tmp = 0, c = 0, timer = 5;
         vec3 playerPos;
-
+        public Camera cam;
         public float Speed = 1;
-
-        Model3D building , house, building2 , m;
-        Model3D car, scar, Lara;
-        Model3D tree , tree1;
-        public List<md2LOL> zombie = new List<md2LOL>();
+        public bool draw = false;
+        Texture dn, upp, lf, rt, bk, ft, shoot;
+        int AmbientLightID, DataID;
         public md2LOL blade, blade1, blade2, fofa;
         public List<vec3> positions = new List<vec3>();
+        public List<md2LOL> zombie = new List<md2LOL>();
+        public List<Model3D> bullets = new List<Model3D>();
+        public List<mat4> zombiebars = new List<mat4>();
+        Model3D building, house, building2, m, car, scar, Lara, tree, tree1;
+        mat4 ProjectionMatrix, ViewMatrix, down, up, left, right, front, back;
 
-        public Camera cam;
+        Texture hp , ehp;
+        Texture bhp;
+        uint hpID;
+        mat4 healthbar;
+        mat4 backhealthbar;
+        Shader shader2D;
+        int mloc;
+        float scalef;
+        System.Media.SoundPlayer p1;
+        public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public void createNewZombie(int x, int y, int z, int s)
         {
             positions.Add(new vec3(x, y, z));
-            string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
             md2LOL tmp;
             tmp = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
             tmp.StartAnimation(animType_LOL.STAND);
             tmp.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
             tmp.scaleMatrix = glm.scale(new mat4(1), new vec3(s, s, s));
             tmp.TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
+            mat4 bar = MathHelper.MultiplyMatrices(new List<mat4>() {
+                 glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
+                    
+                    
+                    });
+            zombiebars.Add(bar);
             zombie.Add(tmp);
         }
-        public void Initialize()
+
+        public void createBullet()
+        {
+            Model3D bullet = new Model3D();
+            bullet.LoadFile(projectPath + "\\ModelFiles\\static\\bullet", "bullet.obj", 1);
+            bullet.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
+            bullet.transmatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
+        }
+
+        public void create_square(mat4 arr, Texture tex)
+        {
+            tex.Bind();
+            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, arr.to_array());
+            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+
+        }
+        public void round(md2LOL zombie,float angle)
+        {
+            zombie.rotationMatrix = MathHelper.MultiplyMatrices(new List<mat4>()
+            {
+                glm.rotate(90.0f * 180.0f / 3.1412f, new vec3(1, 0, 0)),glm.rotate(+angle,new vec3(0,1,0))
+             });
+
+        }
+        public void create_shoot()
+        {
+            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, ShootID);
+            Gl.glEnableVertexAttribArray(0);
+            Gl.glVertexAttribPointer(0, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)0);
+
+            Gl.glEnableVertexAttribArray(1);
+            Gl.glVertexAttribPointer(1, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(3 * sizeof(float)));
+
+            Gl.glEnableVertexAttribArray(2);
+            Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(6 * sizeof(float)));
+
+            Gl.glEnableVertexAttribArray(3);
+            Gl.glVertexAttribPointer(3, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 11 * sizeof(float), (IntPtr)(8 * sizeof(float)));
+
+            shoot.Bind();
+            vec3 shootpos = cam.GetCameraTarget();
+            shootpos.y -= 1.5f;
+            shootpos += cam.GetLookDirection() * 8;
+
+            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, MathHelper.MultiplyMatrices(new List<mat4>() { glm.scale(new mat4(1),new vec3(2+(float)c/10,2 + (float)c / 10, 2 + (float)c / 10)),
+                glm.rotate(cam.mAngleX, new vec3(0, 1, 0)),glm.rotate((float)c/10, new vec3(0, 0, 1)),glm.translate(new mat4(1),shootpos),
+            }).to_array());
+            Gl.glEnable(Gl.GL_BLEND);
+            Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
+            if (draw)
+            {
+                cam.mAngleY -= 0.01f;
+                Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+                c--;
+                if (c < 0)
+                {
+                    cam.mAngleY = 0;
+                    c = timer;
+                    draw = false;
+                }
+            }
+        }
+
+
+        public void InitializeObstacles()
         {
 
+            building = new Model3D();
+            building.LoadFile(projectPath + "\\ModelFiles\\obt", "City_House_2_BI.fbx", 1);
+            building.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            building.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
+            building.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 1));
+            Obstacles.Add(new Obstacle(building, new vec3(1, -400, 1), 1000));
+
+            building2 = new Model3D();
+            building2.LoadFile(projectPath + "\\ModelFiles\\obt", "City_House_2_BI.fbx", 10);
+            building2.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            building2.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
+            building2.transmatrix = glm.translate(new mat4(1), new vec3(10000, -400, 500));
+            Obstacles.Add(new Obstacle(building2, new vec3(10000, -400, 500), 1000));
+
+            house = new Model3D();
+            house.LoadFile(projectPath + "\\ModelFiles\\obt", "City_House_2_BI.fbx", 10);
+            house.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            house.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
+            house.transmatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
+            Obstacles.Add(new Obstacle(house, new vec3(4000, -400, 4000), 1000));
+
+            tree = new Model3D();
+            tree.LoadFile(projectPath + "\\ModelFiles\\static\\tree", "tree.obj", 4);
+            tree.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
+            tree.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 2000));
+            Obstacles.Add(new Obstacle(tree, new vec3(1, -400, 2000), 500));
+
+            tree1 = new Model3D();
+            tree1.LoadFile(projectPath + "\\ModelFiles\\static\\tree\\Tree", "Tree.fbx", 22);
+            tree1.scalematrix = glm.scale(new mat4(1), new vec3(200, 200, 200));
+            tree1.transmatrix = glm.translate(new mat4(1), new vec3(1500, -400, 4000));
+            Obstacles.Add(new Obstacle(tree1, new vec3(1500, -400, 4000), 500));
+
+            Lara = new Model3D();
+            Lara.LoadFile(projectPath + "\\ModelFiles\\Heshambyhbd\\Box", "box.obj", 27);
+            Lara.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
+            Lara.transmatrix = glm.translate(new mat4(1), new vec3(1000, -200, 1231));
+            Obstacles.Add(new Obstacle(Lara, new vec3(1000, -200, 1231), 400));
+
+            car = new Model3D();
+            car.LoadFile(projectPath + "\\ModelFiles\\static\\car", "dpv.obj", 3);
+            car.scalematrix = glm.scale(new mat4(1), new vec3(1, 1, 1));
+            car.transmatrix = glm.translate(new mat4(1), new vec3(-500, 1, -100));
+            car.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
+            Obstacles.Add(new Obstacle(car, new vec3(-500, 1, -100), 600));
+
+            scar = new Model3D();
+            scar.LoadFile(projectPath + "\\ModelFiles\\scar", "Scar-X.obj.obj", 10);
+            scar.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
+            scar.transmatrix = glm.translate(new mat4(1), new vec3(500, 1, 100));
+
+        }
+
+        public void Initialize()
+        {
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+            shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
             sh = new Shader(projectPath + "\\Shaders\\SimpleVertexShader.vertexshader", projectPath + "\\Shaders\\SimpleFragmentShader.fragmentshader");
-            
             dn = new Texture(projectPath + "\\Textures\\sandcastle_dn.png", 2, true);
             lf = new Texture(projectPath + "\\Textures\\sandcastle_lf.png", 2, true);
             rt = new Texture(projectPath + "\\Textures\\sandcastle_rt.png", 2, true);
             upp = new Texture(projectPath + "\\Textures\\sandcastle_up.png", 2, true);
             ft = new Texture(projectPath + "\\Textures\\sandcastle_ft.png", 2, true);
             bk = new Texture(projectPath + "\\Textures\\sandcastle_bk.png", 2, true);
+            shoot = new Texture(projectPath + "\\Textures\\gunshot.png", 5 , true);
+            hp = new Texture(projectPath + "\\Textures\\HP.bmp", 9,true);
+            ehp = new Texture(projectPath + "\\Textures\\ehp.jpg", 9, true);
+            bhp = new Texture(projectPath + "\\Textures\\BackHP.bmp", 10,true);
+            sh.UseShader();
 
-          /*  float[] ground = {
-                -1,0,1,    1,0,0,
-                1,0,1,     1,0,0,
-                -1,0,-1,   1,0,0,
-                1,0,1,     1,0,0,
-                -1,0,-1,   1,0,0,
-                1,0,-1,    1,0,0
-            };*/
             float groundX = 1, groundY = 0, groundZ = 1;
 
             float[] ground = {
                 -groundX, -groundY, groundZ,    1,0,0,
                  groundX, -groundY, -groundZ,   1,0,0,
                 -groundX, -groundY, -groundZ,    1,0,0,
-                                               
+
                  groundX, -groundY, groundZ, 1,0,0,
                 -groundX, -groundY, groundZ, 1,0,0,
                  groundX, -groundY, -groundZ, 1,0,0
@@ -113,152 +238,121 @@ namespace Graphics
                 0,skysize,
                 skysize,0,
             };
+            float[] shootvertices = {
+                -1,1,0,
+                1,0,0,
+                0,0,
+                0,1,0,
+                1,-1,0,
+                0,0,1,
+                1,1,
+                0,1,0,
+                -1,-1,0,
+                0,0,1,
+                0,1,
+                0,1,0,
+                1,1,0,
+                0,0,1,
+                1,0,
+                0,1,0,
+                -1,1,0,
+                0,1,0,
+                0,0,
+                0,1,0,
+                1,-1,0,
+                1,0,0,
+                1,1,
+                0,1,0
+            };
+
+            float[] squarevertices = {
+                -1,1,0,
+                0,0,
+                1,-1,0,
+                1,1,
+                -1,-1,0,
+                0,1,
+                1,1,0,
+                1,0,
+                -1,1,0,
+                0,0,
+                1,-1,0,
+                1,1
+            };
+            backhealthbar = MathHelper.MultiplyMatrices(new List<mat4>(){
+                glm.scale(new mat4(1), new vec3(0.5f,0.1f, 1)), glm.translate(new mat4(1),new vec3(-0.5f,0.9f,0)) });
+            healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
+                glm.scale(new mat4(1), new vec3(0.48f, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f, 0.9f, 0)) });
+          //  shader2D.UseShader();
+            mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
+            scalef = 1;
+
+            hpID = GPU.GenerateBuffer(squarevertices);
             groundtextBufferID2 = GPU.GenerateBuffer(ground);
             groundtextBufferID1 = GPU.GenerateBuffer(groundTex);
             groundtextBufferID3 = GPU.GenerateBuffer(wallTex);
             groundtextBufferID4 = GPU.GenerateBuffer(skyTex);
+            ShootID = GPU.GenerateBuffer(shootvertices);
 
-            // Add a buidling model, file name is "Building 02.obj"
-            // Steps: 
-            // 1- make a new instance of Model3D class, and name the variable as building
-            // 2- load the building object "Building 02.obj"
-            // 3- Add scaling and translation accordingly (for the building most probably you will not need a rotation)
             int sz = 25000;
             down = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.translate(new mat4(1),new vec3(0,-400,0))
-                
             });
             up = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                  glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.translate(new mat4(1),new vec3(0,sz + sz - 450 ,0))
-                
             });
             left = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.rotate(90.0f / 180.0f * 3.1412f, new vec3(0, 0, 1)) ,
                 glm.translate(new mat4(1),new vec3(-sz,sz - 400,0)),
             });
             right = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.rotate(90.0f / 180.0f * 3.1412f, new vec3(0, 0, 1)) ,
                 glm.translate(new mat4(1),new vec3(sz,sz - 400,0))
-                
             });
             front = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.rotate(90.0f / 180.0f * 3.1412f, new vec3(1, 0, 0)) ,
                 glm.translate(new mat4(1),new vec3(0,sz - 400,-sz))
-                
             });
             back = MathHelper.MultiplyMatrices(new List<mat4>()
-            {    
+            {
                 glm.scale(new mat4(1), new vec3(sz, sz, sz)),
                 glm.rotate(90.0f / 180.0f * 3.1412f, new vec3(1, 0, 0)) ,
                 glm.translate(new mat4(1),new vec3(0,sz - 400,sz))
-                
             });
 
-            building = new Model3D();
-            building.LoadFile(projectPath + "\\ModelFiles\\static\\building", "Building 02.obj", 1);
-            building.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
-            building.transmatrix = glm.translate(new mat4(1), new vec3(1, 1, 1));
-
-            building2 = new Model3D();
-            building2.LoadFile(projectPath + "\\ModelFiles\\M4", "guard post.3ds", 10);
-            building2.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
-            building2.scalematrix = glm.scale(new mat4(1), new vec3(400, 400, 800));
-            building2.transmatrix = glm.translate(new mat4(1), new vec3(10000, 1, 500));
-
-            house = new Model3D();
-            house.LoadFile(projectPath + "\\ModelFiles\\static\\House", "house.obj", 1);
-            house.scalematrix = glm.scale(new mat4(1), new vec3(300, 300, 300));
-            house.transmatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
-            ////////////////////
-            //// Similarly Add a tree inside the building, file name is "Tree.obj"
-
-
-            tree = new Model3D();
-            tree.LoadFile(projectPath + "\\ModelFiles\\static\\tree", "tree.obj", 4);
-            tree.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
-            tree.transmatrix = glm.translate(new mat4(1), new vec3(1, -400, 4000));
-
-
-            tree1 = new Model3D();
-            tree1.LoadFile(projectPath + "\\ModelFiles\\static\\tree\\Tree", "Tree.fbx", 22);
-            tree1.scalematrix = glm.scale(new mat4(1), new vec3(200, 200, 200));
-            tree1.transmatrix = glm.translate(new mat4(1), new vec3(1500, -400, 4000));
-
-            Lara = new Model3D();
-            Lara.LoadFile(projectPath + "\\ModelFiles\\Heshambyhbd\\Box", "box.obj", 27);
-            Lara.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
-            Lara.transmatrix = glm.translate(new mat4(1), new vec3(1000, -200, 1231));
-            ////////////////////
-            //// Similarly Add a car outside the building, file name is "dvp.obj"
-
-            car = new Model3D();
-            car.LoadFile(projectPath + "\\ModelFiles\\static\\car", "dpv.obj", 3);
-            car.scalematrix = glm.scale(new mat4(1), new vec3(1, 1, 1));
-            car.transmatrix = glm.translate(new mat4(1), new vec3(-500, 1, -100));
-            car.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
-
-            scar = new Model3D();
-            scar.LoadFile(projectPath + "\\ModelFiles\\scar", "Scar-X.obj.obj", 10);
-            scar.scalematrix = glm.scale(new mat4(1), new vec3(100, 100, 100));
-            scar.transmatrix = glm.translate(new mat4(1), new vec3(500, 1, 500));
-
-            ////////////////////
-            ////////////////////
-            //// Add an animated model, file name is "zombie.md2" with animation: "Stand"
-            /// Steps:
-            // 1- make a new instance of MD2LOL or MD2 class, while instanciating the new model, it loads the model
-            // 2- start animating the object using StartAnimation method which is inside the md2/md2LOL 
-            // 3- Add rotation, scaling and translation accordingly 
-            createNewZombie(1, 1, 1, 10);
-
-            ////////////////////
-            /// Similarly, Add an animated model, file name is "Blade.md2" with animation: "Run"
-
-            //blade = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
-            //blade.StartAnimation(animType_LOL.STAND);
-            //blade.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
-            //blade.scaleMatrix = glm.scale(new mat4(1), new vec3(10, 10, 10));
-            //blade.TranslationMatrix = glm.translate(new mat4(1), new vec3(1, 1, 1));
-            createNewZombie(4000, -400, 4000, 10);
-            //blade1 = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
-            //blade1.StartAnimation(animType_LOL.ATTACK1);
-            //blade1.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
-            //blade1.scaleMatrix = glm.scale(new mat4(1), new vec3(10, 10, 10));
-            //blade1.TranslationMatrix = glm.translate(new mat4(1), new vec3(4000, -400, 4000));
-            createNewZombie(1000, -400, 1031, 10);
-            //blade2 = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
-            //blade2.StartAnimation(animType_LOL.RUN);
-            //blade2.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
-            //blade2.scaleMatrix = glm.scale(new mat4(1), new vec3(10, 10, 10));
-            //blade2.TranslationMatrix = glm.translate(new mat4(1), new vec3(1000, -400, 1031));
-            createNewZombie(10000, 1, 500, 20);
-            //fofa = new md2LOL(projectPath + "\\ModelFiles\\animated\\md2LOL\\zombie.md2");
-            //fofa.StartAnimation(animType_LOL.STAND);
-            //fofa.rotationMatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
-            //fofa.scaleMatrix = glm.scale(new mat4(1), new vec3(20, 20, 20));
-            //fofa.TranslationMatrix = glm.translate(new mat4(1), new vec3(10000, 1, 500));
-            //////////////////////////////////////////////////////////////////////////////
-
+            InitializeObstacles();
+           
+            createNewZombie(-8864, -400, 5322, 10);
+            createNewZombie(14000, -400, 4000, 10);
+            createNewZombie(15000, -400, 1031, 10);
+            createNewZombie(8540, -400, 10363, 10);
+            
             Gl.glClearColor(0, 0, 0, 1);
             
-             
-
-
-
-            
             cam = new Camera();
-            cam.Reset(0, 34, 55, 0, 0, 0, 0, 1, 0);
+            cam.Reset(555, 34, 55, 11000, 50, 11000, 0, 1, 0);
 
+
+            DataID = Gl.glGetUniformLocation(sh.ID, "data");
+            vec2 data = new vec2(40000, 5000);
+            Gl.glUniform2fv(DataID, 1, data.to_array());
+            int LightPositionID = Gl.glGetUniformLocation(sh.ID, "LightPosition_worldspace");
+            vec3 lightPosition = new vec3(0.0f, 1000, 0.0f);
+            Gl.glUniform3fv(LightPositionID, 1, lightPosition.to_array());
+            AmbientLightID = Gl.glGetUniformLocation(sh.ID, "ambientLight");
+            vec3 ambientLight = new vec3(0.5f, 0.58f, 0.58f);
+            Gl.glUniform3fv(AmbientLightID, 1, ambientLight.to_array());
+            EyePositionID = Gl.glGetUniformLocation(sh.ID, "EyePosition_worldspace");
 
             m = new Model3D();
             m.LoadFile(projectPath + "\\ModelFiles\\hands with gun", "gun.obj", 2);
@@ -267,16 +361,12 @@ namespace Graphics
             m.scalematrix = glm.scale(new mat4(1), new vec3(0.2f, 0.2f, 0.2f));
             m.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
             m.transmatrix = glm.translate(new mat4(1), playerPos);
-
-
+            
             ProjectionMatrix = cam.GetProjectionMatrix();
             ViewMatrix = cam.GetViewMatrix();
-
             transID = Gl.glGetUniformLocation(sh.ID, "model");
             projID = Gl.glGetUniformLocation(sh.ID, "projection");
             viewID = Gl.glGetUniformLocation(sh.ID, "view");
-
-            sh.UseShader();
 
 
             Gl.glEnable(Gl.GL_DEPTH_TEST);
@@ -285,10 +375,8 @@ namespace Graphics
 
         public void Draw()
         {
-
-            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT|Gl.GL_DEPTH_BUFFER_BIT);
+            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             sh.UseShader();
-
 
             playerPos = cam.GetCameraTarget();
             playerPos.y -= 2.5f;
@@ -298,14 +386,10 @@ namespace Graphics
             ProjectionMatrix = cam.GetProjectionMatrix();
             ViewMatrix = cam.GetViewMatrix();
 
-
             Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, down.to_array());
             Gl.glUniformMatrix4fv(projID, 1, Gl.GL_FALSE, ProjectionMatrix.to_array());
             Gl.glUniformMatrix4fv(viewID, 1, Gl.GL_FALSE, ViewMatrix.to_array());
-
             Gl.glUniform3fv(EyePositionID, 1, cam.GetCameraPosition().to_array());
-
-           
 
             GPU.BindBuffer(groundtextBufferID2);
             Gl.glEnableVertexAttribArray(0);
@@ -317,7 +401,7 @@ namespace Graphics
             Gl.glEnableVertexAttribArray(2);
             Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 0, IntPtr.Zero);
 
-           
+
             dn.Bind();
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
 
@@ -326,77 +410,116 @@ namespace Graphics
             Gl.glEnableVertexAttribArray(2);
             Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 0, IntPtr.Zero);
 
-                         
-            upp.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, up.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
-
+            create_square(up, upp);
+          
             GPU.BindBuffer(groundtextBufferID3);
             Gl.glEnableVertexAttribArray(2);
             Gl.glVertexAttribPointer(2, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 0, IntPtr.Zero);
 
-            lf.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, left.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
-
-            rt.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, right.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
-
-            ft.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, front.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
-
-            bk.Bind();
-            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, back.to_array());
-            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+            create_square(left, lf);
+            create_square(right, rt);
+            create_square(front, ft);
+            create_square(back, bk);
 
             
-            // For each of your model, 
-            // 1- call the draw method
-            // 2- Pass to it the ID of the model in the vertex shader so that it can apply the correct transformations on its vertices
-          //  zombie.Draw(modelID);
+            for (int i = 0; i < zombiebars.Count; i++)
+            {
+                create_square(zombiebars[i], ehp);
+            }
+
             Gl.glDepthFunc(Gl.GL_LEQUAL);
             m.Draw(transID);
             building.Draw(transID);
             building2.Draw(transID);
             house.Draw(transID);
             Gl.glDepthFunc(Gl.GL_LESS);
-            //zombie.Draw(transID);
-            //Lara.Draw(transID);
             tree.Draw(transID);
             tree1.Draw(transID);
             foreach (md2LOL z in zombie)
-            {
                 z.Draw(transID);
-            }
-            //fofa.Draw(transID);
-            //blade1.Draw(transID);
-            //blade2.Draw(transID);
-            //blade.Draw(transID);
-            //car.Draw(transID);
-            //scar.transmatrix = glm.translate(new mat4(1), cam.GetCameraPosition());
-            scar.Draw(transID);
+
+            create_shoot();
+            Gl.glDisable(Gl.GL_BLEND);
+
+            
+
+            Gl.glDisable(Gl.GL_DEPTH_TEST);
+            shader2D.UseShader();
+            Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, hpID);
+            Gl.glEnableVertexAttribArray(0);
+            Gl.glVertexAttribPointer(0, 3, Gl.GL_FLOAT, Gl.GL_FALSE, 5 * sizeof(float), (IntPtr)0);
+            Gl.glEnableVertexAttribArray(1);
+            Gl.glVertexAttribPointer(1, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 5 * sizeof(float), (IntPtr)(3 * sizeof(float)));
+            Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, backhealthbar.to_array());
+            bhp.Bind();
+            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+
+            
+            if (scalef < 0)
+                scalef = 0;
+            healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
+                 glm.scale(new mat4(1), new vec3(0.48f*scalef, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f-((1-scalef)*0.48f), 0.9f, 0)) });
+            Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, healthbar.to_array());
+            hp.Bind();
+            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+            Gl.glEnable(Gl.GL_DEPTH_TEST);
         }
         public void Update(float deltaTime)
         {
             cam.UpdateViewMatrix();
             ProjectionMatrix = cam.GetProjectionMatrix();
             ViewMatrix = cam.GetViewMatrix();
-
-            // For the animated models, call the UpdateAnimation of the model so that it can interpolate the vertices to the correct position
-            foreach(md2LOL z in zombie)
+            for (int i = 0; i < zombie.Count; i++)
             {
-                z.UpdateAnimation();
+                vec2 dir = new vec2();
+                dir.x = cam.mCenter.x - positions[i].x;
+                dir.y = cam.mCenter.z - positions[i].z;
+                float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
+                dir.x /= dis;
+                dir.y /= dis;
+                if (dis <= 500)
+                {
+                    if (zombie[i].animSt.type != animType_LOL.ATTACK1)
+                        zombie[i].StartAnimation(animType_LOL.ATTACK1);
+                    scalef -= 0.0005f;
+                  
+                    
+                }
+                else if (dis < 2500)
+                {
+                    vec3 t = new vec3(dir.x + positions[i].x, positions[i].y, dir.y + positions[i].z);
+                    round(zombie[i], cam.mAngleX);
+                    positions[i] = t;
+                    float x = positions[i].x, y = positions[i].y, z = positions[i].z;
+                    if (zombie[i].animSt.type != animType_LOL.RUN)
+                        zombie[i].StartAnimation(animType_LOL.RUN);
+                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
+                    zombiebars[i] = MathHelper.MultiplyMatrices(new List<mat4>() {
+                         glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
+                    //    glm.rotate(-90 / 180.0f * 3.1412f , new vec3(1,0,0))
+                         });
+                   
+
+                }
+                else
+                {
+                    if (zombie[i].animSt.type != animType_LOL.STAND)
+                        zombie[i].StartAnimation(animType_LOL.STAND);
+                }
+
+                zombie[i].UpdateAnimation();
             }
-            //zombie.UpdateAnimation();
-            //blade.UpdateAnimation();
-            //blade1.UpdateAnimation();
-            //blade2.UpdateAnimation();
+
+            
         }
+
+
+
+
         public void CleanUp()
         {
             sh.DestroyShader();
         }
     }
 }
+

@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,11 +54,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\AssimpNet.dll</HintPath>
     </Reference>
+    <Reference Include="Bunifu_UI_v1.5.3">
+      <HintPath>C:\Users\Heshamovic\source\repos\Uber Eats Database Project\Uber Eats Database Project\bin\Debug\Bunifu_UI_v1.5.3.dll</HintPath>
+    </Reference>
     <Reference Include="GlmNet, Version=0.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GlmNet.0.5.1.0\lib\net40\GlmNet.dll</HintPath>
     </Reference>
+    <Reference Include="MetroFramework">
+      <HintPath>C:\Users\Heshamovic\source\repos\Uber Eats Database Project\Uber Eats Database Project\bin\Debug\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,6 +104,7 @@
   <ItemGroup>
     <Compile Include="3D Models\md2.cs" />
     <Compile Include="3D Models\md2LOL.cs" />
+    <Compile Include="Bullet.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="GPU.cs" />
     <Compile Include="GraphicsForm.cs">
@@ -88,16 +113,35 @@
     <Compile Include="GraphicsForm.Designer.cs">
       <DependentUpon>GraphicsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="loading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="loading.Designer.cs">
+      <DependentUpon>loading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Obstacle.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="3D Models\Model3D.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
     <Compile Include="Shader.cs" />
+    <Compile Include="start.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="start.Designer.cs">
+      <DependentUpon>start.cs</DependentUpon>
+    </Compile>
     <Compile Include="Texture.cs" />
     <EmbeddedResource Include="GraphicsForm.resx">
       <DependentUpon>GraphicsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="loading.resx">
+      <DependentUpon>loading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -109,6 +153,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="start.resx">
+      <DependentUpon>start.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="bin\Debug\Darius%40Idle1.fbx" />
+    <None Include="bin\Debug\Darius.fbx" />
+    <None Include="bin\Debug\duck.fbm\duckCM.tga" />
+    <None Include="bin\Debug\duck.fbx" />
+    <None Include="bin\Debug\Graphics.exe.config" />
+    <None Include="bin\Debug\Graphics.vshost.exe.config" />
+    <None Include="bin\Debug\Graphics.vshost.exe.manifest" />
     <None Include="ModelFiles\animated\md2LOL\Blade.md2" />
     <None Include="ModelFiles\animated\md2LOL\fiora.md2" />
     <None Include="ModelFiles\animated\md2LOL\garen.md2" />
@@ -163,6 +217,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Assimp32.dll" />
+    <Content Include="bin\Debug\AssimpNet.dll" />
+    <Content Include="bin\Debug\cbybt-wyoww.png" />
+    <Content Include="bin\Debug\GlmNet.dll" />
+    <Content Include="bin\Debug\GlmNet.pdb" />
+    <Content Include="bin\Debug\GlmNet.xml" />
+    <Content Include="bin\Debug\Graphics.exe" />
+    <Content Include="bin\Debug\Graphics.pdb" />
+    <Content Include="bin\Debug\Graphics.vshost.exe" />
+    <Content Include="bin\Debug\Tao.DevIl.dll" />
+    <Content Include="bin\Debug\Tao.FreeGlut.dll" />
+    <Content Include="bin\Debug\Tao.Glfw.dll" />
+    <Content Include="bin\Debug\Tao.OpenGl.dll" />
+    <Content Include="bin\Debug\Tao.Platform.Windows.dll" />
+    <Content Include="bin\Debug\Tao.Sdl.dll" />
     <Content Include="ModelFiles\animated\md2LOL\Blade.jpg" />
     <Content Include="ModelFiles\animated\md2LOL\fiora.PNG" />
     <Content Include="ModelFiles\animated\md2LOL\garen.png" />
@@ -205,6 +274,14 @@
     <Content Include="ModelFiles\static\tree\Tree\Tree.fbm\DB2X2_L01_Spec.png" />
     <Content Include="ModelFiles\static\tree\Tree\tree.jpeg" />
     <Content Include="ModelFiles\static\tree\Tree\tree2.jpeg" />
+    <None Include="Resources\battlefield_1_they_shall_not_pass_dlc-wide.jpg" />
+    <None Include="Resources\72014271659.jpg" />
+    <None Include="Resources\power-button-on.png" />
+    <None Include="Resources\Button-Close-icon.png" />
+    <None Include="Resources\1529932637_bw-loading.gif" />
+    <None Include="Resources\639069385_preview_loading_screen.jpg" />
+    <Content Include="sandcastle_bk.png" />
+    <Content Include="Sounds\shot.wav" />
     <Content Include="Textures\crate.jpg" />
     <Content Include="Textures\sandcastle_bk.png" />
     <Content Include="Textures\sandcastle_dn.png" />
@@ -218,6 +295,15 @@
     <Content Include="Textures\Ground.jpg" />
     <Content Include="Textures\wall2.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

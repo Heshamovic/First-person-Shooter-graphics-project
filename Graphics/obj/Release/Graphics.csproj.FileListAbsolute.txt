@@ -1,0 +1,5 @@
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\bin\Release\Graphics.exe.config
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Release\Graphics.GraphicsForm.resources
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Release\Graphics.Properties.Resources.resources
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Release\Graphics.csproj.GenerateResource.Cache
+D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Release\Graphics.csprojResolveAssemblyReference.cache
