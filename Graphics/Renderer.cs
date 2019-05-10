@@ -33,6 +33,10 @@ namespace Graphics
         public List<md2LOL> zombie = new List<md2LOL>();
         public List<Model3D> bullets = new List<Model3D>();
         public List<mat4> zombiebars = new List<mat4>();
+        public List<vec3> bullets_pos = new List<vec3>();
+        public List<float> hps = new List<float>();
+        public List<bool> hit = new List<bool>();
+        public List<vec2> direct = new List<vec2>();
         Model3D building, house, building2, m, car, scar, Lara, tree, tree1;
         mat4 ProjectionMatrix, ViewMatrix, down, up, left, right, front, back;
 
@@ -62,6 +66,7 @@ namespace Graphics
                     });
             zombiebars.Add(bar);
             zombie.Add(tmp);
+            hps.Add(1);
         }
 
         public void createBullet()
@@ -74,6 +79,17 @@ namespace Graphics
 
         public void create_square(mat4 arr, Texture tex)
         {
+            tex.Bind();
+            Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, arr.to_array());
+            Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
+
+        }
+        public void create_bars(mat4 arr, Texture tex , float hp)
+        {
+           arr = MathHelper.MultiplyMatrices(new List<mat4>() {
+                  glm.scale(new mat4(1), new vec3(0.48f, 0.1f, 1*hp)),arr
+
+                    });
             tex.Bind();
             Gl.glUniformMatrix4fv(transID, 1, Gl.GL_FALSE, arr.to_array());
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
@@ -422,9 +438,10 @@ namespace Graphics
             create_square(back, bk);
 
             
+            
             for (int i = 0; i < zombiebars.Count; i++)
             {
-                create_square(zombiebars[i], ehp);
+                create_bars(zombiebars[i], ehp , hps[i]);
             }
 
             Gl.glDepthFunc(Gl.GL_LEQUAL);
@@ -469,12 +486,37 @@ namespace Graphics
             cam.UpdateViewMatrix();
             ProjectionMatrix = cam.GetProjectionMatrix();
             ViewMatrix = cam.GetViewMatrix();
+            
             for (int i = 0; i < zombie.Count; i++)
             {
+                float dis;
+                for (int j = 0; j < bullets_pos.Count; j++)
+                {
+                    vec3 t1 = positions[i];
+                    vec3 t2 = bullets_pos[j];
+                    vec3 t3 = new vec3(t1.x - t2.x, t1.y - t2.y, t1.z - t2.z);
+                    dis = (float)(Math.Sqrt(t3.x * t3.x + t3.z * t3.z));
+                    if (dis <= 2000 && hit[j] != true)
+                    {
+                        hps[i] -= 0.2f;
+                        if (hps[i] <= 0.2f)
+                        {
+                            hps[i] = 0;
+                            if (zombie[i].animSt.type != animType_LOL.DEATH)
+                                zombie[i].StartAnimation(animType_LOL.DEATH);
+                            if (hps[i] <= 0)
+                            {
+                                zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
+                                positions[i] = new vec3(10000000, 1, 1);
+                            }
+                        }
+                        hit[j] = true;
+                    }
+                }
                 vec2 dir = new vec2();
                 dir.x = cam.mCenter.x - positions[i].x;
                 dir.y = cam.mCenter.z - positions[i].z;
-                float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
+                 dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
                 dir.x /= dis;
                 dir.y /= dis;
                 if (dis <= 500)
@@ -510,7 +552,11 @@ namespace Graphics
                 zombie[i].UpdateAnimation();
             }
 
-            
+            for (int i = 0; i < bullets_pos.Count; i++)
+            {
+                float[] temp = { bullets_pos[i].x + direct[i].x*100f, bullets_pos[i].y, bullets_pos[i].z + direct[i].y*100f };
+                bullets_pos[i] = new vec3(temp[0], temp[1], temp[2]);
+            }
         }
 
 

@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Diagnostics;
 using System;
 using System.IO;
+using Graphics._3D_Models;
+using GlmNet;
 
 namespace Graphics
 {
@@ -35,7 +37,8 @@ namespace Graphics
                 renderer.Update(deltaTime);
                 simpleOpenGlControl1.Refresh();
                 textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
-                pos.Text = ((int)renderer.cam.mCenter.x).ToString() + " " + ((int)renderer.cam.mCenter.y).ToString() + " " + ((int)renderer.cam.mCenter.z).ToString();
+                if(renderer.bullets_pos.Count > 0)
+                pos.Text = ((int)renderer.bullets_pos[0].x).ToString() + " " + ((int)renderer.bullets_pos[0].y).ToString() + " " + ((int)renderer.bullets_pos[0].z).ToString();
             }
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -157,6 +160,19 @@ namespace Graphics
             renderer.cam.mAngleY += 0.1f;
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\shot.wav");
             player.Play();
+            vec3 v = new vec3();
+            v.x = renderer.cam.mCenter.x;
+            v.z = renderer.cam.mCenter.z;
+            v.y = renderer.cam.mCenter.y;
+            vec2 dir = new vec2();
+            dir.x = renderer.cam.mPosition.x - v.x;
+            dir.y = renderer.cam.mPosition.z - v.z;
+            float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
+            dir.x /= dis;
+            dir.y /= dis;
+            renderer.bullets_pos.Add(v);
+            renderer.hit.Add(false);
+            renderer.direct.Add(dir);
         }
     }
 }

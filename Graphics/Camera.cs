@@ -11,7 +11,7 @@ namespace Graphics
     {
         public float mAngleX = 0;
         public float mAngleY = 0;
-        vec3 mDirection;
+       public vec3 mDirection;
       public  vec3 mPosition;
         public vec3 mCenter;
         vec3 mRight;
