@@ -106,6 +106,12 @@
     <Compile Include="3D Models\md2LOL.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="GameOver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameOver.Designer.cs">
+      <DependentUpon>GameOver.cs</DependentUpon>
+    </Compile>
     <Compile Include="GPU.cs" />
     <Compile Include="GraphicsForm.cs">
       <SubType>Form</SubType>
@@ -137,6 +143,9 @@
       <DependentUpon>start.cs</DependentUpon>
     </Compile>
     <Compile Include="Texture.cs" />
+    <EmbeddedResource Include="GameOver.resx">
+      <DependentUpon>GameOver.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GraphicsForm.resx">
       <DependentUpon>GraphicsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -280,6 +289,7 @@
     <None Include="Resources\Button-Close-icon.png" />
     <None Include="Resources\1529932637_bw-loading.gif" />
     <None Include="Resources\639069385_preview_loading_screen.jpg" />
+    <None Include="Resources\14szEnf.png" />
     <Content Include="sandcastle_bk.png" />
     <Content Include="Sounds\shot.wav" />
     <Content Include="Textures\crate.jpg" />

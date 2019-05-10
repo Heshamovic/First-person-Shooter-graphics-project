@@ -29,7 +29,7 @@ namespace Graphics
         }
         void MainLoop()
         {
-            while (true)
+            while (true && !renderer.close)
             {
                 renderer.Draw();
                 renderer.Update(deltaTime);
@@ -37,6 +37,9 @@ namespace Graphics
                 textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
                 pos.Text = ((int)renderer.cam.mCenter.x).ToString() + " " + ((int)renderer.cam.mCenter.y).ToString() + " " + ((int)renderer.cam.mCenter.z).ToString();
             }
+            GameOver go = new GameOver();
+            go.Show();
+            this.Close();
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
         {

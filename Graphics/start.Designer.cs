@@ -28,118 +28,151 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.bunifuImageButton1 = new Bunifu.Framework.UI.BunifuImageButton();
-            this.bunifuImageButton2 = new Bunifu.Framework.UI.BunifuImageButton();
-            this.bunifuCheckbox1 = new Bunifu.Framework.UI.BunifuCheckbox();
-            this.bunifuCustomTextbox1 = new WindowsFormsControlLibrary1.BunifuCustomTextbox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.exitBtn = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LoadBtn = new System.Windows.Forms.Label();
+            this.startBtn = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton2)).BeginInit();
+            this.soundCheckBox = new Bunifu.Framework.UI.BunifuCheckbox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // bunifuImageButton1
-            // 
-            this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuImageButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuImageButton1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bunifuImageButton1.ErrorImage = null;
-            this.bunifuImageButton1.Image = global::Graphics.Properties.Resources.power_button_on;
-            this.bunifuImageButton1.ImageActive = global::Graphics.Properties.Resources.power_button_on;
-            this.bunifuImageButton1.InitialImage = null;
-            this.bunifuImageButton1.Location = new System.Drawing.Point(3, 39);
-            this.bunifuImageButton1.Margin = new System.Windows.Forms.Padding(3, 3, 60, 3);
-            this.bunifuImageButton1.Name = "bunifuImageButton1";
-            this.bunifuImageButton1.Padding = new System.Windows.Forms.Padding(10);
-            this.bunifuImageButton1.Size = new System.Drawing.Size(117, 92);
-            this.bunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.bunifuImageButton1.TabIndex = 0;
-            this.bunifuImageButton1.TabStop = false;
-            this.bunifuImageButton1.Zoom = 10;
-            this.bunifuImageButton1.Click += new System.EventHandler(this.bunifuImageButton1_Click);
-            // 
-            // bunifuImageButton2
-            // 
-            this.bunifuImageButton2.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuImageButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuImageButton2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bunifuImageButton2.ErrorImage = null;
-            this.bunifuImageButton2.Image = global::Graphics.Properties.Resources.Button_Close_icon;
-            this.bunifuImageButton2.ImageActive = global::Graphics.Properties.Resources.Button_Close_icon;
-            this.bunifuImageButton2.Location = new System.Drawing.Point(3, 137);
-            this.bunifuImageButton2.Margin = new System.Windows.Forms.Padding(3, 3, 60, 3);
-            this.bunifuImageButton2.Name = "bunifuImageButton2";
-            this.bunifuImageButton2.Padding = new System.Windows.Forms.Padding(10);
-            this.bunifuImageButton2.Size = new System.Drawing.Size(117, 91);
-            this.bunifuImageButton2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.bunifuImageButton2.TabIndex = 1;
-            this.bunifuImageButton2.TabStop = false;
-            this.bunifuImageButton2.Zoom = 10;
-            this.bunifuImageButton2.Click += new System.EventHandler(this.bunifuImageButton2_Click);
-            // 
-            // bunifuCheckbox1
-            // 
-            this.bunifuCheckbox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(205)))), ((int)(((byte)(117)))));
-            this.bunifuCheckbox1.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
-            this.bunifuCheckbox1.Checked = true;
-            this.bunifuCheckbox1.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(205)))), ((int)(((byte)(117)))));
-            this.bunifuCheckbox1.ForeColor = System.Drawing.Color.White;
-            this.bunifuCheckbox1.Location = new System.Drawing.Point(90, 10);
-            this.bunifuCheckbox1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.bunifuCheckbox1.Name = "bunifuCheckbox1";
-            this.bunifuCheckbox1.Size = new System.Drawing.Size(20, 20);
-            this.bunifuCheckbox1.TabIndex = 2;
-            this.bunifuCheckbox1.OnChange += new System.EventHandler(this.bunifuCheckbox1_OnChange);
-            // 
-            // bunifuCustomTextbox1
-            // 
-            this.bunifuCustomTextbox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.bunifuCustomTextbox1.BorderColor = System.Drawing.Color.Lime;
-            this.bunifuCustomTextbox1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuCustomTextbox1.Location = new System.Drawing.Point(3, 3);
-            this.bunifuCustomTextbox1.Multiline = true;
-            this.bunifuCustomTextbox1.Name = "bunifuCustomTextbox1";
-            this.bunifuCustomTextbox1.Size = new System.Drawing.Size(78, 33);
-            this.bunifuCustomTextbox1.TabIndex = 3;
-            this.bunifuCustomTextbox1.Text = "Sound";
-            this.bunifuCustomTextbox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.bunifuImageButton1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.bunifuImageButton2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 2);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.exitBtn, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.LoadBtn, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.startBtn, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(585, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(424, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 153F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(180, 422);
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(341, 422);
             this.tableLayoutPanel1.TabIndex = 4;
+            // 
+            // exitBtn
+            // 
+            this.exitBtn.AutoSize = true;
+            this.exitBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.exitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.exitBtn.Font = new System.Drawing.Font("Microsoft YaHei", 32F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitBtn.ForeColor = System.Drawing.Color.White;
+            this.exitBtn.Location = new System.Drawing.Point(3, 252);
+            this.exitBtn.Name = "exitBtn";
+            this.exitBtn.Size = new System.Drawing.Size(335, 84);
+            this.exitBtn.TabIndex = 5;
+            this.exitBtn.Text = "EXIT";
+            this.exitBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
+            this.exitBtn.MouseEnter += new System.EventHandler(this.exitBtn_MouseEnter);
+            this.exitBtn.MouseLeave += new System.EventHandler(this.exitBtn_MouseLeave);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 32F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(3, 168);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(335, 84);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "SETTINGS";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.MouseEnter += new System.EventHandler(this.label1_MouseEnter);
+            this.label1.MouseLeave += new System.EventHandler(this.label1_MouseLeave);
+            // 
+            // LoadBtn
+            // 
+            this.LoadBtn.AutoSize = true;
+            this.LoadBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LoadBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoadBtn.Font = new System.Drawing.Font("Microsoft YaHei", 32F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadBtn.ForeColor = System.Drawing.Color.White;
+            this.LoadBtn.Location = new System.Drawing.Point(3, 84);
+            this.LoadBtn.Name = "LoadBtn";
+            this.LoadBtn.Size = new System.Drawing.Size(335, 84);
+            this.LoadBtn.TabIndex = 4;
+            this.LoadBtn.Text = "Load";
+            this.LoadBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LoadBtn.MouseEnter += new System.EventHandler(this.LoadBtn_MouseEnter);
+            this.LoadBtn.MouseLeave += new System.EventHandler(this.LoadBtn_MouseLeave);
+            // 
+            // startBtn
+            // 
+            this.startBtn.AutoSize = true;
+            this.startBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.startBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.startBtn.Font = new System.Drawing.Font("Microsoft YaHei", 32F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startBtn.ForeColor = System.Drawing.Color.White;
+            this.startBtn.Location = new System.Drawing.Point(3, 0);
+            this.startBtn.Name = "startBtn";
+            this.startBtn.Size = new System.Drawing.Size(335, 84);
+            this.startBtn.TabIndex = 3;
+            this.startBtn.Text = "Start";
+            this.startBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
+            this.startBtn.MouseEnter += new System.EventHandler(this.startBtn_MouseEnter);
+            this.startBtn.MouseLeave += new System.EventHandler(this.startBtn_MouseLeave);
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.57471F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.42529F));
-            this.tableLayoutPanel2.Controls.Add(this.bunifuCheckbox1, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.bunifuCustomTextbox1, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 271);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.18958F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.81042F));
+            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.soundCheckBox, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 339);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(174, 100);
-            this.tableLayoutPanel2.TabIndex = 2;
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(335, 80);
+            this.tableLayoutPanel2.TabIndex = 6;
+            // 
+            // soundCheckBox
+            // 
+            this.soundCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(205)))), ((int)(((byte)(117)))));
+            this.soundCheckBox.ChechedOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(135)))), ((int)(((byte)(140)))));
+            this.soundCheckBox.Checked = true;
+            this.soundCheckBox.CheckedOnColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(205)))), ((int)(((byte)(117)))));
+            this.soundCheckBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.soundCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.soundCheckBox.ForeColor = System.Drawing.Color.White;
+            this.soundCheckBox.Location = new System.Drawing.Point(221, 25);
+            this.soundCheckBox.Margin = new System.Windows.Forms.Padding(20, 25, 20, 20);
+            this.soundCheckBox.Name = "soundCheckBox";
+            this.soundCheckBox.Size = new System.Drawing.Size(20, 20);
+            this.soundCheckBox.TabIndex = 2;
+            this.soundCheckBox.OnChange += new System.EventHandler(this.soundCheckBox_OnChange);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 32F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(195, 80);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "SOUND";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // start
             // 
@@ -154,9 +187,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "start";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton2)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
@@ -164,12 +196,13 @@
         }
 
         #endregion
-
-        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton1;
-        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton2;
-        private Bunifu.Framework.UI.BunifuCheckbox bunifuCheckbox1;
-        private WindowsFormsControlLibrary1.BunifuCustomTextbox bunifuCustomTextbox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label startBtn;
+        private System.Windows.Forms.Label LoadBtn;
+        private System.Windows.Forms.Label exitBtn;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private Bunifu.Framework.UI.BunifuCheckbox soundCheckBox;
+        private System.Windows.Forms.Label label2;
     }
 }

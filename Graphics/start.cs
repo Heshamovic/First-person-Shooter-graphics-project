@@ -23,8 +23,7 @@ namespace Graphics
             player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\Prayer.wav");
             player.Play();
         }
-
-        private void bunifuImageButton1_Click(object sender, EventArgs e)
+        private void startBtn_Click(object sender, EventArgs e)
         {
             GraphicsForm GF = new GraphicsForm();
             loading LF = new loading();
@@ -42,12 +41,12 @@ namespace Graphics
             this.Show();
         }
 
-        private void bunifuImageButton2_Click(object sender, EventArgs e)
+        private void exitBtn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void bunifuCheckbox1_OnChange(object sender, EventArgs e)
+        private void soundCheckBox_OnChange(object sender, EventArgs e)
         {
             if (play == true)
             {
@@ -59,6 +58,46 @@ namespace Graphics
                 player.Play();
                 play = true;
             }
+        }
+
+        private void startBtn_MouseEnter(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = Color.Red;
+        }
+
+        private void LoadBtn_MouseEnter(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = Color.Red;
+        }
+
+        private void label1_MouseEnter(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = Color.Red;
+        }
+
+        private void exitBtn_MouseEnter(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = Color.Red;
+        }
+
+        private void startBtn_MouseLeave(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = Color.White;
+        }
+
+        private void LoadBtn_MouseLeave(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = Color.White;
+        }
+
+        private void label1_MouseLeave(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = Color.White;
+        }
+
+        private void exitBtn_MouseLeave(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = Color.White;
         }
     }
 }

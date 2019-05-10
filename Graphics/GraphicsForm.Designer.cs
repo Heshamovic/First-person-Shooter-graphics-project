@@ -177,6 +177,7 @@
             this.Name = "GraphicsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Graphics";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GraphicsForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
