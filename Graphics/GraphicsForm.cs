@@ -161,12 +161,12 @@ namespace Graphics
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\shot.wav");
             player.Play();
             vec3 v = new vec3();
-            v.x = renderer.cam.mCenter.x;
-            v.z = renderer.cam.mCenter.z;
-            v.y = renderer.cam.mCenter.y;
+            v.x = renderer.cam.mPosition.x;
+            v.z = renderer.cam.mPosition.z;
+            v.y = renderer.cam.mPosition.y;
             vec2 dir = new vec2();
-            dir.x = renderer.cam.mPosition.x - v.x;
-            dir.y = renderer.cam.mPosition.z - v.z;
+            dir.x = renderer.cam.mCenter.x - v.x;
+            dir.y = renderer.cam.mCenter.z - v.z;
             float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
             dir.x /= dis;
             dir.y /= dis;

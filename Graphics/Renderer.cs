@@ -496,7 +496,7 @@ namespace Graphics
                     vec3 t2 = bullets_pos[j];
                     vec3 t3 = new vec3(t1.x - t2.x, t1.y - t2.y, t1.z - t2.z);
                     dis = (float)(Math.Sqrt(t3.x * t3.x + t3.z * t3.z));
-                    if (dis <= 2000 && hit[j] != true)
+                    if (dis <= 200 && hit[j] != true)
                     {
                         hps[i] -= 0.2f;
                         if (hps[i] <= 0.2f)
