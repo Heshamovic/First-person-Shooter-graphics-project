@@ -192,7 +192,6 @@ D:\FCIS\Graphics Shit\First-person-Shooter-graphics-project\Graphics\obj\Debug\G
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\bin\Debug\Graphics.exe.config
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\bin\Debug\Graphics.exe
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\bin\Debug\Graphics.pdb
-E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\bin\Debug\Bunifu_UI_v1.52.dll
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.GraphicsForm.resources
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.Properties.Resources.resources
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.start.resources
@@ -216,3 +215,4 @@ E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphic
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.exe
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.pdb
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.GameOver.resources
+E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache

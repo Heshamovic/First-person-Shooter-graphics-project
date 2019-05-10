@@ -21,7 +21,7 @@ namespace Graphics
         {
             InitializeComponent();
             player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\Prayer.wav");
-            player.Play();
+            //player.Play();
         }
         private void startBtn_Click(object sender, EventArgs e)
         {
