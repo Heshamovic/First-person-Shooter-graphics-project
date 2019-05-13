@@ -12,7 +12,6 @@ namespace Graphics
     public partial class GraphicsForm : Form
     {
         Renderer renderer = new Renderer();
-        Thread MainLoopThread;
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         float deltaTime, prevX, prevY;
         public GraphicsForm()
@@ -22,8 +21,7 @@ namespace Graphics
             MoveCursor();
             initialize();
             deltaTime = 0.005f;
-            MainLoopThread = new Thread(MainLoop);
-            MainLoopThread.Start();
+            MainLoop();
         }
         void initialize()
         {
@@ -40,14 +38,10 @@ namespace Graphics
                 if(renderer.bullets_pos.Count > 0)
                 pos.Text = ((int)renderer.bullets_pos[0].x).ToString() + " " + ((int)renderer.bullets_pos[0].y).ToString() + " " + ((int)renderer.bullets_pos[0].z).ToString();
             }
-            GameOver go = new GameOver();
-            go.Show();
-            this.Close();
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             renderer.CleanUp();
-            MainLoopThread.Abort();
         }
 
         private void simpleOpenGlControl1_Paint(object sender, PaintEventArgs e)
@@ -132,9 +126,6 @@ namespace Graphics
 
         private void button8_Click(object sender, EventArgs e)
         {
-            start form = new start();
-            this.Hide();
-            form.Show();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

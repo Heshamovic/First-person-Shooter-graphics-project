@@ -119,12 +119,6 @@
     <Compile Include="GraphicsForm.Designer.cs">
       <DependentUpon>GraphicsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="loading.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="loading.Designer.cs">
-      <DependentUpon>loading.cs</DependentUpon>
-    </Compile>
     <Compile Include="Obstacle.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Model.cs" />
@@ -135,22 +129,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="Screen.cs" />
     <Compile Include="Shader.cs" />
-    <Compile Include="start.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="start.Designer.cs">
-      <DependentUpon>start.cs</DependentUpon>
-    </Compile>
     <Compile Include="Texture.cs" />
     <EmbeddedResource Include="GameOver.resx">
       <DependentUpon>GameOver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphicsForm.resx">
       <DependentUpon>GraphicsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="loading.resx">
-      <DependentUpon>loading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -162,9 +148,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="start.resx">
-      <DependentUpon>start.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="bin\Debug\Darius%40Idle1.fbx" />
     <None Include="bin\Debug\Darius.fbx" />
     <None Include="bin\Debug\duck.fbm\duckCM.tga" />
