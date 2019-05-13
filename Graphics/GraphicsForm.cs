@@ -12,6 +12,7 @@ namespace Graphics
     public partial class GraphicsForm : Form
     {
         Renderer renderer = new Renderer();
+        Thread MainLoopThread;
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         float deltaTime, prevX, prevY;
         public GraphicsForm()
@@ -21,7 +22,8 @@ namespace Graphics
             MoveCursor();
             initialize();
             deltaTime = 0.005f;
-            MainLoop();
+            MainLoopThread = new Thread(MainLoop);
+            MainLoopThread.Start();
         }
         void initialize()
         {
@@ -29,10 +31,10 @@ namespace Graphics
         }
         void MainLoop()
         {
-            while (true && !renderer.close)
+            while (true)
             {
                 renderer.Draw();
-                renderer.Update(deltaTime);
+                renderer.Update();
                 simpleOpenGlControl1.Refresh();
                 textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
                 if(renderer.bullets_pos.Count > 0)
@@ -41,13 +43,13 @@ namespace Graphics
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            renderer.CleanUp();
+            renderer.Close();
         }
 
         private void simpleOpenGlControl1_Paint(object sender, PaintEventArgs e)
         {
             renderer.Draw();
-            renderer.Update(deltaTime);
+            renderer.Update();
         }
 
         private void simpleOpenGlControl1_KeyPress(object sender, KeyPressEventArgs e)
@@ -130,6 +132,7 @@ namespace Graphics
 
         private void button8_Click(object sender, EventArgs e)
         {
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -146,9 +149,9 @@ namespace Graphics
         {
             this.Cursor = new Cursor(Cursor.Current.Handle);
             Point p = PointToScreen(simpleOpenGlControl1.Location);
-            Cursor.Position = new Point(simpleOpenGlControl1.Size.Width/2+p.X, simpleOpenGlControl1.Size.Height/2+p.Y);
+            Cursor.Position = new Point(simpleOpenGlControl1.Size.Width / 2 + p.X, simpleOpenGlControl1.Size.Height / 2 + p.Y);
             Cursor.Clip = new Rectangle(this.Location, this.Size);
-            prevX = simpleOpenGlControl1.Location.X+simpleOpenGlControl1.Size.Width/2;
+            prevX = simpleOpenGlControl1.Location.X + simpleOpenGlControl1.Size.Width / 2;
             prevY = simpleOpenGlControl1.Location.Y + simpleOpenGlControl1.Size.Height / 2;
         }
 

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Graphics
 {
-    class Renderer
+    class Renderer : Screen
     {
         public static List<Obstacle> Obstacles = new List<Obstacle>();
         Shader sh;
@@ -25,10 +25,9 @@ namespace Graphics
         vec3 playerPos;
         public Camera cam;
         public float Speed = 1;
-        public bool draw = false , jump = false;
+        public bool draw = false , jump = false, close = false;
         Texture dn, upp, lf, rt, bk, ft, shoot;
         int AmbientLightID, DataID , cc = 10;
-        public md2LOL blade, blade1, blade2, fofa;
         public List<vec3> positions = new List<vec3>();
         public List<md2LOL> zombie = new List<md2LOL>();
         public List<Model3D> bullets = new List<Model3D>();
@@ -60,8 +59,6 @@ namespace Graphics
             tmp.TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
             mat4 bar = MathHelper.MultiplyMatrices(new List<mat4>() {
                  glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
-                    
-                    
                     });
             zombiebars.Add(bar);
             zombie.Add(tmp);
@@ -198,7 +195,7 @@ namespace Graphics
 
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
             shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
@@ -298,7 +295,7 @@ namespace Graphics
                 glm.scale(new mat4(1), new vec3(0.5f,0.1f, 1)), glm.translate(new mat4(1),new vec3(-0.5f,0.9f,0)) });
             healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
                 glm.scale(new mat4(1), new vec3(0.48f, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f, 0.9f, 0)) });
-          //  shader2D.UseShader();
+            // shader2D.UseShader();
             mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
             scalef = 1;
 
@@ -388,7 +385,7 @@ namespace Graphics
             Gl.glDepthFunc(Gl.GL_LESS);
         }
 
-        public void Draw()
+        public override void Draw()
         {
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             sh.UseShader();
@@ -503,7 +500,7 @@ namespace Graphics
             if (cam.mCenter.y < 5)
                 cam.mCenter.y = 5;
         }
-        public void Update(float deltaTime)
+        public override void Update()
         {
             cam.UpdateViewMatrix();
             ProjectionMatrix = cam.GetProjectionMatrix();
@@ -579,10 +576,12 @@ namespace Graphics
             }
         }
         
-        public void CleanUp()
+        public override void Close()
         {
             sh.DestroyShader();
         }
+        public override void Load()
+        { }
     }
 }
 
