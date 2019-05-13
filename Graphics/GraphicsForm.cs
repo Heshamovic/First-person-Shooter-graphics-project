@@ -65,6 +65,10 @@ namespace Graphics
                 renderer.cam.Fly(-speed);
             if (e.KeyChar == 'c')
                 renderer.cam.Fly(speed);
+            if (e.KeyChar == ' ')
+            {
+                renderer.jump = true;
+            }
             if (e.KeyChar == 'k')
             {
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(Environment.CurrentDirectory + "\\shot.wav");

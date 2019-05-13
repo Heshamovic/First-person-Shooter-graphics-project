@@ -25,9 +25,9 @@ namespace Graphics
         vec3 playerPos;
         public Camera cam;
         public float Speed = 1;
-        public bool draw = false, close = false;
+        public bool draw = false , jump = false;
         Texture dn, upp, lf, rt, bk, ft, shoot;
-        int AmbientLightID, DataID;
+        int AmbientLightID, DataID , cc = 10;
         public md2LOL blade, blade1, blade2, fofa;
         public List<vec3> positions = new List<vec3>();
         public List<md2LOL> zombie = new List<md2LOL>();
@@ -39,7 +39,6 @@ namespace Graphics
         public List<vec2> direct = new List<vec2>();
         Model3D building, house, building2, m, car, scar, Lara, tree, tree1;
         mat4 ProjectionMatrix, ViewMatrix, down, up, left, right, front, back;
-
         Texture hp , ehp;
         Texture bhp;
         uint hpID;
@@ -485,12 +484,34 @@ namespace Graphics
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
             Gl.glEnable(Gl.GL_DEPTH_TEST);
         }
+        void create_jump()
+        {
+            if(cc >= 25)
+             cam.mCenter.y += 300f;
+            else if (cc >= 0)
+            {
+                cam.mCenter.y -= 300f;
+            }
+            else
+            {
+                jump = false;
+                cc = 50;
+            }
+            cc--;
+            if (cam.mCenter.y > 800)
+                cam.mCenter.y = 800;
+            if (cam.mCenter.y < 5)
+                cam.mCenter.y = 5;
+        }
         public void Update(float deltaTime)
         {
             cam.UpdateViewMatrix();
             ProjectionMatrix = cam.GetProjectionMatrix();
             ViewMatrix = cam.GetViewMatrix();
-            
+            if (jump)
+            {
+                create_jump();
+            }
             for (int i = 0; i < zombie.Count; i++)
             {
                 float dis;
