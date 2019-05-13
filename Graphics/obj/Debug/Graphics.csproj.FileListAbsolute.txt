@@ -201,9 +201,7 @@ E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics
 E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.loading.resources
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.csprojAssemblyReference.cache
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.GraphicsForm.resources
-E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.loading.resources
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.Properties.Resources.resources
-E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.start.resources
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.csproj.GenerateResource.cache
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.csproj.CoreCompileInputs.cache
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\bin\Debug\Graphics.exe.config
@@ -214,3 +212,5 @@ E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphic
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.csproj.CopyComplete
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.exe
 E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.pdb
+E:\ASCIS\3rd Year\Graphics\Project\First person Shooter graphics project\Graphics\obj\Debug\Graphics.GameOver.resources
+E:\3rd year\Graphics\project brdo\First-person-Shooter-graphics-project\Graphics\obj\Debug\Graphics.csprojResolveAssemblyReference.cache

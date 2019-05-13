@@ -477,6 +477,10 @@ namespace Graphics
                  glm.scale(new mat4(1), new vec3(0.48f*scalef, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f-((1-scalef)*0.48f), 0.9f, 0)) });
             Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, healthbar.to_array());
             hp.Bind();
+            if (scalef == 0)
+            {
+                close = true;
+            }
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
             Gl.glEnable(Gl.GL_DEPTH_TEST);
         }
@@ -545,8 +549,6 @@ namespace Graphics
                     if (zombie[i].animSt.type != animType_LOL.ATTACK1)
                         zombie[i].StartAnimation(animType_LOL.ATTACK1);
                     scalef -= 0.0005f;
-                  
-                    
                 }
                 else if (dis < 2500)
                 {
@@ -561,15 +563,12 @@ namespace Graphics
                          glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
                     //    glm.rotate(-90 / 180.0f * 3.1412f , new vec3(1,0,0))
                          });
-                   
-
                 }
                 else
                 {
                     if (zombie[i].animSt.type != animType_LOL.STAND)
                         zombie[i].StartAnimation(animType_LOL.STAND);
                 }
-
                 zombie[i].UpdateAnimation();
             }
 
@@ -579,10 +578,7 @@ namespace Graphics
                 bullets_pos[i] = new vec3(temp[0], temp[1], temp[2]);
             }
         }
-
-
-
-
+        
         public void CleanUp()
         {
             sh.DestroyShader();

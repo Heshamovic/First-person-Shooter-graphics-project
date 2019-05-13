@@ -1,6 +1,6 @@
 ﻿namespace Graphics
 {
-    partial class loading
+    partial class GameOver
     {
         /// <summary>
         /// Required designer variable.
@@ -30,18 +30,22 @@
         {
             this.SuspendLayout();
             // 
-            // loading
+            // GameOver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Graphics.Properties.Resources._639069385_preview_loading_screen;
+            this.BackgroundImage = global::Graphics.Properties.Resources._14szEnf;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(765, 422);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ControlBox = false;
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "loading";
+            this.Name = "GameOver";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "loading";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "GameOver";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 
         }

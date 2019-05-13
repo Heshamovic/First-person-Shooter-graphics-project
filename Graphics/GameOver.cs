@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Graphics
 {
-    public partial class loading : Form
+    public partial class GameOver : Form
     {
-        public loading()
+        public GameOver()
         {
             InitializeComponent();
         }
