@@ -148,16 +148,19 @@ namespace Graphics
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            sc.Close();
+            sc = new Renderer();
+            sc.Initialize();
             loadgame<List<vec3>> loadgam = new loadgame<List<vec3>>();
-            Renderer.positions = loadgam.LoadData("modelsPos.xml");
+            ((Renderer)sc).positions = loadgam.LoadData("modelsPos.xml");
             loadgame<List<float>> loadgam2 = new loadgame<List<float>>();
-            Renderer.hps = loadgam2.LoadData("modelsBar.xml");
-            Renderer.scalef = Renderer.hps[Renderer.hps.Count - 1];
-            Renderer.hps.RemoveAt(Renderer.hps.Count - 1);
-            Renderer.cam.mCenter = Renderer.positions[Renderer.positions.Count - 1];
-            Renderer.positions.RemoveAt(Renderer.positions.Count - 1);
-            renderer.Draw();
-            renderer.Update();
+            ((Renderer)sc).hps = loadgam2.LoadData("modelsBar.xml");
+            ((Renderer)sc).scalef = ((Renderer)sc).hps[((Renderer)sc).hps.Count - 1];
+            ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);
+            ((Renderer)sc).cam.mCenter = ((Renderer)sc).positions[((Renderer)sc).positions.Count - 1];
+            ((Renderer)sc).positions.RemoveAt(((Renderer)sc).positions.Count - 1);
+            ((Renderer)sc).Draw();
+            ((Renderer)sc).Update();
         }
 
         private void GraphicsForm_Load(object sender, EventArgs e)
@@ -204,11 +207,11 @@ namespace Graphics
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Renderer.hps.Add(Renderer.scalef);
-            Renderer.positions.Add(Renderer.cam.mCenter);
-            saver s = new saver(Renderer.hps, Renderer.positions);
-            Renderer.hps.RemoveAt(Renderer.hps.Count - 1);
-            Renderer.positions.RemoveAt(Renderer.positions.Count - 1);
+            ((Renderer)sc).hps.Add(((Renderer)sc).scalef);
+            ((Renderer)sc).positions.Add(((Renderer)sc).cam.mCenter);
+            saver s = new saver(((Renderer)sc).hps, ((Renderer)sc).positions);
+            ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);
+            ((Renderer)sc).positions.RemoveAt(((Renderer)sc).positions.Count - 1);
             MessageBox.Show("Saved!");
         }
     }

@@ -23,18 +23,18 @@ namespace Graphics
         uint ShootID;
         int viewID, projID, transID, EyePositionID, tmp = 0, c = 0, timer = 5;
         vec3 playerPos;
-        public static Camera cam;
+        public Camera cam;
         public float Speed = 1;
         public bool draw = false , jump = false, close = false;
         Texture dn, upp, lf, rt, bk, ft, shoot;
         int AmbientLightID, DataID , cc = 10;
         //public List<Zomby> zombies;
-        public static List<vec3> positions = new List<vec3>();
+        public List<vec3> positions = new List<vec3>();
         public List<md2LOL> zombie = new List<md2LOL>();
         public List<Model3D> bullets = new List<Model3D>();
-        public static List<mat4> zombiebars = new List<mat4>();
+        public List<mat4> zombiebars = new List<mat4>();
         public List<vec3> bullets_pos = new List<vec3>();
-        public static List<float> hps = new List<float>();
+        public List<float> hps = new List<float>();
         public List<bool> hit = new List<bool>();
         public List<vec2> direct = new List<vec2>();
         Model3D building, house, building2, m, car, scar, Lara, tree, tree1;
@@ -46,7 +46,7 @@ namespace Graphics
         mat4 backhealthbar;
         Shader shader2D;
         int mloc;
-        public static float scalef;
+        public float scalef;
         System.Media.SoundPlayer p1;
         public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public void createNewZombie(int x, int y, int z, int s)
