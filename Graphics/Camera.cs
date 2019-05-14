@@ -160,9 +160,6 @@ namespace Graphics
             for (int i = 0; i < Renderer.Obstacles.Count; i++)
             {
                 vec3 curpos = Renderer.Obstacles[i].position;
-              /*  MessageBox.Show("el distance = " + calc_distance(curpos, Center).ToString() + "\nel radius = " + Renderer.Obstacles[i].radius.ToString()
-                        + "\nel center " + Center.x + ' ' + Center.y + ' ' + Center.z + "\n el obstacle " + Renderer.Obstacles[i].position.x + ' '
-                        + Renderer.Obstacles[i].position.y + ' ' + Renderer.Obstacles[i].position.z);*/
                 if (calc_distance(curpos, Center) < Renderer.Obstacles[i].radius)
                 {
                     return true;

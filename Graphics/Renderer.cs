@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Graphics
 {
-    class Renderer
+    class Renderer : Screen
     {
         public static List<Obstacle> Obstacles = new List<Obstacle>();
         Shader sh;
@@ -25,10 +25,10 @@ namespace Graphics
         vec3 playerPos;
         public Camera cam;
         public float Speed = 1;
-        public bool draw = false , jump = false;
+        public bool draw = false , jump = false, close = false;
         Texture dn, upp, lf, rt, bk, ft, shoot;
         int AmbientLightID, DataID , cc = 10;
-        public md2LOL blade, blade1, blade2, fofa;
+        //public List<Zomby> zombies;
         public List<vec3> positions = new List<vec3>();
         public List<md2LOL> zombie = new List<md2LOL>();
         public List<Model3D> bullets = new List<Model3D>();
@@ -46,7 +46,7 @@ namespace Graphics
         mat4 backhealthbar;
         Shader shader2D;
         int mloc;
-        float scalef;
+        public float scalef;
         System.Media.SoundPlayer p1;
         public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public void createNewZombie(int x, int y, int z, int s)
@@ -60,8 +60,6 @@ namespace Graphics
             tmp.TranslationMatrix = glm.translate(new mat4(1), new vec3(x, y, z));
             mat4 bar = MathHelper.MultiplyMatrices(new List<mat4>() {
                  glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
-                    
-                    
                     });
             zombiebars.Add(bar);
             zombie.Add(tmp);
@@ -198,7 +196,7 @@ namespace Graphics
 
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
             shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
@@ -298,7 +296,7 @@ namespace Graphics
                 glm.scale(new mat4(1), new vec3(0.5f,0.1f, 1)), glm.translate(new mat4(1),new vec3(-0.5f,0.9f,0)) });
             healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
                 glm.scale(new mat4(1), new vec3(0.48f, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f, 0.9f, 0)) });
-          //  shader2D.UseShader();
+            // shader2D.UseShader();
             mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
             scalef = 1;
 
@@ -388,7 +386,7 @@ namespace Graphics
             Gl.glDepthFunc(Gl.GL_LESS);
         }
 
-        public void Draw()
+        public override void Draw()
         {
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             sh.UseShader();
@@ -474,9 +472,13 @@ namespace Graphics
             if (scalef < 0)
                 scalef = 0;
             healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
-                 glm.scale(new mat4(1), new vec3(0.48f*scalef, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f-((1-scalef)*0.48f), 0.9f, 0)) });
+                 glm.scale(new mat4(1), new vec3(0.48f * scalef, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f-((1-scalef)*0.48f), 0.9f, 0)) });
             Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, healthbar.to_array());
             hp.Bind();
+            if (scalef == 0)
+            {
+                close = true;
+            }
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
             Gl.glEnable(Gl.GL_DEPTH_TEST);
         }
@@ -499,7 +501,7 @@ namespace Graphics
             if (cam.mCenter.y < 5)
                 cam.mCenter.y = 5;
         }
-        public void Update(float deltaTime)
+        public override void Update()
         {
             cam.UpdateViewMatrix();
             ProjectionMatrix = cam.GetProjectionMatrix();
@@ -537,7 +539,7 @@ namespace Graphics
                 vec2 dir = new vec2();
                 dir.x = cam.mCenter.x - positions[i].x;
                 dir.y = cam.mCenter.z - positions[i].z;
-                 dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
+                dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
                 dir.x /= dis;
                 dir.y /= dis;
                 if (dis <= 500)
@@ -545,8 +547,6 @@ namespace Graphics
                     if (zombie[i].animSt.type != animType_LOL.ATTACK1)
                         zombie[i].StartAnimation(animType_LOL.ATTACK1);
                     scalef -= 0.0005f;
-                  
-                    
                 }
                 else if (dis < 2500)
                 {
@@ -561,15 +561,12 @@ namespace Graphics
                          glm.scale(new mat4(1), new vec3(100.48f, 100.1f, 500)), glm.translate(new mat4(1), new vec3(x, y+1000, z)),
                     //    glm.rotate(-90 / 180.0f * 3.1412f , new vec3(1,0,0))
                          });
-                   
-
                 }
                 else
                 {
                     if (zombie[i].animSt.type != animType_LOL.STAND)
                         zombie[i].StartAnimation(animType_LOL.STAND);
                 }
-
                 zombie[i].UpdateAnimation();
             }
 
@@ -579,14 +576,14 @@ namespace Graphics
                 bullets_pos[i] = new vec3(temp[0], temp[1], temp[2]);
             }
         }
-
-
-
-
-        public void CleanUp()
+        
+        public override void Close()
         {
             sh.DestroyShader();
+            shader2D.DestroyShader();
         }
+        public override void Load()
+        { }
     }
 }
 

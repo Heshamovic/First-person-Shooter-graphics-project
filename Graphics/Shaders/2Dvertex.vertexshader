@@ -8,7 +8,7 @@ uniform mat4 model;
 out vec2 TexCoord;
 
 void main(){
-	gl_Position =  model * vec4(vertexPosition_modelspace,1);
+	gl_Position =  model * vec4(vertexPosition_modelspace, 1);
 	TexCoord = texCoord;
 }
 
