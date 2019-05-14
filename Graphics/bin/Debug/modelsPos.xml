@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfVec3 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <vec3>
+    <x>-8864</x>
+    <y>-400</y>
+    <z>5322</z>
+  </vec3>
+  <vec3>
+    <x>13464.8291</x>
+    <y>-400</y>
+    <z>3185.354</z>
+  </vec3>
+  <vec3>
+    <x>1E+07</x>
+    <y>1</y>
+    <z>1</z>
+  </vec3>
+  <vec3>
+    <x>8540</x>
+    <y>-400</y>
+    <z>10363</z>
+  </vec3>
+  <vec3>
+    <x>6359.28174</x>
+    <y>5</y>
+    <z>8125.96875</z>
+  </vec3>
+</ArrayOfVec3>

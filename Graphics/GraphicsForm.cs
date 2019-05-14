@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using Graphics._3D_Models;
 using GlmNet;
+using System.Collections.Generic;
 
 namespace Graphics
 {
@@ -61,6 +62,11 @@ namespace Graphics
         {
             if (sc is Renderer)
             {
+                if (e.KeyChar == 'm')
+                {
+                    trigger = !trigger;
+                    return;
+                }
                 float speed = float.Parse(textBox1.Text);
                 if (e.KeyChar == 'a')
                     ((Renderer)sc).cam.Strafe(-speed);
@@ -89,9 +95,11 @@ namespace Graphics
             }
             
         }
-
+        bool trigger = true;
         private void simpleOpenGlControl1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (!trigger)
+                return;
             float speed = 0.05f;
             float delta = e.X - prevX;
             if (sc is Renderer)
@@ -114,7 +122,7 @@ namespace Graphics
         
         private void button8_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -136,6 +144,31 @@ namespace Graphics
             Cursor.Clip = new Rectangle(this.Location, this.Size);
             prevX = simpleOpenGlControl1.Location.X + simpleOpenGlControl1.Size.Width / 2;
             prevY = simpleOpenGlControl1.Location.Y + simpleOpenGlControl1.Size.Height / 2;
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if (!(sc is Renderer))
+            {
+                sc.Close();
+            }
+            sc = new Renderer();
+            sc.Initialize();
+            loadgame<List<vec3>> loadgam = new loadgame<List<vec3>>();
+            ((Renderer)sc).positions = loadgam.LoadData("modelsPos.xml");
+            loadgame<List<float>> loadgam2 = new loadgame<List<float>>();
+            ((Renderer)sc).hps = loadgam2.LoadData("modelsBar.xml");
+            ((Renderer)sc).scalef = ((Renderer)sc).hps[((Renderer)sc).hps.Count - 1];
+            ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);
+            ((Renderer)sc).cam.mCenter = ((Renderer)sc).positions[((Renderer)sc).positions.Count - 1];
+            ((Renderer)sc).positions.RemoveAt(((Renderer)sc).positions.Count - 1);
+            ((Renderer)sc).Draw();
+            ((Renderer)sc).Update();
+        }
+
+        private void GraphicsForm_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void simpleOpenGlControl1_MouseClick(object sender, MouseEventArgs e)
@@ -167,12 +200,23 @@ namespace Graphics
                 float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
                 if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
                 {
-                    MessageBox.Show("here");
                     sc.Close();
+                    Screen sc1 = new Loading_Screen();
+                    sc1.Initialize();
                     sc = new Renderer();
                     sc.Initialize();
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ((Renderer)sc).hps.Add(((Renderer)sc).scalef);
+            ((Renderer)sc).positions.Add(((Renderer)sc).cam.mCenter);
+            saver s = new saver(((Renderer)sc).hps, ((Renderer)sc).positions);
+            ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);
+            ((Renderer)sc).positions.RemoveAt(((Renderer)sc).positions.Count - 1);
+            MessageBox.Show("Saved!");
         }
     }
 }

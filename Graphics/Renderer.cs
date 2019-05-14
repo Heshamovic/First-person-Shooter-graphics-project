@@ -28,6 +28,7 @@ namespace Graphics
         public bool draw = false , jump = false, close = false;
         Texture dn, upp, lf, rt, bk, ft, shoot;
         int AmbientLightID, DataID , cc = 10;
+        //public List<Zomby> zombies;
         public List<vec3> positions = new List<vec3>();
         public List<md2LOL> zombie = new List<md2LOL>();
         public List<Model3D> bullets = new List<Model3D>();
@@ -45,7 +46,7 @@ namespace Graphics
         mat4 backhealthbar;
         Shader shader2D;
         int mloc;
-        float scalef;
+        public float scalef;
         System.Media.SoundPlayer p1;
         public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public void createNewZombie(int x, int y, int z, int s)
@@ -295,7 +296,7 @@ namespace Graphics
                 glm.scale(new mat4(1), new vec3(0.5f,0.1f, 1)), glm.translate(new mat4(1),new vec3(-0.5f,0.9f,0)) });
             healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
                 glm.scale(new mat4(1), new vec3(0.48f, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f, 0.9f, 0)) });
-            // shader2D.UseShader();
+
             mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
             scalef = 1;
 
@@ -538,7 +539,7 @@ namespace Graphics
                 vec2 dir = new vec2();
                 dir.x = cam.mCenter.x - positions[i].x;
                 dir.y = cam.mCenter.z - positions[i].z;
-                 dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
+                dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
                 dir.x /= dis;
                 dir.y /= dis;
                 if (dis <= 500)
