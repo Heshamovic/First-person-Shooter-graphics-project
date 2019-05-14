@@ -579,6 +579,7 @@ namespace Graphics
         public override void Close()
         {
             sh.DestroyShader();
+            shader2D.DestroyShader();
         }
         public override void Load()
         { }
