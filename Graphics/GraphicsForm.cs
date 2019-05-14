@@ -148,7 +148,10 @@ namespace Graphics
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            sc.Close();
+            if (!(sc is Renderer))
+            {
+                sc.Close();
+            }
             sc = new Renderer();
             sc.Initialize();
             loadgame<List<vec3>> loadgam = new loadgame<List<vec3>>();
@@ -197,8 +200,9 @@ namespace Graphics
                 float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
                 if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
                 {
-                    MessageBox.Show("here");
                     sc.Close();
+                    Screen sc1 = new Loading_Screen();
+                    sc1.Initialize();
                     sc = new Renderer();
                     sc.Initialize();
                 }

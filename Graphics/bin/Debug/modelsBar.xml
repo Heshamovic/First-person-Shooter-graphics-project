@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfFloat xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <float>1</float>
+  <float>0.200000033</float>
   <float>0</float>
-  <float>0.400000036</float>
+  <float>0.200000033</float>
   <float>1</float>
-  <float>0.990499556</float>
 </ArrayOfFloat>
