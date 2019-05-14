@@ -28,10 +28,11 @@ namespace Graphics
         public bool draw = false , jump = false, close = false;
         Texture dn, upp, lf, rt, bk, ft, shoot;
         int AmbientLightID, DataID , cc = 10;
-        public List<vec3> positions = new List<vec3>();
-        public List<md2LOL> zombie = new List<md2LOL>();
+        public List<Zomby> zombies;
+       // public List<vec3> positions = new List<vec3>();
+        //public List<md2LOL> zombie = new List<md2LOL>();
         public List<Model3D> bullets = new List<Model3D>();
-        public List<mat4> zombiebars = new List<mat4>();
+       // public List<mat4> zombiebars = new List<mat4>();
         public List<vec3> bullets_pos = new List<vec3>();
         public List<float> hps = new List<float>();
         public List<bool> hit = new List<bool>();

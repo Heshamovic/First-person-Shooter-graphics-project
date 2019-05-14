@@ -54,6 +54,11 @@ namespace Graphics
 
         private void simpleOpenGlControl1_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == 'm')
+            {
+                trigger = !trigger;
+                return;
+            }
             float speed = float.Parse(textBox1.Text);
             if (e.KeyChar == 'a')
                 renderer.cam.Strafe(-speed);
@@ -80,9 +85,11 @@ namespace Graphics
             label7.Text = "Y: " + renderer.cam.GetCameraPosition().y;
             label8.Text = "Z: " + renderer.cam.GetCameraPosition().z;
         }
-
+        bool trigger = true;
         private void simpleOpenGlControl1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (!trigger)
+                return;
             float speed = 0.05f;
             float delta = e.X - prevX;
             if (delta > 2)
@@ -132,7 +139,7 @@ namespace Graphics
 
         private void button8_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -174,6 +181,11 @@ namespace Graphics
             renderer.bullets_pos.Add(v);
             renderer.hit.Add(false);
             renderer.direct.Add(dir);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
