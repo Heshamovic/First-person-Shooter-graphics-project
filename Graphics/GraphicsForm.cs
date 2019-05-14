@@ -12,7 +12,9 @@ namespace Graphics
     public partial class GraphicsForm : Form
     {
         Renderer renderer = new Renderer();
+        Start_Screen sscreen = new Start_Screen();
         Thread MainLoopThread;
+        bool rendererIsOpen = false, startscreenIsOpen = false;
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         float deltaTime, prevX, prevY;
         public GraphicsForm()
@@ -27,29 +29,34 @@ namespace Graphics
         }
         void initialize()
         {
-            renderer.Initialize();   
+            startscreenIsOpen = true;
+            sscreen.Initialize();
+            //renderer.Initialize();   
         }
         void MainLoop()
         {
             while (true)
-            {
-                renderer.Draw();
-                renderer.Update();
-                simpleOpenGlControl1.Refresh();
-                textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
-                if(renderer.bullets_pos.Count > 0)
-                pos.Text = ((int)renderer.bullets_pos[0].x).ToString() + " " + ((int)renderer.bullets_pos[0].y).ToString() + " " + ((int)renderer.bullets_pos[0].z).ToString();
+            { 
+                if (startscreenIsOpen)
+                    sscreen.Draw();
+                //renderer.Draw();
+                //renderer.Update();
+                //simpleOpenGlControl1.Refresh();
+                //textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
+                //if(renderer.bullets_pos.Count > 0)
+                //pos.Text = ((int)renderer.bullets_pos[0].x).ToString() + " " + ((int)renderer.bullets_pos[0].y).ToString() + " " + ((int)renderer.bullets_pos[0].z).ToString();
             }
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            renderer.Close();
+            if (rendererIsOpen)
+                renderer.Close();
         }
 
         private void simpleOpenGlControl1_Paint(object sender, PaintEventArgs e)
         {
-            renderer.Draw();
-            renderer.Update();
+            //renderer.Draw();
+            //renderer.Update();
         }
 
         private void simpleOpenGlControl1_KeyPress(object sender, KeyPressEventArgs e)
@@ -85,18 +92,22 @@ namespace Graphics
         {
             float speed = 0.05f;
             float delta = e.X - prevX;
-            if (delta > 2)
-                renderer.cam.Yaw(-speed);
-            else if (delta < -2)
-                renderer.cam.Yaw(speed);
+            if (rendererIsOpen)
+            {
+                if (delta > 2)
+                    renderer.cam.Yaw(-speed);
+                else if (delta < -2)
+                    renderer.cam.Yaw(speed);
 
 
-            delta = e.Y - prevY;
-            if (delta > 2)
-                renderer.cam.Pitch(-speed);
-            else if (delta < -2)
-                renderer.cam.Pitch(speed);
+                delta = e.Y - prevY;
+                if (delta > 2)
+                    renderer.cam.Pitch(-speed);
+                else if (delta < -2)
+                    renderer.cam.Pitch(speed);
 
+
+            }
             MoveCursor();
         }
 

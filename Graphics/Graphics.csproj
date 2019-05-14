@@ -131,6 +131,7 @@
     <Compile Include="Renderer.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="Shader.cs" />
+    <Compile Include="Start_Screen.cs" />
     <Compile Include="Texture.cs" />
     <EmbeddedResource Include="GameOver.resx">
       <DependentUpon>GameOver.cs</DependentUpon>
@@ -202,6 +203,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Shaders\2Dfrag.fragmentshader" />
+    <None Include="Shaders\2Dvertex.vertexshader" />
     <None Include="Shaders\SimpleFragmentShader.fragmentshader" />
     <None Include="Shaders\SimpleVertexShader.vertexshader" />
   </ItemGroup>

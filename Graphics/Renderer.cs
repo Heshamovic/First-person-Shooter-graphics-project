@@ -471,7 +471,7 @@ namespace Graphics
             if (scalef < 0)
                 scalef = 0;
             healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
-                 glm.scale(new mat4(1), new vec3(0.48f*scalef, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f-((1-scalef)*0.48f), 0.9f, 0)) });
+                 glm.scale(new mat4(1), new vec3(0.48f * scalef, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f-((1-scalef)*0.48f), 0.9f, 0)) });
             Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, healthbar.to_array());
             hp.Bind();
             if (scalef == 0)
