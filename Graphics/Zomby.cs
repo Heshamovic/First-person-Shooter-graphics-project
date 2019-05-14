@@ -17,7 +17,7 @@ namespace Graphics
     public class Zomby
     {
         public mat4 bar;
-        public md2LOL model;
+        //public md2LOL model;
         public vec3 position;
     }
 }

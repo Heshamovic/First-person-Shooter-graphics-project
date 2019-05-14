@@ -17,26 +17,26 @@ namespace Graphics
 {
     class saver
     {
-       public static List<md2LOL> zombies; // information about zombies  
-       public List<mat4> zombiebars; // the health for each zombie 
+       public List<float> zombiebars; // the health for each zombie 
        public List<vec3> positions; // the postions for each zombie 
-        saver(List<md2LOL>zom , List<mat4> zombar , List<vec3> zompos)
+        public saver( List<float> zombar , List<vec3> zompos)
         {
-            zombies = new List<md2LOL>();
-            zombiebars = new List<mat4>();
-            positions = new List<vec3>();
-            zombies = zom;
             zombiebars = zombar;
-            positions = zompos; 
+            positions = zompos;
+            savegame();
         }
-        public static void savegame(List<md2LOL> temp)
+        public void savegame()
         {
             StreamWriter writer = null;
             try
             {
-                XmlSerializer xml = new XmlSerializer(temp.GetType());
-              //  writer = new StreamWriter();
-                xml.Serialize(writer, temp);
+                XmlSerializer xml = new XmlSerializer(positions.GetType());
+                writer = new StreamWriter("modelsPos.xml");
+                xml.Serialize(writer, positions);
+
+                XmlSerializer xml2 = new XmlSerializer(zombiebars.GetType());
+                writer = new StreamWriter("modelsBar.xml");
+                xml2.Serialize(writer, zombiebars);
             }
             finally
             {
