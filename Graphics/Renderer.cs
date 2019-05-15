@@ -223,7 +223,10 @@ namespace Graphics
             scar.transmatrix = glm.translate(new mat4(1), new vec3(500, 1, 100));
 
         }
-
+        double calc_distance(vec3 first, vec3 second)
+        {
+            return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.z - second.z), 2));
+        }
         public override void Initialize()
         {
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
@@ -544,6 +547,20 @@ namespace Graphics
             {
                 create_jump();
             }
+            for (int i = 0; i < Obstacles.Count; i++)
+            {
+                vec3 obspos = Obstacles[i].position;
+                for (int j = 0; j < bullets_pos.Count; j++)
+                {
+                    vec3 pos = bullets_pos[j];
+                    float dis = (float)calc_distance(pos,obspos);
+                    if (dis < Obstacles[i].radius && hit[j] == false)
+                    {
+                        hit[j] = true;
+                    }
+                }
+                
+            }
             for (int i = 0; i < zombie.Count; i++)
             {
                 float dis;
@@ -599,9 +616,22 @@ namespace Graphics
 
                 else if (dis < 2500)
                 {
-                    vec3 t = new vec3(dir.x + positions[i].x, positions[i].y, dir.y + positions[i].z);
+                    vec3 t = new vec3(dir.x*3 + positions[i].x, positions[i].y, dir.y*3 + positions[i].z);
                     round(zombie[i], cam.mAngleX);
-                    positions[i] = t;
+                    bool can = true;
+                    for (int j = 0; j < Obstacles.Count; j++)
+                    {
+                        float diss = (float)calc_distance(t, Obstacles[j].position);
+                        if (diss < 1000)
+                        {
+                            can = false;
+                            break;
+                        }
+                    }
+                    if (can)
+                    {
+                        positions[i] = t;
+                    }
                     float x = positions[i].x, y = positions[i].y, z = positions[i].z;
                     if (zombie[i].animSt.type != animType_LOL.RUN)
                         zombie[i].StartAnimation(animType_LOL.RUN);
@@ -621,7 +651,7 @@ namespace Graphics
 
             for (int i = 0; i < bullets_pos.Count; i++)
             {
-                float[] temp = { bullets_pos[i].x + direct[i].x*100f, bullets_pos[i].y, bullets_pos[i].z + direct[i].y*100f };
+                float[] temp = { bullets_pos[i].x + direct[i].x*50f, bullets_pos[i].y, bullets_pos[i].z + direct[i].y*50f };
                 bullets_pos[i] = new vec3(temp[0], temp[1], temp[2]);
             }
         }
