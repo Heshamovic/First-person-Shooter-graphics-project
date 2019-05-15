@@ -9,10 +9,12 @@ namespace Graphics
 {
     class Camera
     {
+        public static List<vec3> BulletsCurPos = new List<vec3>();
+        public static List<vec3> BulletsDir = new List<vec3>();
         public float mAngleX = 0;
         public float mAngleY = 0;
-       public vec3 mDirection;
-      public  vec3 mPosition;
+        public vec3 mDirection;
+        public  vec3 mPosition;
         public vec3 mCenter;
         vec3 mRight;
         vec3 mUp;
@@ -67,11 +69,23 @@ namespace Graphics
         {
             mCenter.y = y;
         }
+
+
+        public void shoot()
+        {
+            BulletsCurPos.Add(mCenter);
+            BulletsDir.Add(mDirection);
+            //MessageBox.Show("el x " + mDirection.x.ToString() + " el y " + mDirection.y.ToString() + " el z " + mDirection.z.ToString());
+        }
+
+  
+
         public void UpdateViewMatrix()
         {
-            mDirection = new vec3((float)(-Math.Cos(mAngleY) * Math.Sin(mAngleX))
-                , (float)(Math.Sin(mAngleY))
-                , (float)(-Math.Cos(mAngleY) * Math.Cos(mAngleX)));
+            mDirection = new vec3((float)(-Math.Cos(mAngleY) * Math.Sin(mAngleX)) 
+                , (float)(Math.Sin(mAngleY)) 
+                , (float)(-Math.Cos(mAngleY) * Math.Cos(mAngleX)) 
+                );
             mRight = glm.cross(mDirection, new vec3(0, 1, 0));
             mUp = glm.cross(mRight, mDirection);
 
@@ -81,6 +95,7 @@ namespace Graphics
 
             mViewMatrix = glm.lookAt(mPosition, mCenter, mUp);
         }
+
         public void SetProjectionMatrix(float FOV, float aspectRatio, float near, float far)
         {
             mProjectionMatrix = glm.perspective(FOV, aspectRatio, near, far);
@@ -100,7 +115,7 @@ namespace Graphics
         public void Walk(float dist)
         {
             
-           if(!Collided(mCenter + dist * mDirection))
+           if(!CollidedWithObstacle(mCenter + dist * mDirection))
                 mCenter += dist * mDirection;
 
             valid();
@@ -108,22 +123,22 @@ namespace Graphics
         }
         public void Strafe(float dist)
         {
-            if (!Collided(mCenter + dist * mRight))
+            if (!CollidedWithObstacle(mCenter + dist * mRight))
                  mCenter += dist * mRight;
             valid();
             valid1();
         }
         public void Fly(float dist)
         {
-            if (!Collided(mCenter + dist * mUp))
+            if (!CollidedWithObstacle(mCenter + dist * mUp))
                 mCenter += dist * mUp;
             valid();
             valid1();
         }
         public void valid()
         {
-            if (mCenter.y > 500)
-                mCenter.y = 500;
+            if (mCenter.y > 50)
+                mCenter.y = 50;
             if (mCenter.y < 5)
                 mCenter.y = 5;
             if (mCenter.x > 24200)
@@ -151,11 +166,16 @@ namespace Graphics
                 mPosition.z = -24200;
         }
 
+        public bool ValidBullet(vec3 mCenter)
+        {
+            return !( (mCenter.y > 25000) || (mCenter.y < -500)  || (mCenter.x > 24200) || (mCenter.x < -24200) || (mCenter.z > 24200) || (mCenter.z < -24200) );
+        }
+
         double calc_distance(vec3 first, vec3 second)
         {
             return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.z - second.z), 2));
         }
-        public bool Collided(vec3 Center)
+        public bool CollidedWithObstacle(vec3 Center)
         {
             for (int i = 0; i < Renderer.Obstacles.Count; i++)
             {
@@ -167,6 +187,45 @@ namespace Graphics
             }
 
             return false;
+        }
+
+
+        public void MakePickupDecision(int idx)
+        {
+            if (Renderer.Pickups[idx].type == PickupType.Item)
+                Renderer.Inventory.Add(Renderer.Pickups[idx]);
+
+            else if (Renderer.Pickups[idx].type == PickupType.Weapon)
+            {
+                // change weapon
+            }
+
+            else if (Renderer.Pickups[idx].type == PickupType.Gold)
+                Renderer.gold += Renderer.Pickups[idx].amount;
+
+            Renderer.Pickups.RemoveAt(idx);
+        }
+        public void CheckNearbyPickup()
+        {
+            double minDist = 100000000;
+            int minIdx    = -1;
+
+            for( int i = 0; i < Renderer.Pickups.Count; i++)
+            {
+                Pickup p    = Renderer.Pickups[i];
+                double dist = calc_distance(p.pos, this.mCenter);
+
+                if(dist < minDist)
+                {
+                    minDist = dist;
+                    minIdx  = i;
+                }
+            }
+
+            MessageBox.Show(minDist.ToString());
+
+            if(minDist < 2000)
+                MakePickupDecision(minIdx);
         }
     }
 }
