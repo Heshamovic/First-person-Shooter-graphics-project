@@ -14,10 +14,7 @@ namespace Graphics
 {
     class Start_Screen : Screen
     {
-        Shader sh;
-        public Camera cam;
         public bool close = false;
-        mat4 ProjectionMatrix, ViewMatrix;
         Texture hp, startBtn;
         uint hpID, startBtnID;
         mat4 healthbar, startBtnMat4;
@@ -30,10 +27,8 @@ namespace Graphics
         {
             projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
             shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
-            sh = new Shader(projectPath + "\\Shaders\\SimpleVertexShader.vertexshader", projectPath + "\\Shaders\\SimpleFragmentShader.fragmentshader");
             hp = new Texture(projectPath + "\\Resources\\battlefield_1_they_shall_not_pass_dlc-wide.jpg", 9, false);
             startBtn = new Texture(projectPath + "\\Resources\\startButton.jpg", 10, false);
-            sh.UseShader();
             
             float[] squarevertices = {
                 -1,1,0,
@@ -66,7 +61,7 @@ namespace Graphics
             };
             startBtnMat4 = glm.scale(new mat4(1), new vec3(1, 1, 1));
             healthbar = glm.scale(new mat4(1), new vec3(1, 1, 1));
-            // shader2D.UseShader();
+
             mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
 
             startBtnID = GPU.GenerateBuffer(startVertices);
@@ -74,13 +69,7 @@ namespace Graphics
             
 
             Gl.glClearColor(0, 0, 0, 1);
-
-            cam = new Camera();
-            cam.Reset(555, 34, 55, 5000, -400, 4000, 0, 1, 0);
             
-
-            ProjectionMatrix = cam.GetProjectionMatrix();
-            ViewMatrix = cam.GetViewMatrix();
 
 
             Gl.glEnable(Gl.GL_DEPTH_TEST);
@@ -91,9 +80,6 @@ namespace Graphics
         {
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             
-            cam.UpdateViewMatrix();
-            ProjectionMatrix = cam.GetProjectionMatrix();
-            ViewMatrix = cam.GetViewMatrix();
 
          
             Gl.glDisable(Gl.GL_BLEND);
@@ -131,15 +117,11 @@ namespace Graphics
         }
         public override void Update()
         {
-            cam.UpdateViewMatrix();
-            ProjectionMatrix = cam.GetProjectionMatrix();
-            ViewMatrix = cam.GetViewMatrix();
             
         }
 
         public override void Close()
         {
-            sh.DestroyShader();
             shader2D.DestroyShader();
         }
         public override void Load()

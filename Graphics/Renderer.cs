@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -18,8 +19,7 @@ namespace Graphics
         public static List<Pickup> Pickups     = new List<Pickup>();
         public static List<Pickup> Inventory   = new List<Pickup>();
         public static int gold                 = 0;
-
-        Shader sh;
+        public Shader sh;
         uint groundtextBufferID2;
         uint groundtextBufferID1;//grass
         uint groundtextBufferID3;//wall
@@ -48,7 +48,7 @@ namespace Graphics
         uint hpID;
         mat4 healthbar;
         mat4 backhealthbar;
-        Shader shader2D;
+        public Shader shader2D;
         int mloc;
         public float scalef;
         System.Media.SoundPlayer p1;
@@ -69,6 +69,7 @@ namespace Graphics
             zombie.Add(tmp);
             hps.Add(1);
         }
+
 
         public void createBullet()
         {
@@ -323,7 +324,7 @@ namespace Graphics
                 glm.scale(new mat4(1), new vec3(0.5f,0.1f, 1)), glm.translate(new mat4(1),new vec3(-0.5f,0.9f,0)) });
             healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
                 glm.scale(new mat4(1), new vec3(0.48f, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f, 0.9f, 0)) });
-            // shader2D.UseShader();
+
             mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
             scalef = 1;
 
@@ -412,6 +413,7 @@ namespace Graphics
 
             Gl.glEnable(Gl.GL_DEPTH_TEST);
             Gl.glDepthFunc(Gl.GL_LESS);
+            GraphicsForm.done.Set();
         }
 
         public override void Draw()
@@ -544,6 +546,15 @@ namespace Graphics
             for (int i = 0; i < zombie.Count; i++)
             {
                 float dis;
+                if (hps[i] <= 0.2f)
+                {
+                    hps[i] = 0;
+                    if (zombie[i].animSt.type != animType_LOL.DEATH)
+                        zombie[i].StartAnimation(animType_LOL.DEATH);
+                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
+                    positions[i] = new vec3(10000000, 1, 1);
+                    continue;
+                }
                 for (int j = 0; j < bullets_pos.Count; j++)
                 {
                     vec3 t1 = positions[i];
@@ -558,19 +569,16 @@ namespace Graphics
                             hps[i] = 0;
                             if (zombie[i].animSt.type != animType_LOL.DEATH)
                                 zombie[i].StartAnimation(animType_LOL.DEATH);
-                            if (hps[i] <= 0)
-                            {
-                                Random random = new Random();
-                                Model3D Gold = new Model3D();
-                                Gold.LoadFile(projectPath + "\\ModelFiles\\Pickups", "13450_Bag_of_Gold_v1_L3.obj", 4);
-                                Gold.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
-                                Gold.scalematrix = glm.scale(new mat4(1), new vec3(5, 5, 5));
-                                Gold.transmatrix = glm.translate(new mat4(1), positions[i] + new vec3(0 , 100, 0));
-                                Pickups.Add(new Pickup("Gold", PickupType.Gold, Gold, positions[i] + new vec3(0, 100, 0), random.Next(2, 15)));
 
-                                zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
-                                positions[i] = new vec3(10000000, 1, 1);
-                            }
+                            Random random = new Random();
+                            Model3D Gold = new Model3D();
+                            Gold.LoadFile(projectPath + "\\ModelFiles\\Pickups", "13450_Bag_of_Gold_v1_L3.obj", 4);
+                            Gold.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+                            Gold.scalematrix = glm.scale(new mat4(1), new vec3(5, 5, 5));
+                            Gold.transmatrix = glm.translate(new mat4(1), positions[i] + new vec3(0 , 100, 0));
+                            Pickups.Add(new Pickup("Gold", PickupType.Gold, Gold, positions[i] + new vec3(0, 100, 0), random.Next(2, 15)));
+                            zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
+                            positions[i] = new vec3(10000000, 1, 1);
                         }
                         hit[j] = true;
                     }
