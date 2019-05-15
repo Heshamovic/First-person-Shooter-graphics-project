@@ -15,7 +15,9 @@ namespace Graphics
         Screen sc = new Start_Screen();
         Thread MainLoopThread;
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+        public static EventWaitHandle done = new EventWaitHandle(false, EventResetMode.AutoReset);
         float prevX, prevY;
+        bool trigger = true;
         public GraphicsForm()
         {
             InitializeComponent();
@@ -50,8 +52,6 @@ namespace Graphics
                     refreshInv();
                     this.GoldValue.Text = "Gold : " + Renderer.gold.ToString();
                     textBox5.Text = ((Renderer)sc).zombie[0].animSt.curr_frame + "";
-                    //   if (((Renderer)sc).bullets_pos.Count > 0)
-                    //       pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
                     if (Renderer.scalef <= 0)
                     {
                         sc.Close();
@@ -115,7 +115,6 @@ namespace Graphics
             }
             
         }
-        bool trigger = true;
         private void simpleOpenGlControl1_MouseMove(object sender, MouseEventArgs e)
         {
             if (!trigger)
@@ -140,23 +139,12 @@ namespace Graphics
             MoveCursor();
         }
         
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            float res = 0;
-            if (float.TryParse(textBox1.Text,out res))
-            {
-                //((Renderer)sc).zombie[0].AnimationSpeed = res;
-            }
-        }
-
-
         private void MoveCursor()
         {
             Point p = PointToScreen(simpleOpenGlControl1.Location);
             if (sc is Start_Screen)
             {
-                float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
-                if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
+                if (Cursor.Position.X >= 940 && Cursor.Position.X <= 1100 && Cursor.Position.Y >= 95 && Cursor.Position.Y <= 195)
                     Cursor.Current = Cursors.Hand;
                 else
                     Cursor.Current = Cursors.Default;
@@ -203,12 +191,7 @@ namespace Graphics
             ((Renderer)sc).Draw();
             ((Renderer)sc).Update();
         }
-
-        private void GraphicsForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void simpleOpenGlControl1_MouseClick(object sender, MouseEventArgs e)
         {
             if (sc is Renderer)
@@ -234,20 +217,25 @@ namespace Graphics
             }
             else if (sc is Start_Screen)
             {
-                Point p = PointToScreen(simpleOpenGlControl1.Location);
-                float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
-                if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
-                {
+                if (Cursor.Position.X >= 940 && Cursor.Position.X <= 1100 && Cursor.Position.Y >= 95 && Cursor.Position.Y <= 195)
                     switchToGameScreen();
-                }
             }
         }
-        public static EventWaitHandle done = new EventWaitHandle(false, EventResetMode.AutoReset);
 
         private void button8_Click_1(object sender, EventArgs e)
         {
             sc.Close();
             this.Close();
+        }
+
+        private void Inv_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)

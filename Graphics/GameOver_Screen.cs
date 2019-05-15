@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Graphics
 {
-    class Loading_Screen : Screen
+    class GameOver_Screen : Screen
     {
         public bool close = false;
         Texture BG, loadingBar;
@@ -67,7 +67,7 @@ namespace Graphics
             loadingBarID = GPU.GenerateBuffer(loadingVertices);
             BGID = GPU.GenerateBuffer(squarevertices);
             Gl.glClearColor(0, 0, 0, 1);
-   
+
             Gl.glEnable(Gl.GL_DEPTH_TEST);
             Gl.glDepthFunc(Gl.GL_LESS);
         }

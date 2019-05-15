@@ -111,6 +111,7 @@
     <Compile Include="GameOver.Designer.cs">
       <DependentUpon>GameOver.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameOver_Screen.cs" />
     <Compile Include="GPU.cs" />
     <Compile Include="GraphicsForm.cs">
       <SubType>Form</SubType>

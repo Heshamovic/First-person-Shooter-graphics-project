@@ -594,9 +594,7 @@ namespace Graphics
                             Gold.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
                             Gold.scalematrix = glm.scale(new mat4(1), new vec3(5, 5, 5));
                             Gold.transmatrix = glm.translate(new mat4(1), positions[i] + new vec3(0, 100, 0));
-                            //MessageBox.Show("here");
                             Pickups.Add(new Pickup("Gold", PickupType.Gold, Gold, positions[i] + new vec3(0, 100, 0), random.Next(2, 15)));
-                            //Renderer.gold += random.Next(2, 15);
                             zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
                             positions[i] = new vec3(10000000, 1, 1);
                         }
