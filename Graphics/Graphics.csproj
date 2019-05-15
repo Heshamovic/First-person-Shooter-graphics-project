@@ -207,9 +207,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Shaders\2Dfrag - Copy.fragmentshader" />
+    <None Include="Shaders\2Dfrag-Copy.fragmentshader" />
     <None Include="Shaders\2Dfrag.fragmentshader" />
-    <None Include="Shaders\2Dvertex - Copy.vertexshader" />
+    <None Include="Shaders\2Dvertex-Copy.vertexshader" />
     <None Include="Shaders\2Dvertex.vertexshader" />
     <None Include="Shaders\SimpleFragmentShader.fragmentshader" />
     <None Include="Shaders\SimpleVertexShader.vertexshader" />

@@ -26,7 +26,7 @@ namespace Graphics
         public override void Initialize()
         {
             projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-            shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
+            shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex-Copy.vertexshader", projectPath + "\\Shaders\\2Dfrag-Copy.fragmentshader");
             hp = new Texture(projectPath + "\\Resources\\639069385_preview_loading_screen.jpg", 9, false);
             loadingBar = new Texture(projectPath + "\\Resources\\loadingBar.jpg", 10, false);
 

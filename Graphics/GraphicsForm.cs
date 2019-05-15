@@ -29,6 +29,7 @@ namespace Graphics
         {
             sc = new Start_Screen();
             sc.Initialize();
+            Cursor.Current = Cursors.Default;
         }
         void MainLoop()
         {
@@ -41,14 +42,6 @@ namespace Graphics
                     textBox5.Text = ((Renderer)sc).zombie[0].animSt.curr_frame + "";
                     if (((Renderer)sc).bullets_pos.Count > 0)
                         pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
-                }
-                if (sc is Loading_Screen)
-                {
-                    sc.Close();
-                    Screen sc1 = new Renderer();
-                    sc1.Initialize();
-                    done.WaitOne();
-                    sc = sc1;
                 }
                 simpleOpenGlControl1.Refresh();
             }
@@ -143,8 +136,17 @@ namespace Graphics
 
         private void MoveCursor()
         {
-            this.Cursor = new Cursor(Cursor.Current.Handle);
             Point p = PointToScreen(simpleOpenGlControl1.Location);
+            if (sc is Start_Screen)
+            {
+                float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
+                if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
+                    Cursor.Current = Cursors.Hand;
+                else
+                    Cursor.Current = Cursors.Default;
+            }
+            else
+                Cursor.Current = Cursors.WaitCursor;
             if (sc is Renderer)
                 Cursor.Position = new Point(simpleOpenGlControl1.Size.Width / 2 + p.X, simpleOpenGlControl1.Size.Height / 2 + p.Y);
             Cursor.Clip = new Rectangle(this.Location, this.Size);
@@ -215,11 +217,13 @@ namespace Graphics
                     sc.Close();
                     sc = new Loading_Screen();
                     sc.Initialize();
-                    //Screen sc1 = new Renderer();
-                    //sc1.Initialize();
-                    //done.WaitOne();
-                    //sc.Close();
-                    //sc = sc1;
+                    sc.Draw();
+                    simpleOpenGlControl1.Refresh();
+                    Screen sc1 = new Renderer();
+                    sc1.Initialize();
+                    done.WaitOne();
+                    sc.Close();
+                    sc = sc1;
                 }
             }
         }
