@@ -134,12 +134,6 @@ namespace Graphics
             MoveCursor();
         }
         
-        private void button8_Click(object sender, EventArgs e)
-        {
-            sc.Close();
-            this.Close();
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             float res = 0;
@@ -194,7 +188,7 @@ namespace Graphics
             ((Renderer)sc).positions = loadgam.LoadData("modelsPos.xml");
             loadgame<List<float>> loadgam2 = new loadgame<List<float>>();
             ((Renderer)sc).hps = loadgam2.LoadData("modelsBar.xml");
-            ((Renderer)sc).scalef = ((Renderer)sc).hps[((Renderer)sc).hps.Count - 1];
+            Renderer.scalef = ((Renderer)sc).hps[((Renderer)sc).hps.Count - 1];
             ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);
             ((Renderer)sc).cam.mCenter = ((Renderer)sc).positions[((Renderer)sc).positions.Count - 1];
             ((Renderer)sc).positions.RemoveAt(((Renderer)sc).positions.Count - 1);
@@ -250,7 +244,13 @@ namespace Graphics
             }
         }
         public static EventWaitHandle done = new EventWaitHandle(false, EventResetMode.AutoReset);
-        
+
+        private void button8_Click_1(object sender, EventArgs e)
+        {
+            sc.Close();
+            this.Close();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (sc is Loading_Screen)
@@ -258,7 +258,7 @@ namespace Graphics
                 MessageBox.Show("Wait till loading finish");
                 return;
             }
-            ((Renderer)sc).hps.Add(((Renderer)sc).scalef);
+            ((Renderer)sc).hps.Add(Renderer.scalef);
             ((Renderer)sc).positions.Add(((Renderer)sc).cam.mCenter);
             saver s = new saver(((Renderer)sc).hps, ((Renderer)sc).positions);
             ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);

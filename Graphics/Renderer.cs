@@ -50,7 +50,7 @@ namespace Graphics
         mat4 backhealthbar;
         public Shader shader2D;
         int mloc;
-        public float scalef;
+        public static float scalef;
         System.Media.SoundPlayer p1;
         public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public void createNewZombie(int x, int y, int z, int s)
@@ -570,13 +570,15 @@ namespace Graphics
                             if (zombie[i].animSt.type != animType_LOL.DEATH)
                                 zombie[i].StartAnimation(animType_LOL.DEATH);
 
+                            //Model3D Gold = new Model3D();
+                            //Gold.LoadFile(projectPath + "\\ModelFiles\\Pickups", "13450_Bag_of_Gold_v1_L3.obj", 4);
+                            //Gold.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+                            //Gold.scalematrix = glm.scale(new mat4(1), new vec3(5, 5, 5));
+                            //Gold.transmatrix = glm.translate(new mat4(1), positions[i] + new vec3(0 , 100, 0));
+                            //MessageBox.Show("here");
+                            //Pickups.Add(new Pickup("Gold", PickupType.Gold, Gold, positions[i] + new vec3(0, 100, 0),));
                             Random random = new Random();
-                            Model3D Gold = new Model3D();
-                            Gold.LoadFile(projectPath + "\\ModelFiles\\Pickups", "13450_Bag_of_Gold_v1_L3.obj", 4);
-                            Gold.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
-                            Gold.scalematrix = glm.scale(new mat4(1), new vec3(5, 5, 5));
-                            Gold.transmatrix = glm.translate(new mat4(1), positions[i] + new vec3(0 , 100, 0));
-                            Pickups.Add(new Pickup("Gold", PickupType.Gold, Gold, positions[i] + new vec3(0, 100, 0), random.Next(2, 15)));
+                            Renderer.gold += random.Next(2, 15);
                             zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
                             positions[i] = new vec3(10000000, 1, 1);
                         }

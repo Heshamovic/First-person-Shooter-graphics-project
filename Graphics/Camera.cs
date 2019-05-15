@@ -190,11 +190,13 @@ namespace Graphics
         }
 
 
-        public void MakePickupDecision(int idx)
+        public static void MakePickupDecision(int idx)
         {
             if (Renderer.Pickups[idx].type == PickupType.Item)
+            {
                 Renderer.Inventory.Add(Renderer.Pickups[idx]);
-
+                Renderer.scalef = Math.Min(Renderer.scalef + 0.15f, 1f); 
+            }
             else if (Renderer.Pickups[idx].type == PickupType.Weapon)
             {
                 // change weapon
@@ -222,7 +224,7 @@ namespace Graphics
                 }
             }
 
-            MessageBox.Show(minDist.ToString());
+           // MessageBox.Show(minDist.ToString());
 
             if(minDist < 2000)
                 MakePickupDecision(minIdx);
