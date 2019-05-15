@@ -20,11 +20,13 @@ namespace Graphics
         mat4 healthbar, loadingBarMat4;
         public Shader shader2D;
         int mloc;
+        public float loadingBarProgress;
         public string projectPath;
 
 
         public override void Initialize()
         {
+            loadingBarProgress = 0;
             projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
             shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
             hp = new Texture(projectPath + "\\Resources\\639069385_preview_loading_screen.jpg", 9, false);
@@ -86,9 +88,18 @@ namespace Graphics
             Gl.glVertexAttribPointer(1, 2, Gl.GL_FLOAT, Gl.GL_FALSE, 5 * sizeof(float), (IntPtr)(3 * sizeof(float)));
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
 
-            healthbar = glm.scale(new mat4(1), new vec3(1, 1, 1));
+            #region Test
+            /*healthbar = MathHelper.MultiplyMatrices(new List<mat4>() {
+                 glm.scale(new mat4(1), new vec3(0.48f * loadingBarProgress, 0.1f, 1)), glm.translate(new mat4(1), new vec3(-0.5f-((1-loadingBarProgress)*0.48f), 0.9f, 0)) });
             Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, healthbar.to_array());
-            hp.Bind();
+            hp.Bind();*/
+            #endregion
+
+             #region original
+             healthbar = glm.scale(new mat4(1), new vec3(1, 1, 1));
+             Gl.glUniformMatrix4fv(mloc, 1, Gl.GL_FALSE, healthbar.to_array());
+             hp.Bind();
+             #endregion
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 6);
 
 

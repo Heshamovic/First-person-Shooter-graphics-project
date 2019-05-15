@@ -43,7 +43,11 @@ namespace Graphics
                     if (((Renderer)sc).bullets_pos.Count > 0)
                         pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
                 }
-                simpleOpenGlControl1.Refresh();
+                try
+                {
+                    simpleOpenGlControl1.Refresh();
+                }
+                catch { }
             }
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -154,15 +158,8 @@ namespace Graphics
             prevX = simpleOpenGlControl1.Location.X + simpleOpenGlControl1.Size.Width / 2;
             prevY = simpleOpenGlControl1.Location.Y + simpleOpenGlControl1.Size.Height / 2;
         }
-
-        private void button2_Click_1(object sender, EventArgs e)
+        private void switchToGameScreen ()
         {
-            if (sc is Loading_Screen)
-            {
-                MessageBox.Show("Wait till loading finish");
-                return;
-            }
-            #region loading
             sc.Close();
             sc = new Loading_Screen();
             sc.Initialize();
@@ -174,7 +171,16 @@ namespace Graphics
             sc.Close();
             sc = sc1;
             this.ActiveControl = simpleOpenGlControl1;
-            #endregion
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if (sc is Loading_Screen)
+            {
+                MessageBox.Show("Wait till loading finish");
+                return;
+            }
+            switchToGameScreen();
             loadgame<List<vec3>> loadgam = new loadgame<List<vec3>>();
             ((Renderer)sc).positions = loadgam.LoadData("modelsPos.xml");
             loadgame<List<float>> loadgam2 = new loadgame<List<float>>();
@@ -221,16 +227,7 @@ namespace Graphics
                 float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
                 if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
                 {
-                    sc.Close();
-                    sc = new Loading_Screen();
-                    sc.Initialize();
-                    sc.Draw();
-                    simpleOpenGlControl1.Refresh();
-                    Screen sc1 = new Renderer();
-                    sc1.Initialize();
-                    done.WaitOne();
-                    sc.Close();
-                    sc = sc1;
+                    switchToGameScreen();
                 }
             }
         }

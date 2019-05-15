@@ -346,12 +346,12 @@ namespace Graphics
             });
 
             InitializeObstacles();
-           
+
             createNewZombie(-8864, -400, 5322, 10);
             createNewZombie(14000, -400, 4000, 10);
             createNewZombie(15000, -400, 1031, 10);
             createNewZombie(8540, -400, 10363, 10);
-            
+
             Gl.glClearColor(0, 0, 0, 1);
             
             cam = new Camera();
@@ -376,7 +376,7 @@ namespace Graphics
             m.scalematrix = glm.scale(new mat4(1), new vec3(0.2f, 0.2f, 0.2f));
             m.rotmatrix = glm.rotate(3.1412f, new vec3(0, 1, 0));
             m.transmatrix = glm.translate(new mat4(1), playerPos);
-            
+
             ProjectionMatrix = cam.GetProjectionMatrix();
             ViewMatrix = cam.GetViewMatrix();
             transID = Gl.glGetUniformLocation(sh.ID, "model");
