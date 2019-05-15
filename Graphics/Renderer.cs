@@ -15,7 +15,7 @@ namespace Graphics
     class Renderer : Screen
     {
         public static List<Obstacle> Obstacles = new List<Obstacle>();
-        Shader sh;
+        public Shader sh;
         uint groundtextBufferID2;
         uint groundtextBufferID1;//grass
         uint groundtextBufferID3;//wall
@@ -44,7 +44,7 @@ namespace Graphics
         uint hpID;
         mat4 healthbar;
         mat4 backhealthbar;
-        Shader shader2D;
+        public Shader shader2D;
         int mloc;
         public float scalef;
         System.Media.SoundPlayer p1;

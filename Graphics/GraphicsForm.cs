@@ -12,17 +12,16 @@ namespace Graphics
 {
     public partial class GraphicsForm : Form
     {
-        Screen sc = new Start_Screen();
+        Screen sc = new Start_Screen(), sc1 = new Renderer();
         Thread MainLoopThread;
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-        float deltaTime, prevX, prevY;
+        float prevX, prevY;
         public GraphicsForm()
         {
             InitializeComponent();
             simpleOpenGlControl1.InitializeContexts();
             MoveCursor();
             initialize();
-            deltaTime = 0.005f;
             MainLoopThread = new Thread(MainLoop);
             MainLoopThread.Start();
         }
@@ -30,7 +29,6 @@ namespace Graphics
         {
             sc = new Start_Screen();
             sc.Initialize();
-            //renderer.Initialize();   
         }
         void MainLoop()
         {
@@ -44,6 +42,12 @@ namespace Graphics
                     if (((Renderer)sc).bullets_pos.Count > 0)
                         pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
                 }
+                /*if (sc is Loading_Screen)
+                {
+                    sc.Close();
+                    sc = new Renderer();
+                    sc.Initialize();
+                }*/
                 simpleOpenGlControl1.Refresh();
             }
         }
@@ -130,7 +134,7 @@ namespace Graphics
             float res = 0;
             if (float.TryParse(textBox1.Text,out res))
             {
-                //renderer.zombie[0].AnimationSpeed = res;
+                //((Renderer)sc).zombie[0].AnimationSpeed = res;
             }
         }
 
@@ -148,10 +152,16 @@ namespace Graphics
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            if (sc is Loading_Screen)
+            {
+                MessageBox.Show("Wait till loading finish");
+                return;
+            }
             if (!(sc is Renderer))
             {
                 sc.Close();
             }
+            trigger = !trigger;
             sc = new Renderer();
             sc.Initialize();
             loadgame<List<vec3>> loadgam = new loadgame<List<vec3>>();
@@ -201,8 +211,6 @@ namespace Graphics
                 if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
                 {
                     sc.Close();
-                    Screen sc1 = new Loading_Screen();
-                    sc1.Initialize();
                     sc = new Renderer();
                     sc.Initialize();
                 }
@@ -211,6 +219,11 @@ namespace Graphics
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (sc is Loading_Screen)
+            {
+                MessageBox.Show("Wait till loading finish");
+                return;
+            }
             ((Renderer)sc).hps.Add(((Renderer)sc).scalef);
             ((Renderer)sc).positions.Add(((Renderer)sc).cam.mCenter);
             saver s = new saver(((Renderer)sc).hps, ((Renderer)sc).positions);
