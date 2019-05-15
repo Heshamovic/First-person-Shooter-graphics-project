@@ -13,9 +13,9 @@ namespace Graphics
         public static List<vec3> BulletsDir = new List<vec3>();
         public float mAngleX = 0;
         public float mAngleY = 0;
-        public vec3 mPosition;
+        public vec3 mDirection;
+        public  vec3 mPosition;
         public vec3 mCenter;
-        vec3 mDirection;
         vec3 mRight;
         vec3 mUp;
         mat4 mViewMatrix;
@@ -78,16 +78,7 @@ namespace Graphics
             //MessageBox.Show("el x " + mDirection.x.ToString() + " el y " + mDirection.y.ToString() + " el z " + mDirection.z.ToString());
         }
 
-        public void MoveBullets()
-        {
-            for(int i = 0; i < BulletsCurPos.Count; i++)
-            {
-                BulletsCurPos[i] += (BulletsDir[i] * new vec3(100f, 100f, 100f));
-
-                if (KillZombies(BulletsCurPos[i]) || CollidedWithObstacle(BulletsCurPos[i]) || !ValidBullet(BulletsCurPos[i]))
-                    BulletsCurPos.RemoveAt(i);
-            }
-        }
+  
 
         public void UpdateViewMatrix()
         {
@@ -142,10 +133,7 @@ namespace Graphics
             if (!CollidedWithObstacle(mCenter + dist * mUp))
                 mCenter += dist * mUp;
             valid();
-<<<<<<< HEAD
-=======
             valid1();
->>>>>>> 52a19e5326e34dda1c87cd78951f6c09603b00bb
         }
         public void valid()
         {
@@ -185,45 +173,59 @@ namespace Graphics
 
         double calc_distance(vec3 first, vec3 second)
         {
-            return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.y - second.y), 2) + Math.Pow((first.z - second.z), 2));
+            return Math.Sqrt(Math.Pow((first.x - second.x), 2) + Math.Pow((first.z - second.z), 2));
         }
-<<<<<<< HEAD
-
-        public bool CollidedWithObstacle(vec3 mCenter)
-=======
-        public bool Collided(vec3 Center)
->>>>>>> 52a19e5326e34dda1c87cd78951f6c09603b00bb
+        public bool CollidedWithObstacle(vec3 Center)
         {
             for (int i = 0; i < Renderer.Obstacles.Count; i++)
             {
                 vec3 curpos = Renderer.Obstacles[i].position;
-                //MessageBox.Show("el distance = " + calc_distance(curpos, mCenter).ToString() +  "el radius = " + Renderer.Obstacles[i].radius.ToString());
                 if (calc_distance(curpos, Center) < Renderer.Obstacles[i].radius)
+                {
                     return true;
+                }
             }
 
             return false;
         }
 
-        public bool KillZombies(vec3 mCenter)
+
+        public void MakePickupDecision(int idx)
         {
-            double mindist = 89553131313f;
-            for (int i = 0; i < Renderer.positions.Count; i++)
+            if (Renderer.Pickups[idx].type == PickupType.Item)
+                Renderer.Inventory.Add(Renderer.Pickups[idx]);
+
+            else if (Renderer.Pickups[idx].type == PickupType.Weapon)
             {
-                vec3 curpos = Renderer.positions[i];
-                mindist = Math.Min(calc_distance(curpos, mCenter), mindist);
-                if (calc_distance(curpos, mCenter) < 1000)
-                {
-                    Renderer.positions.RemoveAt(i);
-                    Renderer.zombie.RemoveAt(i);
-                    Renderer.zombiebars.RemoveAt(i);
-                    return true;
-                }
-
+                // change weapon
             }
-                MessageBox.Show(mindist.ToString());
 
-            return false;
+            else if (Renderer.Pickups[idx].type == PickupType.Gold)
+                Renderer.gold += Renderer.Pickups[idx].amount;
+
+            Renderer.Pickups.RemoveAt(idx);
+        }
+        public void CheckNearbyPickup()
+        {
+            double minDist = 100000000;
+            int minIdx    = -1;
+
+            for( int i = 0; i < Renderer.Pickups.Count; i++)
+            {
+                Pickup p    = Renderer.Pickups[i];
+                double dist = calc_distance(p.pos, this.mCenter);
+
+                if(dist < minDist)
+                {
+                    minDist = dist;
+                    minIdx  = i;
+                }
+            }
+
+            MessageBox.Show(minDist.ToString());
+
+            if(minDist < 2000)
+                MakePickupDecision(minIdx);
         }
     }
 }
