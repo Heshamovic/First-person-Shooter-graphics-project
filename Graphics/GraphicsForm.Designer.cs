@@ -199,7 +199,6 @@
             this.Inv.Size = new System.Drawing.Size(121, 97);
             this.Inv.TabIndex = 28;
             this.Inv.UseCompatibleStateImageBehavior = false;
-            this.Inv.SelectedIndexChanged += new System.EventHandler(this.Inv_SelectedIndexChanged);
             // 
             // panel1
             // 
@@ -218,7 +217,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(148, 400);
             this.panel1.TabIndex = 29;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // GraphicsForm
             // 

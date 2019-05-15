@@ -228,16 +228,6 @@ namespace Graphics
             this.Close();
         }
 
-        private void Inv_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (sc is Loading_Screen)
