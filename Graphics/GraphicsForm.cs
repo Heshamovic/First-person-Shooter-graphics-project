@@ -45,21 +45,23 @@ namespace Graphics
         {
             while (true)
             {
-                refreshInv();
-                this.GoldValue.Text = "Gold : " + Renderer.gold.ToString();
-                sc.Draw();
-                sc.Update();
                 if (sc is Renderer)
                 {
+                    refreshInv();
+                    this.GoldValue.Text = "Gold : " + Renderer.gold.ToString();
                     textBox5.Text = ((Renderer)sc).zombie[0].animSt.curr_frame + "";
-                 //   if (((Renderer)sc).bullets_pos.Count > 0)
-                 //       pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
+                    //   if (((Renderer)sc).bullets_pos.Count > 0)
+                    //       pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
+                    if (Renderer.scalef <= 0)
+                    {
+                        sc.Close();
+                        sc = new Loading_Screen();
+                        sc.Initialize();
+                    }
                 }
-                try
-                {
-                    simpleOpenGlControl1.Refresh();
-                }
-                catch { }
+                sc.Draw();
+                sc.Update();
+                simpleOpenGlControl1.Refresh();
             }
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
