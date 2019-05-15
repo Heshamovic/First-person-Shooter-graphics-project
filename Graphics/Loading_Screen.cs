@@ -44,25 +44,25 @@ namespace Graphics
                 1,-1,0,
                 1,1
             };
-            float[] startVertices = {
-                0.55f, 0.75f, 0,
+            float[] loadingVertices = {
+                -0.5f, -0.75f, 0,
                 0, 0,
-                0.8f, 0.5f, 0,
+                0.5f, -0.5f, 0,
                 1, 1,
-                0.55f, 0.5f,0,
+                -0.5f, -0.5f,0,
                 0, 1,
-                0.8f, 0.75f, 0,
+                0.5f, -0.75f, 0,
                 1, 0,
-                0.55f, 0.75f, 0,
+                -0.5f, -0.75f, 0,
                 0, 0,
-                0.8f, 0.5f, 0,
+                0.5f, -0.5f, 0,
                 1, 1
             };
             loadingBarMat4 = glm.scale(new mat4(1), new vec3(1, 1, 1));
             healthbar = glm.scale(new mat4(1), new vec3(1, 1, 1));
 
             mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
-            loadingBarID = GPU.GenerateBuffer(startVertices);
+            loadingBarID = GPU.GenerateBuffer(loadingVertices);
             hpID = GPU.GenerateBuffer(squarevertices);
             Gl.glClearColor(0, 0, 0, 1);
    
