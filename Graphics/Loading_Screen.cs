@@ -18,7 +18,7 @@ namespace Graphics
         Texture hp, loadingBar;
         uint hpID, loadingBarID;
         mat4 healthbar, loadingBarMat4;
-        Shader shader2D;
+        public Shader shader2D;
         int mloc;
         public string projectPath;
 
@@ -26,7 +26,7 @@ namespace Graphics
         public override void Initialize()
         {
             projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-            shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
+            shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex-Copy.vertexshader", projectPath + "\\Shaders\\2Dfrag-Copy.fragmentshader");
             hp = new Texture(projectPath + "\\Resources\\639069385_preview_loading_screen.jpg", 9, false);
             loadingBar = new Texture(projectPath + "\\Resources\\loadingBar.jpg", 10, false);
 
@@ -44,25 +44,25 @@ namespace Graphics
                 1,-1,0,
                 1,1
             };
-            float[] startVertices = {
-                0.55f, 0.75f, 0,
+            float[] loadingVertices = {
+                -0.5f, -0.75f, 0,
                 0, 0,
-                0.8f, 0.5f, 0,
+                0.5f, -0.5f, 0,
                 1, 1,
-                0.55f, 0.5f,0,
+                -0.5f, -0.5f,0,
                 0, 1,
-                0.8f, 0.75f, 0,
+                0.5f, -0.75f, 0,
                 1, 0,
-                0.55f, 0.75f, 0,
+                -0.5f, -0.75f, 0,
                 0, 0,
-                0.8f, 0.5f, 0,
+                0.5f, -0.5f, 0,
                 1, 1
             };
             loadingBarMat4 = glm.scale(new mat4(1), new vec3(1, 1, 1));
             healthbar = glm.scale(new mat4(1), new vec3(1, 1, 1));
 
             mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
-            loadingBarID = GPU.GenerateBuffer(startVertices);
+            loadingBarID = GPU.GenerateBuffer(loadingVertices);
             hpID = GPU.GenerateBuffer(squarevertices);
             Gl.glClearColor(0, 0, 0, 1);
    

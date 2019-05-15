@@ -12,17 +12,16 @@ namespace Graphics
 {
     public partial class GraphicsForm : Form
     {
-        Screen sc = new Start_Screen();
+        Screen sc = new Start_Screen(), sc1 = new Renderer();
         Thread MainLoopThread;
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-        float deltaTime, prevX, prevY;
+        float prevX, prevY;
         public GraphicsForm()
         {
             InitializeComponent();
             simpleOpenGlControl1.InitializeContexts();
             MoveCursor();
             initialize();
-            deltaTime = 0.005f;
             MainLoopThread = new Thread(MainLoop);
             MainLoopThread.Start();
         }
@@ -30,7 +29,7 @@ namespace Graphics
         {
             sc = new Start_Screen();
             sc.Initialize();
-            //renderer.Initialize();   
+            Cursor.Current = Cursors.Default;
         }
         void MainLoop()
         {
@@ -130,15 +129,24 @@ namespace Graphics
             float res = 0;
             if (float.TryParse(textBox1.Text,out res))
             {
-                //renderer.zombie[0].AnimationSpeed = res;
+                //((Renderer)sc).zombie[0].AnimationSpeed = res;
             }
         }
 
 
         private void MoveCursor()
         {
-            this.Cursor = new Cursor(Cursor.Current.Handle);
             Point p = PointToScreen(simpleOpenGlControl1.Location);
+            if (sc is Start_Screen)
+            {
+                float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
+                if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
+                    Cursor.Current = Cursors.Hand;
+                else
+                    Cursor.Current = Cursors.Default;
+            }
+            else
+                Cursor.Current = Cursors.WaitCursor;
             if (sc is Renderer)
                 Cursor.Position = new Point(simpleOpenGlControl1.Size.Width / 2 + p.X, simpleOpenGlControl1.Size.Height / 2 + p.Y);
             Cursor.Clip = new Rectangle(this.Location, this.Size);
@@ -148,10 +156,16 @@ namespace Graphics
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            if (sc is Loading_Screen)
+            {
+                MessageBox.Show("Wait till loading finish");
+                return;
+            }
             if (!(sc is Renderer))
             {
                 sc.Close();
             }
+            trigger = !trigger;
             sc = new Renderer();
             sc.Initialize();
             loadgame<List<vec3>> loadgam = new loadgame<List<vec3>>();
@@ -201,16 +215,27 @@ namespace Graphics
                 if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
                 {
                     sc.Close();
-                    Screen sc1 = new Loading_Screen();
-                    sc1.Initialize();
-                    sc = new Renderer();
+                    sc = new Loading_Screen();
                     sc.Initialize();
+                    sc.Draw();
+                    simpleOpenGlControl1.Refresh();
+                    Screen sc1 = new Renderer();
+                    sc1.Initialize();
+                    done.WaitOne();
+                    sc.Close();
+                    sc = sc1;
                 }
             }
         }
-
+        public static EventWaitHandle done = new EventWaitHandle(false, EventResetMode.AutoReset);
+        
         private void button1_Click(object sender, EventArgs e)
         {
+            if (sc is Loading_Screen)
+            {
+                MessageBox.Show("Wait till loading finish");
+                return;
+            }
             ((Renderer)sc).hps.Add(((Renderer)sc).scalef);
             ((Renderer)sc).positions.Add(((Renderer)sc).cam.mCenter);
             saver s = new saver(((Renderer)sc).hps, ((Renderer)sc).positions);

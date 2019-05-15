@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -15,7 +16,7 @@ namespace Graphics
     class Renderer : Screen
     {
         public static List<Obstacle> Obstacles = new List<Obstacle>();
-        Shader sh;
+        public Shader sh;
         uint groundtextBufferID2;
         uint groundtextBufferID1;//grass
         uint groundtextBufferID3;//wall
@@ -44,7 +45,7 @@ namespace Graphics
         uint hpID;
         mat4 healthbar;
         mat4 backhealthbar;
-        Shader shader2D;
+        public Shader shader2D;
         int mloc;
         public float scalef;
         System.Media.SoundPlayer p1;
@@ -65,6 +66,7 @@ namespace Graphics
             zombie.Add(tmp);
             hps.Add(1);
         }
+
 
         public void createBullet()
         {
@@ -384,6 +386,7 @@ namespace Graphics
 
             Gl.glEnable(Gl.GL_DEPTH_TEST);
             Gl.glDepthFunc(Gl.GL_LESS);
+            GraphicsForm.done.Set();
         }
 
         public override void Draw()
