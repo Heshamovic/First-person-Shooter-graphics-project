@@ -12,79 +12,87 @@ namespace Graphics
 {
     public partial class GraphicsForm : Form
     {
-        Renderer renderer = new Renderer();
+        Screen sc = new Start_Screen();
         Thread MainLoopThread;
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-        float deltaTime, prevX, prevY;
+        float prevX, prevY;
         public GraphicsForm()
         {
             InitializeComponent();
             simpleOpenGlControl1.InitializeContexts();
             MoveCursor();
             initialize();
-            deltaTime = 0.005f;
             MainLoopThread = new Thread(MainLoop);
             MainLoopThread.Start();
         }
         void initialize()
         {
-            renderer.Initialize();   
+            sc = new Start_Screen();
+            sc.Initialize();
+            Cursor.Current = Cursors.Default;
         }
         void MainLoop()
         {
             while (true)
             {
-                renderer.Draw();
-                renderer.Update();
+                sc.Draw();
+                sc.Update();
+                if (sc is Renderer)
+                {
+                    textBox5.Text = ((Renderer)sc).zombie[0].animSt.curr_frame + "";
+                    if (((Renderer)sc).bullets_pos.Count > 0)
+                        pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
+                }
                 simpleOpenGlControl1.Refresh();
-                textBox5.Text = renderer.zombie[0].animSt.curr_frame + "";
-                if(renderer.bullets_pos.Count > 0)
-                pos.Text = ((int)renderer.bullets_pos[0].x).ToString() + " " + ((int)renderer.bullets_pos[0].y).ToString() + " " + ((int)renderer.bullets_pos[0].z).ToString();
             }
         }
         private void GraphicsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            renderer.Close();
+            sc.Close();
         }
 
         private void simpleOpenGlControl1_Paint(object sender, PaintEventArgs e)
         {
-            renderer.Draw();
-            renderer.Update();
+            sc.Draw();
+            sc.Update();
         }
 
         private void simpleOpenGlControl1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 'm')
+            if (sc is Renderer)
             {
-                trigger = !trigger;
-                return;
+                if (e.KeyChar == 'm')
+                {
+                    trigger = !trigger;
+                    return;
+                }
+                float speed = float.Parse(textBox1.Text);
+                if (e.KeyChar == 'a')
+                    ((Renderer)sc).cam.Strafe(-speed);
+                if (e.KeyChar == 'd')
+                    ((Renderer)sc).cam.Strafe(speed);
+                if (e.KeyChar == 's')
+                    ((Renderer)sc).cam.Walk(-speed);
+                if (e.KeyChar == 'w')
+                    ((Renderer)sc).cam.Walk(speed);
+                if (e.KeyChar == 'z')
+                    ((Renderer)sc).cam.Fly(-speed);
+                if (e.KeyChar == 'c')
+                    ((Renderer)sc).cam.Fly(speed);
+                if (e.KeyChar == ' ')
+                {
+                    ((Renderer)sc).jump = true;
+                }
+                if (e.KeyChar == 'k')
+                {
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(Environment.CurrentDirectory + "\\shot.wav");
+                    player.Play();
+                }
+                label6.Text = "X: " + ((Renderer)sc).cam.GetCameraPosition().x;
+                label7.Text = "Y: " + ((Renderer)sc).cam.GetCameraPosition().y;
+                label8.Text = "Z: " + ((Renderer)sc).cam.GetCameraPosition().z;
             }
-            float speed = float.Parse(textBox1.Text);
-            if (e.KeyChar == 'a')
-                Renderer.cam.Strafe(-speed);
-            if (e.KeyChar == 'd')
-                Renderer.cam.Strafe(speed);
-            if (e.KeyChar == 's')
-                Renderer.cam.Walk(-speed);
-            if (e.KeyChar == 'w')
-                Renderer.cam.Walk(speed);
-            if (e.KeyChar == 'z')
-                Renderer.cam.Fly(-speed);
-            if (e.KeyChar == 'c')
-                Renderer.cam.Fly(speed);
-            if (e.KeyChar == ' ')
-            {
-                renderer.jump = true;
-            }
-            if (e.KeyChar == 'k')
-            {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Environment.CurrentDirectory + "\\shot.wav");
-                player.Play();
-            }
-            label6.Text = "X: " + Renderer.cam.GetCameraPosition().x;
-            label7.Text = "Y: " + Renderer.cam.GetCameraPosition().y;
-            label8.Text = "Z: " + Renderer.cam.GetCameraPosition().z;
+            
         }
         bool trigger = true;
         private void simpleOpenGlControl1_MouseMove(object sender, MouseEventArgs e)
@@ -93,53 +101,27 @@ namespace Graphics
                 return;
             float speed = 0.05f;
             float delta = e.X - prevX;
-            if (delta > 2)
-                Renderer.cam.Yaw(-speed);
-            else if (delta < -2)
-                Renderer.cam.Yaw(speed);
+            if (sc is Renderer)
+            {
+                if (delta > 2)
+                    ((Renderer)sc).cam.Yaw(-speed);
+                    
+                else if (delta < -2)
+                    ((Renderer)sc).cam.Yaw(speed);
 
 
-            delta = e.Y - prevY;
-            if (delta > 2)
-                Renderer.cam.Pitch(-speed);
-            else if (delta < -2)
-                Renderer.cam.Pitch(speed);
-
+                delta = e.Y - prevY;
+                if (delta > 2)
+                    ((Renderer)sc).cam.Pitch(-speed);
+                else if (delta < -2)
+                    ((Renderer)sc).cam.Pitch(speed);
+            }
             MoveCursor();
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.STAND);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK1);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.ATTACK2);
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.RUN);
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL1);
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            renderer.zombie[0].StartAnimation(_3D_Models.animType_LOL.SPELL2);
-        }
-
+        
         private void button8_Click(object sender, EventArgs e)
         {
+            sc.Close();
             this.Close();
         }
 
@@ -148,16 +130,26 @@ namespace Graphics
             float res = 0;
             if (float.TryParse(textBox1.Text,out res))
             {
-                renderer.zombie[0].AnimationSpeed = res;
+                //((Renderer)sc).zombie[0].AnimationSpeed = res;
             }
         }
 
 
         private void MoveCursor()
         {
-            this.Cursor = new Cursor(Cursor.Current.Handle);
             Point p = PointToScreen(simpleOpenGlControl1.Location);
-            Cursor.Position = new Point(simpleOpenGlControl1.Size.Width / 2 + p.X, simpleOpenGlControl1.Size.Height / 2 + p.Y);
+            if (sc is Start_Screen)
+            {
+                float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
+                if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
+                    Cursor.Current = Cursors.Hand;
+                else
+                    Cursor.Current = Cursors.Default;
+            }
+            else
+                Cursor.Current = Cursors.WaitCursor;
+            if (sc is Renderer)
+                Cursor.Position = new Point(simpleOpenGlControl1.Size.Width / 2 + p.X, simpleOpenGlControl1.Size.Height / 2 + p.Y);
             Cursor.Clip = new Rectangle(this.Location, this.Size);
             prevX = simpleOpenGlControl1.Location.X + simpleOpenGlControl1.Size.Width / 2;
             prevY = simpleOpenGlControl1.Location.Y + simpleOpenGlControl1.Size.Height / 2;
@@ -165,16 +157,34 @@ namespace Graphics
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            if (sc is Loading_Screen)
+            {
+                MessageBox.Show("Wait till loading finish");
+                return;
+            }
+            #region loading
+            sc.Close();
+            sc = new Loading_Screen();
+            sc.Initialize();
+            sc.Draw();
+            simpleOpenGlControl1.Refresh();
+            Screen sc1 = new Renderer();
+            sc1.Initialize();
+            done.WaitOne();
+            sc.Close();
+            sc = sc1;
+            this.ActiveControl = simpleOpenGlControl1;
+            #endregion
             loadgame<List<vec3>> loadgam = new loadgame<List<vec3>>();
-            Renderer.positions = loadgam.LoadData("modelsPos.xml");
+            ((Renderer)sc).positions = loadgam.LoadData("modelsPos.xml");
             loadgame<List<float>> loadgam2 = new loadgame<List<float>>();
-            Renderer.hps = loadgam2.LoadData("modelsBar.xml");
-            Renderer.scalef = Renderer.hps[Renderer.hps.Count - 1];
-            Renderer.hps.RemoveAt(Renderer.hps.Count - 1);
-            Renderer.cam.mCenter = Renderer.positions[Renderer.positions.Count - 1];
-            Renderer.positions.RemoveAt(Renderer.positions.Count - 1);
-            renderer.Draw();
-            renderer.Update();
+            ((Renderer)sc).hps = loadgam2.LoadData("modelsBar.xml");
+            ((Renderer)sc).scalef = ((Renderer)sc).hps[((Renderer)sc).hps.Count - 1];
+            ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);
+            ((Renderer)sc).cam.mCenter = ((Renderer)sc).positions[((Renderer)sc).positions.Count - 1];
+            ((Renderer)sc).positions.RemoveAt(((Renderer)sc).positions.Count - 1);
+            ((Renderer)sc).Draw();
+            ((Renderer)sc).Update();
         }
 
         private void GraphicsForm_Load(object sender, EventArgs e)
@@ -184,32 +194,60 @@ namespace Graphics
 
         private void simpleOpenGlControl1_MouseClick(object sender, MouseEventArgs e)
         {
-            renderer.draw = true;
-            Renderer.cam.mAngleY += 0.1f;
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\shot.wav");
-            player.Play();
-            vec3 v = new vec3();
-            v.x = Renderer.cam.mPosition.x;
-            v.z = Renderer.cam.mPosition.z;
-            v.y = Renderer.cam.mPosition.y;
-            vec2 dir = new vec2();
-            dir.x = Renderer.cam.mCenter.x - v.x;
-            dir.y = Renderer.cam.mCenter.z - v.z;
-            float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
-            dir.x /= dis;
-            dir.y /= dis;
-            renderer.bullets_pos.Add(v);
-            renderer.hit.Add(false);
-            renderer.direct.Add(dir);
-        }
+            if (sc is Renderer)
+            {
+                ((Renderer)sc).draw = true;
+                ((Renderer)sc).cam.mAngleY += 0.1f;
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(projectPath + "\\Sounds\\shot.wav");
+                player.Play();
+                vec3 v = new vec3();
+                v.x = ((Renderer)sc).cam.mPosition.x;
+                v.z = ((Renderer)sc).cam.mPosition.z;
+                v.y = ((Renderer)sc).cam.mPosition.y;
+                vec2 dir = new vec2();
+                dir.x = ((Renderer)sc).cam.mCenter.x - v.x;
+                dir.y = ((Renderer)sc).cam.mCenter.z - v.z;
+                float dis = (float)(Math.Sqrt(dir.x * dir.x + dir.y * dir.y));
+                dir.x /= dis;
+                dir.y /= dis;
+                ((Renderer)sc).bullets_pos.Add(v);
+                ((Renderer)sc).hit.Add(false);
+                ((Renderer)sc).direct.Add(dir);
 
+            }
+            else if (sc is Start_Screen)
+            {
+                Point p = PointToScreen(simpleOpenGlControl1.Location);
+                float xpos = simpleOpenGlControl1.Size.Width + p.X, ypos = simpleOpenGlControl1.Size.Height / 2 + p.Y;
+                if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
+                {
+                    sc.Close();
+                    sc = new Loading_Screen();
+                    sc.Initialize();
+                    sc.Draw();
+                    simpleOpenGlControl1.Refresh();
+                    Screen sc1 = new Renderer();
+                    sc1.Initialize();
+                    done.WaitOne();
+                    sc.Close();
+                    sc = sc1;
+                }
+            }
+        }
+        public static EventWaitHandle done = new EventWaitHandle(false, EventResetMode.AutoReset);
+        
         private void button1_Click(object sender, EventArgs e)
         {
-            Renderer.hps.Add(Renderer.scalef);
-            Renderer.positions.Add(Renderer.cam.mCenter);
-            saver s = new saver(Renderer.hps, Renderer.positions);
-            Renderer.hps.RemoveAt(Renderer.hps.Count - 1);
-            Renderer.positions.RemoveAt(Renderer.positions.Count - 1);
+            if (sc is Loading_Screen)
+            {
+                MessageBox.Show("Wait till loading finish");
+                return;
+            }
+            ((Renderer)sc).hps.Add(((Renderer)sc).scalef);
+            ((Renderer)sc).positions.Add(((Renderer)sc).cam.mCenter);
+            saver s = new saver(((Renderer)sc).hps, ((Renderer)sc).positions);
+            ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);
+            ((Renderer)sc).positions.RemoveAt(((Renderer)sc).positions.Count - 1);
             MessageBox.Show("Saved!");
         }
     }

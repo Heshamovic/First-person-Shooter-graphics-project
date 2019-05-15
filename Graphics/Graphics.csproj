@@ -120,6 +120,7 @@
       <DependentUpon>GraphicsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="loader.cs" />
+    <Compile Include="Loading_Screen.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Model.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="saver.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="Shader.cs" />
+    <Compile Include="Start_Screen.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="Zomby.cs" />
     <EmbeddedResource Include="GameOver.resx">
@@ -205,6 +207,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Shaders\2Dfrag-Copy.fragmentshader" />
+    <None Include="Shaders\2Dfrag.fragmentshader" />
+    <None Include="Shaders\2Dvertex-Copy.vertexshader" />
+    <None Include="Shaders\2Dvertex.vertexshader" />
     <None Include="Shaders\SimpleFragmentShader.fragmentshader" />
     <None Include="Shaders\SimpleVertexShader.vertexshader" />
   </ItemGroup>
@@ -276,6 +282,8 @@
     <None Include="Resources\1529932637_bw-loading.gif" />
     <None Include="Resources\639069385_preview_loading_screen.jpg" />
     <None Include="Resources\14szEnf.png" />
+    <Content Include="Resources\loadingBar.jpg" />
+    <Content Include="Resources\startButton.jpg" />
     <Content Include="sandcastle_bk.png" />
     <Content Include="Sounds\shot.wav" />
     <Content Include="Textures\crate.jpg" />
