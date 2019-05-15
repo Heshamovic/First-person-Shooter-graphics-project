@@ -516,6 +516,15 @@ namespace Graphics
             for (int i = 0; i < zombie.Count; i++)
             {
                 float dis;
+                if (hps[i] <= 0.2f)
+                {
+                    hps[i] = 0;
+                    if (zombie[i].animSt.type != animType_LOL.DEATH)
+                        zombie[i].StartAnimation(animType_LOL.DEATH);
+                    zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
+                    positions[i] = new vec3(10000000, 1, 1);
+                    continue;
+                }
                 for (int j = 0; j < bullets_pos.Count; j++)
                 {
                     vec3 t1 = positions[i];
@@ -530,11 +539,8 @@ namespace Graphics
                             hps[i] = 0;
                             if (zombie[i].animSt.type != animType_LOL.DEATH)
                                 zombie[i].StartAnimation(animType_LOL.DEATH);
-                            if (hps[i] <= 0)
-                            {
-                                zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
-                                positions[i] = new vec3(10000000, 1, 1);
-                            }
+                            zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
+                            positions[i] = new vec3(10000000, 1, 1);
                         }
                         hit[j] = true;
                     }

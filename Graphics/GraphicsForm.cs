@@ -12,7 +12,7 @@ namespace Graphics
 {
     public partial class GraphicsForm : Form
     {
-        Screen sc = new Start_Screen(), sc1 = new Renderer();
+        Screen sc = new Start_Screen();
         Thread MainLoopThread;
         string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         float prevX, prevY;
@@ -121,6 +121,7 @@ namespace Graphics
         
         private void button8_Click(object sender, EventArgs e)
         {
+            sc.Close();
             this.Close();
         }
 
@@ -161,13 +162,19 @@ namespace Graphics
                 MessageBox.Show("Wait till loading finish");
                 return;
             }
-            if (!(sc is Renderer))
-            {
-                sc.Close();
-            }
-            trigger = !trigger;
-            sc = new Renderer();
+            #region loading
+            sc.Close();
+            sc = new Loading_Screen();
             sc.Initialize();
+            sc.Draw();
+            simpleOpenGlControl1.Refresh();
+            Screen sc1 = new Renderer();
+            sc1.Initialize();
+            done.WaitOne();
+            sc.Close();
+            sc = sc1;
+            this.ActiveControl = simpleOpenGlControl1;
+            #endregion
             loadgame<List<vec3>> loadgam = new loadgame<List<vec3>>();
             ((Renderer)sc).positions = loadgam.LoadData("modelsPos.xml");
             loadgame<List<float>> loadgam2 = new loadgame<List<float>>();
