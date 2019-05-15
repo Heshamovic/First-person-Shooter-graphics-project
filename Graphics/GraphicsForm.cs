@@ -31,10 +31,22 @@ namespace Graphics
             sc.Initialize();
             Cursor.Current = Cursors.Default;
         }
+
+        void refreshInv()
+        {
+            if(Renderer.Inventory.Count != Inv.Items.Count)
+            {
+                Inv.Items.Clear();
+                for(int i = 0; i < Renderer.Inventory.Count; i++)
+                    Inv.Items.Add(Renderer.Inventory[i].name);
+            }
+        }
         void MainLoop()
         {
             while (true)
             {
+                refreshInv();
+                this.GoldValue.Text = "Gold : " + Renderer.gold.ToString();
                 sc.Draw();
                 sc.Update();
                 if (sc is Renderer)
@@ -92,6 +104,9 @@ namespace Graphics
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(Environment.CurrentDirectory + "\\shot.wav");
                     player.Play();
                 }
+                if(e.KeyChar == 'e')
+                    ((Renderer)sc).cam.CheckNearbyPickup();
+
                 label6.Text = "X: " + ((Renderer)sc).cam.GetCameraPosition().x;
                 label7.Text = "Y: " + ((Renderer)sc).cam.GetCameraPosition().y;
                 label8.Text = "Z: " + ((Renderer)sc).cam.GetCameraPosition().z;
