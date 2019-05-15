@@ -42,12 +42,14 @@ namespace Graphics
                     if (((Renderer)sc).bullets_pos.Count > 0)
                         pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
                 }
-                /*if (sc is Loading_Screen)
+                if (sc is Loading_Screen)
                 {
                     sc.Close();
-                    sc = new Renderer();
-                    sc.Initialize();
-                }*/
+                    Screen sc1 = new Renderer();
+                    sc1.Initialize();
+                    done.WaitOne();
+                    sc = sc1;
+                }
                 simpleOpenGlControl1.Refresh();
             }
         }
@@ -211,12 +213,18 @@ namespace Graphics
                 if (Cursor.Position.X >= 0.83 * xpos && Cursor.Position.X <= 0.95 * xpos && Cursor.Position.Y >= 0.57 * ypos && Cursor.Position.Y <= 0.72 * ypos)
                 {
                     sc.Close();
-                    sc = new Renderer();
+                    sc = new Loading_Screen();
                     sc.Initialize();
+                    //Screen sc1 = new Renderer();
+                    //sc1.Initialize();
+                    //done.WaitOne();
+                    //sc.Close();
+                    //sc = sc1;
                 }
             }
         }
-
+        public static EventWaitHandle done = new EventWaitHandle(false, EventResetMode.AutoReset);
+        
         private void button1_Click(object sender, EventArgs e)
         {
             if (sc is Loading_Screen)

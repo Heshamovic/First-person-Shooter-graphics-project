@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -65,6 +66,7 @@ namespace Graphics
             zombie.Add(tmp);
             hps.Add(1);
         }
+
 
         public void createBullet()
         {
@@ -384,6 +386,7 @@ namespace Graphics
 
             Gl.glEnable(Gl.GL_DEPTH_TEST);
             Gl.glDepthFunc(Gl.GL_LESS);
+            GraphicsForm.done.Set();
         }
 
         public override void Draw()

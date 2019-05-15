@@ -61,7 +61,7 @@ namespace Graphics
             };
             startBtnMat4 = glm.scale(new mat4(1), new vec3(1, 1, 1));
             healthbar = glm.scale(new mat4(1), new vec3(1, 1, 1));
-            // shader2D.UseShader();
+
             mloc = Gl.glGetUniformLocation(shader2D.ID, "model");
 
             startBtnID = GPU.GenerateBuffer(startVertices);

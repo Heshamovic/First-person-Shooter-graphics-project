@@ -18,7 +18,7 @@ namespace Graphics
         Texture hp, loadingBar;
         uint hpID, loadingBarID;
         mat4 healthbar, loadingBarMat4;
-        Shader shader2D;
+        public Shader shader2D;
         int mloc;
         public string projectPath;
 
