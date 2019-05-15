@@ -168,5 +168,44 @@ namespace Graphics
 
             return false;
         }
+
+
+        public void MakePickupDecision(int idx)
+        {
+            if (Renderer.Pickups[idx].type == PickupType.Item)
+                Renderer.Inventory.Add(Renderer.Pickups[idx]);
+
+            else if (Renderer.Pickups[idx].type == PickupType.Weapon)
+            {
+                // change weapon
+            }
+
+            else if (Renderer.Pickups[idx].type == PickupType.Gold)
+                Renderer.gold += Renderer.Pickups[idx].amount;
+
+            Renderer.Pickups.RemoveAt(idx);
+        }
+        public void CheckNearbyPickup()
+        {
+            double minDist = 100000000;
+            int minIdx    = -1;
+
+            for( int i = 0; i < Renderer.Pickups.Count; i++)
+            {
+                Pickup p    = Renderer.Pickups[i];
+                double dist = calc_distance(p.pos, this.mCenter);
+
+                if(dist < minDist)
+                {
+                    minDist = dist;
+                    minIdx  = i;
+                }
+            }
+
+            MessageBox.Show(minDist.ToString());
+
+            if(minDist < 2000)
+                MakePickupDecision(minIdx);
+        }
     }
 }

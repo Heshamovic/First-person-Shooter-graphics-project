@@ -15,6 +15,10 @@ namespace Graphics
     class Renderer : Screen
     {
         public static List<Obstacle> Obstacles = new List<Obstacle>();
+        public static List<Pickup> Pickups     = new List<Pickup>();
+        public static List<Pickup> Inventory   = new List<Pickup>();
+        public static int gold                 = 0;
+
         Shader sh;
         uint groundtextBufferID2;
         uint groundtextBufferID1;//grass
@@ -139,6 +143,29 @@ namespace Graphics
             }
         }
 
+        public void InitializePickUps()
+        {
+            Model3D Apple1 = new Model3D();
+            Apple1.LoadFile(projectPath + "\\ModelFiles\\Pickups", "Manzana.obj", 4);
+            Apple1.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            Apple1.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
+            Apple1.transmatrix = glm.translate(new mat4(1), new vec3(1500, -350, 4100));
+            Pickups.Add(new Pickup("Apple", PickupType.Item, Apple1, new vec3(1500, -350, 4100)));
+
+            Model3D Apple2 = new Model3D();
+            Apple2.LoadFile(projectPath + "\\ModelFiles\\Pickups", "Manzana.obj", 4);
+            Apple2.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            Apple2.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
+            Apple2.transmatrix = glm.translate(new mat4(1), new vec3(1600, -350, 3900));
+            Pickups.Add(new Pickup("Apple", PickupType.Item, Apple2, new vec3(1600, -350, 3900)));
+
+            Model3D Apple3 = new Model3D();
+            Apple3.LoadFile(projectPath + "\\ModelFiles\\Pickups", "Manzana.obj", 4);
+            Apple3.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+            Apple3.scalematrix = glm.scale(new mat4(1), new vec3(50, 50, 50));
+            Apple3.transmatrix = glm.translate(new mat4(1), new vec3(1300, -350, 3800));
+            Pickups.Add(new Pickup("Apple", PickupType.Item, Apple3, new vec3(1300, -350, 3800)));
+        }
 
         public void InitializeObstacles()
         {
@@ -344,7 +371,8 @@ namespace Graphics
             });
 
             InitializeObstacles();
-           
+            InitializePickUps();
+
             createNewZombie(-8864, -400, 5322, 10);
             createNewZombie(14000, -400, 4000, 10);
             createNewZombie(15000, -400, 1031, 10);
@@ -452,6 +480,9 @@ namespace Graphics
             foreach (md2LOL z in zombie)
                 z.Draw(transID);
 
+            foreach (Pickup p in Pickups)
+                p.model.Draw(transID);
+
             create_shoot();
             Gl.glDisable(Gl.GL_BLEND);
 
@@ -529,6 +560,14 @@ namespace Graphics
                                 zombie[i].StartAnimation(animType_LOL.DEATH);
                             if (hps[i] <= 0)
                             {
+                                Random random = new Random();
+                                Model3D Gold = new Model3D();
+                                Gold.LoadFile(projectPath + "\\ModelFiles\\Pickups", "13450_Bag_of_Gold_v1_L3.obj", 4);
+                                Gold.rotmatrix = glm.rotate((float)((-90.0f / 180) * Math.PI), new vec3(1, 0, 0));
+                                Gold.scalematrix = glm.scale(new mat4(1), new vec3(5, 5, 5));
+                                Gold.transmatrix = glm.translate(new mat4(1), positions[i] + new vec3(0 , 100, 0));
+                                Pickups.Add(new Pickup("Gold", PickupType.Gold, Gold, positions[i] + new vec3(0, 100, 0), random.Next(2, 15)));
+
                                 zombie[i].TranslationMatrix = glm.translate(new mat4(1), new vec3(10000000, 1, 1));
                                 positions[i] = new vec3(10000000, 1, 1);
                             }
