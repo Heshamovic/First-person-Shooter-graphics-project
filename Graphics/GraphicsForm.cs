@@ -40,8 +40,8 @@ namespace Graphics
                 if (sc is Renderer)
                 {
                     textBox5.Text = ((Renderer)sc).zombie[0].animSt.curr_frame + "";
-                    if (((Renderer)sc).bullets_pos.Count > 0)
-                        pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
+                 //   if (((Renderer)sc).bullets_pos.Count > 0)
+                 //       pos.Text = ((int)((Renderer)sc).bullets_pos[0].x).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].y).ToString() + " " + ((int)((Renderer)sc).bullets_pos[0].z).ToString();
                 }
                 simpleOpenGlControl1.Refresh();
             }
