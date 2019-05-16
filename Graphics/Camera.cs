@@ -190,12 +190,12 @@ namespace Graphics
         }
 
 
-        public static void MakePickupDecision(int idx)
+        public static void MakePickupDecision(int idx, ref List<Pickup> Inventory, ref float scalef, ref int gold)
         {
             if (Renderer.Pickups[idx].type == PickupType.Item)
             {
-                Renderer.Inventory.Add(Renderer.Pickups[idx]);
-                Renderer.scalef = Math.Min(Renderer.scalef + 0.15f, 1f); 
+                Inventory.Add(Renderer.Pickups[idx]);
+                scalef = Math.Min(scalef + 0.15f, 1f); 
             }
             else if (Renderer.Pickups[idx].type == PickupType.Weapon)
             {
@@ -203,11 +203,11 @@ namespace Graphics
             }
 
             else if (Renderer.Pickups[idx].type == PickupType.Gold)
-                Renderer.gold += Renderer.Pickups[idx].amount;
+                gold += Renderer.Pickups[idx].amount;
 
             Renderer.Pickups.RemoveAt(idx);
         }
-        public void CheckNearbyPickup()
+        public void CheckNearbyPickup(ref List<Pickup> Inventory, ref float scalef, ref int gold)
         {
             double minDist = 100000000;
             int minIdx    = -1;
@@ -227,7 +227,7 @@ namespace Graphics
            // MessageBox.Show(minDist.ToString());
 
             if(minDist < 2000)
-                MakePickupDecision(minIdx);
+                MakePickupDecision(minIdx, ref Inventory, ref scalef, ref gold);
         }
     }
 }
