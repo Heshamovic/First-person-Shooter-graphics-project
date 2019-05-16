@@ -108,10 +108,6 @@ namespace Graphics
                 }
                 if(e.KeyChar == 'e')
                     ((Renderer)sc).cam.CheckNearbyPickup();
-
-                label6.Text = "X: " + ((Renderer)sc).cam.GetCameraPosition().x;
-                label7.Text = "Y: " + ((Renderer)sc).cam.GetCameraPosition().y;
-                label8.Text = "Z: " + ((Renderer)sc).cam.GetCameraPosition().z;
             }
             
         }
