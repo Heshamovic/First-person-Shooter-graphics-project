@@ -38,11 +38,11 @@ namespace Graphics
 
         void refreshInv()
         {
-            if(Renderer.Inventory.Count != Inv.Items.Count)
+            if(((Renderer)sc).Inventory.Count != Inv.Items.Count)
             {
                 Inv.Items.Clear();
-                for(int i = 0; i < Renderer.Inventory.Count; i++)
-                    Inv.Items.Add(Renderer.Inventory[i].name);
+                for(int i = 0; i < ((Renderer)sc).Inventory.Count; i++)
+                    Inv.Items.Add(((Renderer)sc).Inventory[i].name);
             }
         }
         void MainLoop()
@@ -52,9 +52,9 @@ namespace Graphics
                 if (sc is Renderer)
                 {
                     refreshInv();
-                    this.GoldValue.Text = "Gold : " + Renderer.gold.ToString();
+                    GoldValue.Text = "Gold : " + ((Renderer)sc).gold.ToString();
                     textBox5.Text = ((Renderer)sc).zombie[0].animSt.curr_frame + "";
-                    if (Renderer.scalef <= 0)
+                    if (((Renderer)sc).scalef <= 0)
                     {
                         sc.Close();
                         sc = new Loading_Screen();
@@ -109,7 +109,7 @@ namespace Graphics
                     player.Play();
                 }
                 if(e.KeyChar == 'e')
-                    ((Renderer)sc).cam.CheckNearbyPickup();
+                    ((Renderer)sc).cam.CheckNearbyPickup(ref ((Renderer)sc).Inventory, ref ((Renderer)sc).scalef, ref ((Renderer)sc).gold);
             }
             
         }
@@ -182,7 +182,7 @@ namespace Graphics
             ((Renderer)sc).positions = loadgam.LoadData("modelsPos.xml");
             loadgame<List<float>> loadgam2 = new loadgame<List<float>>();
             ((Renderer)sc).hps = loadgam2.LoadData("modelsBar.xml");
-            Renderer.scalef = ((Renderer)sc).hps[((Renderer)sc).hps.Count - 1];
+            ((Renderer)sc).scalef = ((Renderer)sc).hps[((Renderer)sc).hps.Count - 1];
             ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);
             ((Renderer)sc).cam.mCenter = ((Renderer)sc).positions[((Renderer)sc).positions.Count - 1];
             ((Renderer)sc).positions.RemoveAt(((Renderer)sc).positions.Count - 1);
@@ -238,7 +238,7 @@ namespace Graphics
                 MessageBox.Show("Wait till loading finish");
                 return;
             }
-            ((Renderer)sc).hps.Add(Renderer.scalef);
+            ((Renderer)sc).hps.Add(((Renderer)sc).scalef);
             ((Renderer)sc).positions.Add(((Renderer)sc).cam.mCenter);
             saver s = new saver(((Renderer)sc).hps, ((Renderer)sc).positions);
             ((Renderer)sc).hps.RemoveAt(((Renderer)sc).hps.Count - 1);

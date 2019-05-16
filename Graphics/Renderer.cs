@@ -16,9 +16,9 @@ namespace Graphics
     class Renderer : Screen
     {
         public static List<Obstacle> Obstacles = new List<Obstacle>();
-        public static List<Pickup> Pickups     = new List<Pickup>();
-        public static List<Pickup> Inventory   = new List<Pickup>();
-        public static int gold                 = 0;
+        public static List<Pickup> Pickups = new List<Pickup>();
+        public List<Pickup> Inventory = new List<Pickup>();
+        public int gold = 0;
         public Shader sh;
         uint groundtextBufferID2;
         uint groundtextBufferID1;//grass
@@ -50,7 +50,7 @@ namespace Graphics
         mat4 backhealthbar;
         public Shader shader2D;
         int mloc;
-        public static float scalef;
+        public float scalef;
         System.Media.SoundPlayer p1;
         public string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public void createNewZombie(int x, int y, int z, int s)

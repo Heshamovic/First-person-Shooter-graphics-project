@@ -70,7 +70,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(-3, 68);
+            this.label5.Location = new System.Drawing.Point(4, 319);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 13);
@@ -79,7 +79,7 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(40, 65);
+            this.textBox5.Location = new System.Drawing.Point(44, 292);
             this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(102, 20);
@@ -127,7 +127,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(28, 28);
+            this.button8.Location = new System.Drawing.Point(20, 25);
             this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(113, 32);
@@ -139,7 +139,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(2, 0);
+            this.label1.Location = new System.Drawing.Point(4, 295);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 13);
@@ -148,7 +148,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(20, 89);
+            this.textBox1.Location = new System.Drawing.Point(44, 316);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(102, 20);
@@ -157,16 +157,16 @@
             // 
             // pos
             // 
-            this.pos.Location = new System.Drawing.Point(22, 114);
+            this.pos.Location = new System.Drawing.Point(44, 341);
             this.pos.Name = "pos";
-            this.pos.Size = new System.Drawing.Size(100, 20);
+            this.pos.Size = new System.Drawing.Size(102, 20);
             this.pos.TabIndex = 24;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(33, 128);
+            this.button1.Location = new System.Drawing.Point(20, 64);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(113, 32);
             this.button1.TabIndex = 25;
             this.button1.Text = "save";
             this.button1.UseVisualStyleBackColor = true;
@@ -174,9 +174,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(33, 157);
+            this.button2.Location = new System.Drawing.Point(20, 102);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(113, 32);
             this.button2.TabIndex = 26;
             this.button2.Text = "load";
             this.button2.UseVisualStyleBackColor = true;
@@ -185,7 +185,7 @@
             // GoldValue
             // 
             this.GoldValue.AutoSize = true;
-            this.GoldValue.Location = new System.Drawing.Point(46, 183);
+            this.GoldValue.Location = new System.Drawing.Point(49, 138);
             this.GoldValue.Name = "GoldValue";
             this.GoldValue.Size = new System.Drawing.Size(44, 13);
             this.GoldValue.TabIndex = 27;
@@ -194,9 +194,9 @@
             // Inv
             // 
             this.Inv.HideSelection = false;
-            this.Inv.Location = new System.Drawing.Point(12, 199);
+            this.Inv.Location = new System.Drawing.Point(20, 154);
             this.Inv.Name = "Inv";
-            this.Inv.Size = new System.Drawing.Size(121, 97);
+            this.Inv.Size = new System.Drawing.Size(113, 97);
             this.Inv.TabIndex = 28;
             this.Inv.UseCompatibleStateImageBehavior = false;
             // 
