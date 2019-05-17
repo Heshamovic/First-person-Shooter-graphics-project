@@ -57,7 +57,7 @@ namespace Graphics
                     if (((Renderer)sc).scalef <= 0)
                     {
                         sc.Close();
-                        sc = new Loading_Screen();
+                        sc = new GameOver_Screen();
                         sc.Initialize();
                     }
                 }
@@ -219,8 +219,6 @@ namespace Graphics
                 {
                     go.Stop();
                     switchToGameScreen();
-
-
                 }
             }
         }
