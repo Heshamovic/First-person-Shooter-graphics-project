@@ -14,8 +14,9 @@ namespace Graphics
     {
         Screen sc = new Start_Screen();
         Thread MainLoopThread;
-        string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+        public static string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         public static EventWaitHandle done = new EventWaitHandle(false, EventResetMode.AutoReset);
+        public static System.Media.SoundPlayer go = new System.Media.SoundPlayer(projectPath + "\\Sounds\\Prayer.wav");
         float prevX, prevY;
         bool trigger = true;
         public GraphicsForm()
@@ -26,6 +27,7 @@ namespace Graphics
             initialize();
             MainLoopThread = new Thread(MainLoop);
             MainLoopThread.Start();
+            go.Play();
         }
         void initialize()
         {
@@ -55,7 +57,7 @@ namespace Graphics
                     if (((Renderer)sc).scalef <= 0)
                     {
                         sc.Close();
-                        sc = new Loading_Screen();
+                        sc = new GameOver_Screen();
                         sc.Initialize();
                     }
                 }
@@ -214,7 +216,10 @@ namespace Graphics
             else if (sc is Start_Screen)
             {
                 if (Cursor.Position.X >= 940 && Cursor.Position.X <= 1100 && Cursor.Position.Y >= 95 && Cursor.Position.Y <= 195)
+                {
+                    go.Stop();
                     switchToGameScreen();
+                }
             }
         }
 
