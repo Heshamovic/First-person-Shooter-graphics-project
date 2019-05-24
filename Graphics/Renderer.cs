@@ -229,6 +229,7 @@ namespace Graphics
         }
         public override void Initialize()
         {
+
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
             shader2D = new Shader(projectPath + "\\Shaders\\2Dvertex.vertexshader", projectPath + "\\Shaders\\2Dfrag.fragmentshader");
             sh = new Shader(projectPath + "\\Shaders\\SimpleVertexShader.vertexshader", projectPath + "\\Shaders\\SimpleFragmentShader.fragmentshader");
@@ -386,7 +387,7 @@ namespace Graphics
             Gl.glClearColor(0, 0, 0, 1);
             
             cam = new Camera();
-            cam.Reset(555, 34, 55, 5000, -400, 4000, 0, 1, 0);
+            cam.Reset(555, 34, 55, 16000, -400, 16000, 0, 1, 0);
 
 
             DataID = Gl.glGetUniformLocation(sh.ID, "data");

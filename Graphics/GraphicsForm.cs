@@ -165,6 +165,7 @@ namespace Graphics
             Screen sc1 = new Renderer();
             sc1.Initialize();
             done.WaitOne();
+            go.Stop();
             sc.Close();
             sc = sc1;
             this.ActiveControl = simpleOpenGlControl1;
