@@ -218,7 +218,6 @@ namespace Graphics
             {
                 if (Cursor.Position.X >= 940 && Cursor.Position.X <= 1100 && Cursor.Position.Y >= 95 && Cursor.Position.Y <= 195)
                 {
-                    go.Stop();
                     switchToGameScreen();
                 }
             }
